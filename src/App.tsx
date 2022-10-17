@@ -1,27 +1,24 @@
-import React, { useState } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import Navigate from './components/Navigate'
-import Button from 'react-bootstrap/Button'
-import './App.css';
+import { useState } from 'react';
+import { Route, Routes } from 'react-router-dom';
+import Navigate from './components/Navigate';
 import { INavigate } from './models';
+import AboutPage from './pages/AboutPage';
+import GeneralPage from './pages/GeneralPage';
+
 
 
 function App() {
-  const [Nav, setNav]=useState<INavigate['items']>([{id:1, title:'New', link:'/#'}, {id:2, title:'Two', link:'/###'}])
-  const cngNav = (valItem:INavigate['items']) => {
-    setNav(prev => [...prev, valItem[0]])
-  }
+  const [Nav, setNav]=useState<INavigate['items']>([{id:1, title:'Главная', link:'/'}, {id:2, title:'О проекте', link:'/about'}])
 
   return (
-    <div className="App">
-      <Navigate navigate={{items:Nav, title:'General'}}/>
-      <Button 
-        variant='primary' 
-        size='sm'
-        onClick={() => cngNav([{id:3, title:'Poo', link:'/#'}])}>
-        Add item menu
-      </Button>
-    </div>
+    <>
+      <Navigate navigate={{items:Nav, title:'My dashboard'}}/>
+        <Routes>
+          <Route path='/' element={ <GeneralPage /> } />
+          <Route path='/about' element={ <AboutPage /> } />
+        </Routes>
+    </>
+    
   );
 }
 

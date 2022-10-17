@@ -1,5 +1,5 @@
 import React from 'react'
-import Container from 'react-bootstrap/Container';
+import { Col, Container, Row } from 'react-bootstrap';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { INavigate } from '../models';
@@ -12,16 +12,20 @@ function Navigate(props: NavigateProps) {
 
     return (
         <>
-          <Navbar bg="primary" variant="dark">
-            <Container>
-              <Navbar.Brand href="#home">Navbar</Navbar.Brand>
-              <Nav className="me-auto">
-              {props.navigate.items.map((items) => (
-                <Nav.Link key={items.id} href={items.link}>{items.title}</Nav.Link>
-              ))}
+        <Container>
+          <Row>
+          <Col>
+          <Navbar bg="primary" variant="dark" className='px-4 shadow mt-1 mb-2'>
+             <Navbar.Brand href="/" className=''>{props.navigate.title}</Navbar.Brand>
+              <Nav className="">
+                {props.navigate.items.map((items) => (
+                 <Nav.Link key={items.id} href={items.link}>{items.title}</Nav.Link>
+                ))}
               </Nav>
-            </Container>
           </Navbar>
+          </Col>
+          </Row>
+        </Container>
         </>
       );
     }
