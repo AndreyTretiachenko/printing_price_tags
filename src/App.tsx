@@ -8,6 +8,7 @@ import GeneralPage from './pages/GeneralPage';
 
 
 function App() {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [Nav, setNav]=useState<INavigate['items']>([{id:1, title:'Главная', link:'/'}, {id:2, title:'О проекте', link:'/about'}])
 
   return (
