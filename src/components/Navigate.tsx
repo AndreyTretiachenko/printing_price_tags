@@ -1,7 +1,4 @@
-import React from 'react'
-import { Col, Container, Row } from 'react-bootstrap';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
+import React from 'react';
 import { INavigate } from '../medels/Navigate';
 
 interface NavigateProps {
@@ -11,22 +8,29 @@ interface NavigateProps {
 function Navigate(props: NavigateProps) {
 
     return (
-        <>
-        <Container>
-          <Row>
-          <Col>
-          <Navbar bg="primary" variant="dark" className='px-4 shadow mt-1 mb-2'>
-             <Navbar.Brand href="/" className=''>{props.navigate.title}</Navbar.Brand>
-              <Nav className="">
-                {props.navigate.items.map((items) => (
-                 <Nav.Link key={items.id} href={items.link}>{items.title}</Nav.Link>
-                ))}
-              </Nav>
-          </Navbar>
-          </Col>
-          </Row>
-        </Container>
-        </>
+        <div className='container'>
+          <div className='row'>
+            <div className='col'>
+              <nav className="navbar navbar-expand-lg bg-light px-4 shadow mt-1 mb-2">
+                <div className="container-fluid">
+                  <a className="navbar-brand" href="#">{props.navigate.title}</a>
+                    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Переключатель навигации">
+                    <span className="navbar-toggler-icon"></span>
+                    </button>
+                    <div className="collapse navbar-collapse" id="navbarNav">
+                    <ul className="navbar-nav">
+                    {props.navigate.items.map((items) => (
+                    <li className="nav-item">
+                    <a className="nav-link" href={items.link}>{items.title}</a>
+                    </li>
+                    ))}
+                    </ul>
+                  </div>
+                </div>
+              </nav>
+            </div>
+          </div>
+        </div>
       );
     }
 

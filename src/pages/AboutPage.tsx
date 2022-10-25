@@ -1,15 +1,15 @@
 import React from 'react'
-import { Col, Container, Row } from 'react-bootstrap'
+
 
 function AboutPage() {
   return (
-    <Container className='px-4'>
-      <Row>
-        <Col>
-          О проекте
-        </Col>
-      </Row>
-    </Container>
+    <div className='container'>
+      <div className='row'>
+        <div className='col'>
+          <div>321</div>
+        </div>
+      </div>
+    </div>
   )
 }
 
