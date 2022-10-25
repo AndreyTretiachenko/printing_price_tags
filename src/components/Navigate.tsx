@@ -2,7 +2,7 @@ import React from 'react'
 import { Col, Container, Row } from 'react-bootstrap';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import { INavigate } from '../models';
+import { INavigate } from '../medels/Navigate';
 
 interface NavigateProps {
   navigate: INavigate
