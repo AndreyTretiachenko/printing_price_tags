@@ -3,10 +3,11 @@ import React, { useEffect, useState } from "react"
 export default function Price() {
 
     const[towar, setTowar] = useState([])
+    
 
     useEffect(()=>{
         
-       fetch('http://127.0.0.1:5000/?count=4000',
+       fetch('http://192.168.0.185:5001/?count=4000',
             {
                 method: 'POST',
                 headers: {'Authorization':'basic dXNlcjpwYXNz'}
