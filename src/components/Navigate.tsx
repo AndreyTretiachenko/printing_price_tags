@@ -20,7 +20,7 @@ function Navigate(props: NavigateProps) {
                     <div className="collapse navbar-collapse" id="navbarNav">
                     <ul className="navbar-nav">
                     {props.navigate.items.map((items) => (
-                    <li className="nav-item">
+                    <li className="nav-item" key={items.id}>
                     <a className="nav-link" href={items.link}>{items.title}</a>
                     </li>
                     ))}

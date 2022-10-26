@@ -19,11 +19,11 @@ function App() {
 
   return (
     <>
-      <Navigate navigate={{items:Nav, title:'My dashboard'}}/>
-        <Routes>
-          <Route path='/' element={ <GeneralPage /> } />
-          <Route path='/about' element={ <AboutPage /> } />
-          <Route path='/price' element={ <Price /> } />
+      <Navigate  navigate={{items:Nav, title:'My dashboard'}}/>
+        <Routes >
+          <Route  path='/' element={ <GeneralPage /> } />
+          <Route  path='/about' element={ <AboutPage /> } />
+          <Route  path='/price' element={ <Price /> } />
         </Routes>
     </>
     
