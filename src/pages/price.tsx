@@ -12,7 +12,7 @@ export default function Price() {
     
     
     useEffect(()=>{
-       fetch('http://service.dvinahome.ru/?count=300',
+       fetch('http://service.dvinahome.ru/?count=1000',
             {
                 method: 'POST',
                 headers: {'Authorization':'basic dXNlcjpwYXNz'}
@@ -30,21 +30,29 @@ export default function Price() {
         productId: result[1],
         productName: result[0],
         key: Date.now(),
+        property:[{
+            size:result[4],
+            name1:result[2],
+            name2:result[3],
+            categoryCloth:result[8],
+            settings:[result[13], result[14], result[15], result[16],result[17], result[18], result[19]]
+        }],
         isSelect: false     
    }
   }  
 
-  const handleClickProduct = (nameProduct:string) => {
-    console.log(nameProduct)
-    settagItems(tagItems.flatMap(item => {
-        if (item.productName == nameProduct) {
-            
-            return {
-                ...item,
-                isSelect:!item.isSelect
-            }
+  const handleClickProduct = (key:number) => {
+    console.log(key)
+    settagItems(tagItems.map(item => {
+        if (item.key != key) {
+            return item
+        
         }
-        return item
+        return {
+            ...item,
+            isSelect:!item.isSelect
+        }
+        
     }))
 } 
 
