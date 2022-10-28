@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import React, { ChangeEventHandler, useState } from 'react'
 
 interface ProductsProps {
   product: any
-  addProduct:()=>void;
+  addProduct:(name:string)=>void;
 }
 
 export default function Products(props: ProductsProps) {
@@ -17,11 +17,11 @@ export default function Products(props: ProductsProps) {
               onChange = {(e) => setValue(e.target.value)}
       >
       {product.map((tw: any)=>(
-        <option key={tw[1]}>{tw[0]}</option>
+        <option key={tw[1]} value={tw[0]}>{tw[0]}</option>
       ))}  
       </select>
       <button className='btn btn-sm btn-secondary mx-3'
-      onClick={addProduct}  
+      onClick={()=>addProduct(value)}
       >добавить</button>
     </div>
   )
