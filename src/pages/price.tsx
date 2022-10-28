@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react"
+import { Prev } from "react-bootstrap/esm/PageItem"
+import { collapseTextChangeRangesAcrossMultipleVersions } from "typescript"
 import Products from "../components/Products"
 import Tags, { Itag } from "../components/Tags"
 
@@ -27,13 +29,24 @@ export default function Price() {
     return {
         productId: result[1],
         productName: result[0],
+        key: Date.now(),
         isSelect: false     
    }
   }  
 
-  const handleClickProduct = (nameProduct: string) => {
-    alert(nameProduct)
-  }
+  const handleClickProduct = (nameProduct:string) => {
+    console.log(nameProduct)
+    settagItems(tagItems.flatMap(item => {
+        if (item.productName == nameProduct) {
+            
+            return {
+                ...item,
+                isSelect:!item.isSelect
+            }
+        }
+        return item
+    }))
+} 
 
   const handleAddProduct = (name:string) => {
     settagItems([...tagItems, FindProduct(product, name)])
