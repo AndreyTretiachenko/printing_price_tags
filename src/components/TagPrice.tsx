@@ -23,13 +23,16 @@ const TagPrice = (props:ItagPriceProps) => {
         <div className='row'>
           <div className='col'>
             <div className="parent"> 
-              {tagPrice?.property?.settings?.map((set, index)=> (
-              <div className={`div${index+1}`}>{set}</div>
-              ))}
+              <div className='div1'>{tagPrice?.property?.settings?.[1]}</div>
+              <div className='div2'>{tagPrice?.property?.settings?.[2]}</div>
+              <div className='div3'>{tagPrice?.property?.settings?.[3]}</div>
+              <div className='div4'>{tagPrice?.property?.settings?.[4]}</div>
+              <div className='div5'>{tagPrice?.property?.settings?.[5]}</div>
+              <div className='div6'>{tagPrice?.property?.settings?.[6]}</div>
               <div className="div8">50%</div> 
               <div className="div9"> </div> 
-              <div className="div10">{tagPrice?.productName}</div> 
-              <div className="div11"> {tagPrice?.property?.size}</div> 
+              <div className="div10">{tagPrice?.property?.name1}</div> 
+              <div className="div11"> {tagPrice?.property?.settings?.[0]}</div> 
               <div className="div12">размер</div> 
               <div className="div13">цена до</div> 
               <div className="div14">цена после</div> 
