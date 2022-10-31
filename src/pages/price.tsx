@@ -46,13 +46,11 @@ export default function Price() {
     settagItems(tagItems.map(item => {
         if (item.key != key) {
             return item
-        
         }
         return {
             ...item,
             isSelect:!item.isSelect
         }
-        
     }))
 } 
 
