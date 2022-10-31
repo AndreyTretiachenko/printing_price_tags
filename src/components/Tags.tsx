@@ -5,7 +5,7 @@ export interface Itag {
   productName:string,
   productId: string,
   discount?:number,
-  property?:ItagProperty[],
+  property?:ItagProperty,
   key:number,
   isSelect: boolean
 }
@@ -26,7 +26,6 @@ interface ItagProps {
 export default function Tags(props: ItagProps) {
   const {items, clickProd} = props
   const [tagsItem, settagItems] = useState<Itag[]>([])
-  const [bgColor, setbgColor] = useState('bg-light')
 
 
   const handlerOnClick = (value:number) => {
@@ -34,25 +33,31 @@ export default function Tags(props: ItagProps) {
   }
   
   useEffect(()=>{
+
     settagItems(items)
-  })
+    
+  }, [items])
 
   return (
     <>
-    <div className='w-100' 
-    style={{position: 'relative', height:'67vh', overflowY: 'scroll'}}
-    >
+    <div className='w-100' style={{position: 'relative', height:'67vh', overflowY: 'scroll'}}>
      {tagsItem.map((tag)=>(
-        <div className={`mb-2 w-100 ${tag.isSelect ? 'bg-info text-white' : 'bg-light'}`} style={{border: '0.5px solid black'}} key={tag.key}>
-          <div className='mb-2 mx-2' 
-            style={{cursor: 'pointer'}}
+      <div key={tag.key} className={`row mb-2 mx-2 ${tag.isSelect ? 'bg-info text-white' : 'bg-light'}`} style={{border: '0.5px solid black'}} >
+        <div className='col' >
+          <div style={{cursor: 'pointer'}}
             onClick={()=>handlerOnClick(tag.key)}>{tag.productName}
           </div>
+        </div>
+        
+      <div className='row'>
+        <div className='col'>
           <select className='mb-2 mx-2'>
             <option>a4 горизонтальный</option>
             <option>подвесной</option>
           </select>
         </div>
+        </div>
+      </div>
       ))}
     </div>
     </>

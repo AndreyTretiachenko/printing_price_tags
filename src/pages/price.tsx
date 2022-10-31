@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react"
-import { Prev } from "react-bootstrap/esm/PageItem"
-import { collapseTextChangeRangesAcrossMultipleVersions } from "typescript"
 import Products from "../components/Products"
+import TagPrice from "../components/TagPrice"
 import Tags, { Itag } from "../components/Tags"
 
 
@@ -9,6 +8,7 @@ export default function Price() {
 
     const[product, setProduct] = useState([])
     const[tagItems, settagItems] = useState<Itag[]>([])
+    const[tag, setTag] = useState<Itag>()
     
     
     useEffect(()=>{
@@ -30,23 +30,30 @@ export default function Price() {
         productId: result[1],
         productName: result[0],
         key: Date.now(),
-        property:[{
+        property:{
             size:result[4],
             name1:result[2],
             name2:result[3],
             categoryCloth:result[8],
             settings:[result[13], result[14], result[15], result[16],result[17], result[18], result[19]]
-        }],
+        },
         isSelect: false     
    }
   }  
 
   const handleClickProduct = (key:number) => {
-    console.log(key)
+    
     settagItems(tagItems.map(item => {
         if (item.key != key) {
+            if (item.isSelect) {
+                return {
+                    ...item,
+                    isSelect:!item.isSelect
+                }
+            }
             return item
         }
+        setTag(item)
         return {
             ...item,
             isSelect:!item.isSelect
@@ -66,11 +73,11 @@ export default function Price() {
             </div>
         </div>
         <div className="row">
-            <div className="col-6 d-flex justify-content-start my-3">
+            <div className="col-4 d-flex justify-content-start my-3">
                 <Tags items={tagItems} clickProd={handleClickProduct}/>
             </div>
-            <div className="col-6 d-flex justify-content-start my-3">
-                <span>шаблон ценника</span>
+            <div className="col-8 d-flex justify-content-start my-3">
+                <TagPrice tagPrice={tag}/>
             </div>
         </div>
     </div>
