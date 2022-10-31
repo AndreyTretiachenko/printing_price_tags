@@ -9,17 +9,19 @@ export default function Price() {
     const[product, setProduct] = useState([])
     const[tagItems, settagItems] = useState<Itag[]>([])
     const[tag, setTag] = useState<Itag>()
+    const[print, setPrint] = useState(false)
     
     
     useEffect(()=>{
-       fetch('http://service.dvinahome.ru/?count=1000',
+       fetch('http://service.dvinahome.ru/?count=2000',
             {
                 method: 'POST',
                 headers: {'Authorization':'basic dXNlcjpwYXNz'}
             }
         ).then((res) => {
             return res.json()}).then(result => {
-                setProduct(result['data'])    
+                setProduct(result['data'])
+                setPrint(false)    
         })
     },[])
 
@@ -32,16 +34,17 @@ export default function Price() {
         key: Date.now(),
         property:{
             size:result[4],
-            name1:result[2],
-            name2:result[3],
+            type:result[2],
+            model:result[3],
             categoryCloth:result[8],
-            settings:[result[13], result[14], result[15], result[16],result[17], result[18], result[19]]
+            settings:[result[13], result[14], result[15], result[16],result[17], result[18], result[19], result[20], result[21]]
         },
         isSelect: false     
    }
   }  
 
   const handleClickProduct = (key:number) => {
+    setPrint(false)
     
     settagItems(tagItems.map(item => {
         if (item.key != key) {
@@ -65,6 +68,11 @@ export default function Price() {
     settagItems([...tagItems, FindProduct(product, name)])
   }
 
+  const handleClickPrint = (value:boolean) => {
+    setPrint(value)
+  }
+
+
   return (
     <div className='container'>
         <div className='row'>
@@ -73,11 +81,21 @@ export default function Price() {
             </div>
         </div>
         <div className="row">
-            <div className="col-4 d-flex justify-content-start my-3">
+            <div className="col-4 d-flex justify-content-start pt-2 mb-2" style={{border: '0.5px solid black'}}>
                 <Tags items={tagItems} clickProd={handleClickProduct}/>
             </div>
             <div className="col-8 d-flex justify-content-start my-3">
-                <TagPrice tagPrice={tag}/>
+                
+            </div>
+        </div>
+        <div className="row" style={{marginBottom:'10px'}}>
+            <div className="col px-0"> 
+                <button onClick={()=>handleClickPrint(true)}>Печать</button>
+            </div>
+        </div>
+        <div className="row" style={{display:'block', padding: '10px', marginBottom: '5px',border: '0.5px solid black'}}>
+            <div className="col-12">
+                <TagPrice tagPrice={tag} toPrint={print}/>       
             </div>
         </div>
     </div>

@@ -5,7 +5,7 @@ import Navigate from './components/Navigate';
 import { INavigate } from './medels/Navigate';
 import AboutPage from './pages/AboutPage';
 import GeneralPage from './pages/GeneralPage';
-import Price from './pages/price';
+import Price from './pages/Price';
 
 
 

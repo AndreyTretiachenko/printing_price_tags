@@ -1,3 +1,4 @@
+import { type } from 'os'
 import React, { useEffect, useState } from 'react'
 
 
@@ -12,8 +13,8 @@ export interface Itag {
 
 interface ItagProperty {
   size?: number,
-  name1?:string,
-  name2?:string,
+  type?:string,
+  model?:string,
   catigoryCloth?:string,
   settings?:string[]
 }
@@ -21,6 +22,7 @@ interface ItagProperty {
 interface ItagProps {
   items:Itag[]
   clickProd:(nameItem: number)=>void
+
 }
 
 export default function Tags(props: ItagProps) {
@@ -33,9 +35,7 @@ export default function Tags(props: ItagProps) {
   }
   
   useEffect(()=>{
-
     settagItems(items)
-    
   }, [items])
 
   return (
@@ -56,6 +56,9 @@ export default function Tags(props: ItagProps) {
             <option>подвесной</option>
           </select>
         </div>
+        </div>
+        <div className='col'>
+        
         </div>
       </div>
       ))}
