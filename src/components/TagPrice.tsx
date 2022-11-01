@@ -1,11 +1,13 @@
 import React, {useEffect, useRef, useState} from 'react'
+import { useContext } from 'react';
 import { useReactToPrint } from 'react-to-print'
 import useFitText from "use-fit-text"
+import { GlobalContext } from '../pages/price';
 
 import Tags, { Itag } from './Tags'
+import { TagSettings } from './TagSettings/Tagsettings';
 
 interface ItagPriceProps {
-  tagPrice?: Itag;
   toPrint?:boolean
 
 }
@@ -13,8 +15,9 @@ interface ItagPriceProps {
 const TagPrice = (props:ItagPriceProps) => {
 
   const { fontSize, ref } = useFitText({logLevel:'debug', minFontSize:10, maxFontSize:100})
+  const tag = useContext(GlobalContext)
  
-  const {tagPrice, toPrint} = props
+  const {toPrint} = props
   const dateTag = new Date()
   const componentRef = useRef<HTMLDivElement>(null)
 
@@ -26,7 +29,7 @@ const TagPrice = (props:ItagPriceProps) => {
   useEffect(()=>{
     if (toPrint)
       handlePrint()
-  },[toPrint])
+  }, [toPrint])
 
   return (
     <>
@@ -37,30 +40,30 @@ const TagPrice = (props:ItagPriceProps) => {
             <div className="parent">
               <div className="div1" style={{fontSize:'12pt', margin:'0.8rem'}}>
                 <div className='d-flex justify-content-center align-items-center'
-                style={{marginBottom: '15px', height:'10%', textAlign:'center', backgroundColor:'#f0f0f0'}}>{tagPrice?.property?.settings?.[1]}</div>
+                style={{marginBottom: '15px', height:'10%', textAlign:'center', backgroundColor:'#f0f0f0'}}>{tag.tag?.property?.settings?.[1]}</div>
                 <div className='d-flex justify-content-center align-items-center'
-                style={{marginBottom: '15px', height:'10%', textAlign:'center', backgroundColor:'#f0f0f0'}}>{tagPrice?.property?.settings?.[2]}</div>
+                style={{marginBottom: '15px', height:'10%', textAlign:'center', backgroundColor:'#f0f0f0'}}>{tag.tag?.property?.settings?.[2]}</div>
                 <div className='d-flex justify-content-center align-items-center'
-                style={{marginBottom: '15px', height:'10%', textAlign:'center', backgroundColor:'#f0f0f0'}}>{tagPrice?.property?.settings?.[3]}</div>
+                style={{marginBottom: '15px', height:'10%', textAlign:'center', backgroundColor:'#f0f0f0'}}>{tag.tag?.property?.settings?.[3]}</div>
                 <div className='d-flex justify-content-center align-items-center'
-                style={{marginBottom: '15px', height:'10%', textAlign:'center', backgroundColor:'#f0f0f0'}}>{tagPrice?.property?.settings?.[4]}</div>
+                style={{marginBottom: '15px', height:'10%', textAlign:'center', backgroundColor:'#f0f0f0'}}>{tag.tag?.property?.settings?.[4]}</div>
                 <div className='d-flex justify-content-center align-items-center'
-                style={{marginBottom: '15px', height:'10%', textAlign:'center', backgroundColor:'#f0f0f0'}}>{tagPrice?.property?.settings?.[5]}</div>
+                style={{marginBottom: '15px', height:'10%', textAlign:'center', backgroundColor:'#f0f0f0'}}>{tag.tag?.property?.settings?.[5]}</div>
                 <div className='d-flex justify-content-center align-items-center'
-                style={{marginBottom: '15px', height:'10%', textAlign:'center', backgroundColor:'#f0f0f0'}}>{tagPrice?.property?.settings?.[6]}</div>
+                style={{marginBottom: '15px', height:'10%', textAlign:'center', backgroundColor:'#f0f0f0'}}>{tag.tag?.property?.settings?.[6]}</div>
                 <div className='d-flex justify-content-center align-items-center'
-                style={{marginBottom: '65px', height:'10%', textAlign:'center', backgroundColor:'#f0f0f0'}}>{tagPrice?.property?.settings?.[7]}</div>
+                style={{marginBottom: '65px', height:'10%', textAlign:'center', backgroundColor:'#f0f0f0'}}>{tag.tag?.property?.settings?.[7]}</div>
                 <div className='d-flex justify-content-center align-items-center'
                 style={{marginBottom: '5px', height:'5%', textAlign:'center'}}>дата:&nbsp;{dateTag.getDate()}-{dateTag.getMonth()+1}-{dateTag.getFullYear()}</div>
               </div>
               <div className="div2" style={{fontSize:'55pt'}}>
-                <div style={{fontSize:'30pt'}}><span>{tagPrice?.property?.type}</span></div>
+                <div style={{fontSize:'30pt'}}><span>{tag.tag?.property?.type}</span></div>
                 <div ref={ref} style={{ fontSize, height: 75, width: 520, fontWeight:'1px' }}>
                   <div style={{whiteSpace:'nowrap'}}>
-                    {tagPrice?.property?.model}
+                    {tag.tag?.property?.model}
                   </div>
                 </div>
-                <div style={{fontSize:'10pt'}}><span>{tagPrice?.property?.settings?.[0]}</span></div>
+                <div style={{fontSize:'10pt'}}><span>{tag.tag?.property?.settings?.[0]}</span></div>
               </div>
               <div className="div3" style={{display: 'flex', alignItems:'flex-start'}}>
                 <div style={{display: 'inline-flex', marginRight:'20px'}}><img src='askona_2.png' width={270} height={60}/></div>

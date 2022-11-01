@@ -13,6 +13,7 @@ export interface Itag {
 
 interface ItagProperty {
   size?: number,
+  allSize?:any[],
   type?:string,
   model?:string,
   catigoryCloth?:string,
