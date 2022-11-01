@@ -37,7 +37,7 @@ export default function Price() {
             type:result[2],
             model:result[3],
             categoryCloth:result[8],
-            settings:[result[13], result[14], result[15], result[16],result[17], result[18], result[19], result[20], result[21]]
+            settings:[result[9], result[10], result[11], result[12],result[13], result[14], result[15], result[16], result[17]]
         },
         isSelect: false     
    }
