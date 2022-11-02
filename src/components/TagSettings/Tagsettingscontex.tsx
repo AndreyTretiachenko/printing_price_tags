@@ -10,7 +10,7 @@ const TagSettingsContex = createContext(TagSettings)
 
 const TagProvider = ({children}:TagSettingContexProps)=> {
     return (
-        <TagSettingsContex.Provider value={}>
+        <TagSettingsContex.Provider value={React.ReactNode}>
             {children}
         </TagSettingsContex.Provider>
   )
