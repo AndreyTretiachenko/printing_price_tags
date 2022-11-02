@@ -1,8 +1,15 @@
-import React, { useEffect, useState } from "react"
+import React, { createContext, useEffect, useState } from "react"
 import Products from "../components/Products"
 import TagPrice from "../components/TagPrice"
 import Tags, { Itag } from "../components/Tags"
+import { TagSettings } from "../components/TagSettings/Tagsettings"
 
+type GlobalTypeContext = {
+    tag:Itag | undefined
+    setTag:React.Dispatch<React.SetStateAction<Itag | undefined>>
+}
+
+export const GlobalContext = createContext({} as GlobalTypeContext)
 
 export default function Price() {
 
@@ -25,18 +32,24 @@ export default function Price() {
         })
     },[])
 
-  function FindProduct<Itag>(product: any[], name: string) {
+  function FindProduct(product: any[], name: string):Itag {
     const result = product.find((e: any[]) => {
         return e[0]===name})
+    const sizes:any[] = []
+    product.map((prod)=>{
+        if (prod[3] === result[3])
+        sizes.push(prod[4])
+     })    
     return {
         productId: result[1],
         productName: result[0],
         key: Date.now(),
         property:{
             size:result[4],
+            allSize:sizes,
             type:result[2],
             model:result[3],
-            categoryCloth:result[8],
+            catigoryCloth:result[6],
             settings:[result[9], result[10], result[11], result[12],result[13], result[14], result[15], result[16], result[17]]
         },
         isSelect: false     
@@ -48,6 +61,7 @@ export default function Price() {
     
     settagItems(tagItems.map(item => {
         if (item.key != key) {
+            
             if (item.isSelect) {
                 return {
                     ...item,
@@ -74,6 +88,7 @@ export default function Price() {
 
 
   return (
+    <GlobalContext.Provider value={{tag, setTag}}>
     <div className='container'>
         <div className='row'>
             <div className='col-12 my-3'>
@@ -84,8 +99,8 @@ export default function Price() {
             <div className="col-4 d-flex justify-content-start pt-2 mb-2" style={{border: '0.5px solid black'}}>
                 <Tags items={tagItems} clickProd={handleClickProduct}/>
             </div>
-            <div className="col-8 d-flex justify-content-start my-3">
-                
+            <div className="col-8 d-flex justify-content-start pt-2 mb-2" style={{border: '0.5px solid black'}}>
+                <TagSettings item={tag} />
             </div>
         </div>
         <div className="row" style={{marginBottom:'10px'}}>
@@ -95,9 +110,10 @@ export default function Price() {
         </div>
         <div className="row" style={{display:'block', padding: '10px', marginBottom: '5px',border: '0.5px solid black'}}>
             <div className="col-12">
-                <TagPrice tagPrice={tag} toPrint={print}/>       
+                <TagPrice toPrint={print}/>       
             </div>
         </div>
     </div>
+    </GlobalContext.Provider>
   )
 }
