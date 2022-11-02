@@ -38,7 +38,7 @@ const TagPrice = (props:ItagPriceProps) => {
         <div className='row'>
           <div className='col'>
             <div className="parent">
-              <div className="div1" style={{fontSize:'12pt', margin:'0.8rem'}}>
+              <div className="div1" style={{fontSize:'12pt', margin:'0.8rem', fontWeight:'500'}}>
                 <div className='d-flex justify-content-center align-items-center'
                 style={{marginBottom: '15px', height:'10%', textAlign:'center', backgroundColor:'#f0f0f0'}}>{tag.tag?.property?.settings?.[1]}</div>
                 <div className='d-flex justify-content-center align-items-center'
@@ -56,17 +56,17 @@ const TagPrice = (props:ItagPriceProps) => {
                 <div className='d-flex justify-content-center align-items-center'
                 style={{marginBottom: '5px', height:'5%', textAlign:'center'}}>дата:&nbsp;{dateTag.getDate()}-{dateTag.getMonth()+1}-{dateTag.getFullYear()}</div>
               </div>
-              <div className="div2" style={{fontSize:'55pt'}}>
+              <div className="div2" style={{fontSize:'55pt', fontWeight:'550'}}>
                 <div style={{fontSize:'30pt'}}><span>{tag.tag?.property?.type}</span></div>
                 <div ref={ref} style={{ fontSize, height: 75, width: 520, fontWeight:'1px' }}>
                   <div style={{whiteSpace:'nowrap'}}>
                     {tag.tag?.property?.model}
                   </div>
                 </div>
-                <div style={{fontSize:'10pt'}}><span>{tag.tag?.property?.settings?.[0]}</span></div>
+                <div style={{fontSize:'10pt', fontWeight:'400'}}><span>{tag.tag?.property?.settings?.[0]}</span></div>
               </div>
-              <div className="div3" style={{display: 'flex', alignItems:'flex-start'}}>
-                <div style={{display: 'inline-flex', marginRight:'20px'}}><img src='askona_2.png' width={270} height={60}/></div>
+              <div className="div3" style={{display: 'inline-flex', alignItems:'flex-start'}}>
+                <div style={{display: 'inline-flex',marginTop:10, marginRight:20, alignItems:'center', justifyContent:'center'}}><img src='askona_2.png' width={270} height={60}/></div>
                 <div style={{display: 'inline-flex', backgroundColor:'rgb(239,66,111)', width:'100%', color:'white'}}>
                   <div
                     className='d-flex align-items-center' style={{display: 'inline-flex', fontSize:'18pt', margin: '5px', width:'25%', textAlign:'center'}}>РАССРОЧКА ПЛАТЕЖА</div>
@@ -96,14 +96,14 @@ const TagPrice = (props:ItagPriceProps) => {
                   </div>
                 </div>
               </div>
-              <div className="div4 d-flex justify-content-center align-items-center" style={{height:'200px'}}>50%</div>
+              <div className="div4 d-flex justify-content-center align-items-center" style={{padding:20}}>73%</div>
               <div className="div5 d-flex" style={{height:'350px'}}>
                 <div className='w-100'>
-                  <table className='w-100'>
-                    <thead style={{fontSize:'22pt', textTransform:'uppercase'}}>
-                      <th>размер</th>
-                      <th>старая цена</th>
-                      <th>новая цена</th>
+                  <table className='w-100' style={{textAlign:'center'}}>
+                    <thead style={{fontSize:'24pt'}}>
+                      <th style={{fontWeight:'500'}}>РАЗМЕР</th>
+                      <th style={{fontWeight:'500'}}>СТАРАЯ ЦЕНА</th>
+                      <th style={{fontWeight:'500'}}>НОВАЯ ЦЕНА</th>
                     </thead>
                     <tbody>
                       <tr>

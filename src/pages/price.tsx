@@ -100,7 +100,7 @@ export default function Price() {
                 <Tags items={tagItems} clickProd={handleClickProduct}/>
             </div>
             <div className="col-8 d-flex justify-content-start pt-2 mb-2" style={{border: '0.5px solid black'}}>
-                <TagSettings item={tag} />
+                <TagSettings item={tag} key={tag?.property?.model}/>
             </div>
         </div>
         <div className="row" style={{marginBottom:'10px'}}>
