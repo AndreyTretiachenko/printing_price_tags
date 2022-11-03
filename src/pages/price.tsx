@@ -1,21 +1,38 @@
-import React, { createContext, useContext, useEffect, useState } from "react"
+import React, { Context, createContext, useContext, useEffect, useState } from "react"
 import Products from "../components/Products"
 import TagPrice from "../components/TagPrice"
 import Tags, { Itag } from "../components/Tags"
-import { inputContex, TagSettings } from "../components/TagSettings/Tagsettings"
+import { TagSettings } from "../components/TagSettings/Tagsettings"
 
-type GlobalTypeContext = {
-    tag:Itag | undefined
-    setTag:React.Dispatch<React.SetStateAction<Itag | undefined>>
+interface GlobalTypeContext {
+    tag:Itag
+    setTag:React.Dispatch<Itag>
 }
 
-export const GlobalContext = createContext<GlobalTypeContext>({} as GlobalTypeContext)
+interface tagItemsContext {
+    tagItems: Itag[]
+    settagItems: React.Dispatch<Itag[]>
+}
+    
+
+export const GlobalContext = createContext<GlobalTypeContext>({
+    tag:{} as Itag,
+    setTag:() => {}
+})
+
+
+export const ItemsContext = createContext<tagItemsContext>({
+    tagItems:{} as Itag[],
+    settagItems:()=>{}
+
+})
+
 
 export default function Price() {
 
     const[product, setProduct] = useState([])
     const[tagItems, settagItems] = useState<Itag[]>([])
-    const[tag, setTag] = useState<Itag>()
+    const[tag, setTag] = useState<Itag>({} as Itag)
     const[print, setPrint] = useState<boolean>()
     
     
@@ -30,6 +47,8 @@ export default function Price() {
                 setProduct(result['data'])
                 setPrint(false)    
         })
+        
+
     },[])
 
   function FindProduct(product: any[], name: string):Itag {
@@ -40,11 +59,11 @@ export default function Price() {
         if (prod[3] === result[3])
         sizes.push(prod[4])
      })
-    setTag(result) 
+
     return {
         productId: result[1],
         productName: result[0],
-        key: Date.now(),
+        id:result[0],
         property:{
             size:result[4],
             allSize:sizes,
@@ -59,25 +78,6 @@ export default function Price() {
 
   const handleClickProduct = (key:number) => {
     setPrint(false)
-    settagItems(tagItems.map(item => {
-        if (item.key === key) {
-            if (item.isSelect) {
-                setTag({...item, isSelect:!item.isSelect})
-                return {...item, isSelect:!item.isSelect}
-            }
-            setTag({...item, isSelect:!item.isSelect})
-            return {...item, isSelect:!item.isSelect}
-        }else{
-            if (item.isSelect){
-                setTag({...item, isSelect:!item.isSelect})
-                return {...item, isSelect:!item.isSelect}
-            }
-            setTag(item)
-            return item
-        }
-        
-    }
-    ))
 } 
 
   const handleAddProduct = (name:string) => {
@@ -92,7 +92,7 @@ export default function Price() {
 
 
   return (
-    <GlobalContext.Provider value={{tag:tag, setTag:setTag}}>
+    <GlobalContext.Provider value={{tag, setTag}}>
     <div className='container'>
         <div className='row'>
             <div className='col-12 my-3'>
@@ -101,7 +101,9 @@ export default function Price() {
         </div>
         <div className="row">
             <div className="col-4 d-flex justify-content-start pt-2 mb-2" style={{border: '0.5px solid black'}}>
-                <Tags items={tagItems} clickProd={handleClickProduct}/>
+                <ItemsContext.Provider value={{tagItems:tagItems, settagItems:settagItems}}>
+                    <Tags items={tagItems}/>
+                </ItemsContext.Provider>
             </div>
             <div className="col-8 d-flex justify-content-start pt-2 mb-2" style={{border: '0.5px solid black'}}>
                 <TagSettings item={tag} key={tag?.property?.model}/>

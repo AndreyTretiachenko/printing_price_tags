@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { GlobalContext } from '../pages/price'
+import { GlobalContext, ItemsContext } from '../pages/price'
 
 
 
@@ -7,8 +7,8 @@ export interface Itag {
   productName:string,
   productId: string,
   discount?:number,
+  id:string,
   property?:ItagProperty,
-  key:number,
   isSelect: boolean
 }
 
@@ -23,34 +23,39 @@ interface ItagProperty {
 
 interface ItagProps {
   items:Itag[]
-  clickProd:(nameItem: number)=>void
+  clickProd?:(nameItem: number)=>void
 
 }
 
 export default function Tags(props: ItagProps) {
   const {items, clickProd} = props
-  const [tagsItem, settagItems] = useState<Itag[]>([])
-  const context = useContext(GlobalContext)
+  const {tag, setTag} = useContext(GlobalContext)
+  const {tagItems, settagItems} = useContext(ItemsContext)
   
 
-  const handlerOnClick = (value:number) => {
-    console.log(context.tag)
-    clickProd(value)
+  const handlerOnClick = (e:React.MouseEvent) => {
+    settagItems(tagItems.map(item => {
+      if (item.id === e.currentTarget.id) {
+        return {...item,isSelect:!item.isSelect}
+      }else{
+        return {...item, isSelect:false}
+      }
+    }))
+    console.log(e.currentTarget.id)
+    console.log(tag)
+    console.log(tagItems)
   }
-  
-  useEffect(()=>{
-    settagItems(items)
-  }, [items])
 
   return (
     <>
     <div className='w-100' style={{position: 'relative', height:'67vh', overflowY: 'scroll'}}>
-     {tagsItem.map((t)=>(
-      <div key={t.key} className={`row mb-2 mx-2 ${t.isSelect ? 'bg-info text-white' : 'bg-light'}`} style={{border: '0.5px solid black'}} >
+     {tagItems.map((t)=>(
+      <div id={t.id} className={`row mb-2 mx-2 ${t.isSelect ? 'bg-info text-white' : 'bg-light'}`} style={{border: '0.5px solid black'}} >
         <div className='col' >
-          <div style={{cursor: 'pointer'}}
-            onClick={()=>handlerOnClick(t.key)}>{t.productName}
+          <div style={{cursor: 'pointer'}} id={t.id} 
+            >{t.productName}
           </div>
+          <button id={t.id} onClick={handlerOnClick}>select</button>
         </div>
         
       <div className='row'>

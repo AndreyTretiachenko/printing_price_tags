@@ -37,7 +37,7 @@ const TagPrice = (props:ItagPriceProps) => {
             <div className="parent">
               <div className="div1" style={{fontSize:'12pt', margin:'0.8rem', fontWeight:'500'}}>
                 <div className='d-flex justify-content-center align-items-center'
-                style={{marginBottom: '15px', height:'10%', textAlign:'center', backgroundColor:'#f0f0f0'}}>{tag.tag?.property?.settings?.[1]}</div>
+                style={{marginBottom: '15px', height:'10%', textAlign:'center', backgroundColor:'#f0f0f0'}}>{tag.tag.property?.settings?.[1]}</div>
                 <div className='d-flex justify-content-center align-items-center'
                 style={{marginBottom: '15px', height:'10%', textAlign:'center', backgroundColor:'#f0f0f0'}}>{tag.tag?.property?.settings?.[2]}</div>
                 <div className='d-flex justify-content-center align-items-center'
