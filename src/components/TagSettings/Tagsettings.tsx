@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react'
-import InputOldPrice from '../InputPrice/inputOldPrice'
+import React, { Context, createContext, useContext, useEffect, useRef, useState } from 'react'
+import {InputOldPrice} from '../InputPrice/inputOldPrice'
 import { Itag } from '../Tags'
 
 
@@ -12,6 +12,13 @@ interface SettingProps {
   item?:Itag
 }
 
+interface IcontextInput {
+  state:TvalueInput[]
+  setState: React.Dispatch<React.SetStateAction<TvalueInput[]>>
+}
+
+export const inputContex = createContext({} as IcontextInput)
+
 export const TagSettings = (props: SettingProps) => {
   const { item } = props
   const [valueInput, setValueInput] = useState<TvalueInput[]>([])
@@ -21,34 +28,8 @@ export const TagSettings = (props: SettingProps) => {
       const data = new FormData(event.currentTarget)
       console.log(data)
   }
-  
-  function findValueInput(name:string, value:string):any {
-    if (valueInput.length===0)
-      return [{status:false}]
-    const result = valueInput.map((input)=> {
-      if (input.name === name)
-        return {status:true, item:input}
-      else  
-        return {status:false, item:{name:name, value:value}}
-    })
 
-    return result
-  }
-
-  const handleInputChange = (e:any) => {
-    
-    setValueInput(valueInput.map(val => {
-      if (val.name === e.target.name)
-        // Create a *new* object with changes
-        return {...val, value: e.target.value}
-      else 
-        return val
-        }))
-    
-    }
-
-
-   useEffect(()=>{
+  useEffect(()=>{
     setValueInput([])
     item?.property?.allSize?.map((i,index)=>{
       setValueInput(Prev=> [...Prev, {name:`inputNew${index}`, value:''}])
@@ -57,7 +38,8 @@ export const TagSettings = (props: SettingProps) => {
 
 
   return (
-    <>
+    
+    <inputContex.Provider value={{state:valueInput, setState:setValueInput}}>
     <div className='container mb-2'>
     <form onSubmit={(event)=>handleSubmit(event)}>
       <div className='row'>
@@ -77,7 +59,7 @@ export const TagSettings = (props: SettingProps) => {
         <div className='col'>
         <span className='d-block mb-2'>Старая цена:</span>
           {item?.property?.allSize?.map((size, index) => (
-            <InputOldPrice id={index.toString()} handleChange={handleInputChange} name={`inputNew${index}`}/>
+            <InputOldPrice id={index.toString()} name={`inputNew${index}`}/>
           ))}
         </div>
         <div className='col'>
@@ -92,6 +74,15 @@ export const TagSettings = (props: SettingProps) => {
       </div>
       </form>
     </div>
-    </>
+    </inputContex.Provider>
+    
   )
+}
+
+export const useContextAndErrorIfNull = (context: Context<IcontextInput>) => {
+  const contextValue = useContext(context);
+  if (contextValue === null) {
+    throw Error("Context has not been Provided!");
+  }
+  return contextValue;
 }

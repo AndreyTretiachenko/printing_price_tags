@@ -1,5 +1,6 @@
 import { type } from 'os'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
+import { inputContex } from './TagSettings/Tagsettings'
 
 
 export interface Itag {
@@ -29,7 +30,7 @@ interface ItagProps {
 export default function Tags(props: ItagProps) {
   const {items, clickProd} = props
   const [tagsItem, settagItems] = useState<Itag[]>([])
-
+  
 
   const handlerOnClick = (value:number) => {
     clickProd(value)

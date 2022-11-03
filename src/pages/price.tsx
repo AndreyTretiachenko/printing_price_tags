@@ -1,8 +1,8 @@
-import React, { createContext, useEffect, useState } from "react"
+import React, { createContext, useContext, useEffect, useState } from "react"
 import Products from "../components/Products"
 import TagPrice from "../components/TagPrice"
 import Tags, { Itag } from "../components/Tags"
-import { TagSettings } from "../components/TagSettings/Tagsettings"
+import { inputContex, TagSettings } from "../components/TagSettings/Tagsettings"
 
 type GlobalTypeContext = {
     tag:Itag | undefined
@@ -17,6 +17,7 @@ export default function Price() {
     const[tagItems, settagItems] = useState<Itag[]>([])
     const[tag, setTag] = useState<Itag>()
     const[print, setPrint] = useState(false)
+    const tagSetContext = useContext(inputContex)
     
     
     useEffect(()=>{
@@ -79,7 +80,8 @@ export default function Price() {
 } 
 
   const handleAddProduct = (name:string) => {
-    settagItems([...tagItems, FindProduct(product, name)])
+    const fprod = FindProduct(product, name)
+    settagItems([...tagItems, fprod])
   }
 
   const handleClickPrint = (value:boolean) => {
