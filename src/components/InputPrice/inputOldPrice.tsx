@@ -4,29 +4,30 @@ import { inputContex, useContextAndErrorIfNull } from '../TagSettings/Tagsetting
 interface inputProps  {
     name:string
     id:string
-    // handleChange:(e:any)=>void
 }
 
 
-
-
-export const InputOldPrice = ({ id, name}:inputProps) => {
+export const InputOldPrice = ({name}:inputProps) => {
     const [value, setValue] = useState<string>()
+    const context = useContext(inputContex)
 
-    const context = useContextAndErrorIfNull(inputContex)
-
-  
     const handleInputChange = (e:React.ChangeEvent<HTMLInputElement>) => {
-      console.log(e.target.name, e.target.value)
-      console.log(context)
-      context?.setState(context?.state.map(val => {
+
+      context?.[0].setState(context?.[0].state.map(val => {
         if (val.name === e.target.name)
           // Create a *new* object with changes
           return {...val, value: e.target.value}
         else 
           return val
           }))
-      
+
+      context?.[1].setState(context?.[1].state.map(val => {
+        if (val.name === e.target.name)
+          // Create a *new* object with changes
+          return {...val, value: e.target.value}
+        else 
+          return val
+          }))
       }
     
     const handleChange = (e:React.ChangeEvent<HTMLInputElement>) => {
@@ -36,11 +37,10 @@ export const InputOldPrice = ({ id, name}:inputProps) => {
 
     const inputText = () => {
       return (
-        <input key={name} onChange={handleChange} value={value} name={name}/>
+        <input className='mb-1' key={name} onChange={handleChange} value={value} name={name}/>
       )  
     }
 
-    
   return (
     <>
     {inputText()}

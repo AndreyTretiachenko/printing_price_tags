@@ -1,6 +1,6 @@
-import { type } from 'os'
 import React, { useContext, useEffect, useState } from 'react'
-import { inputContex } from './TagSettings/Tagsettings'
+import { GlobalContext } from '../pages/price'
+
 
 
 export interface Itag {
@@ -30,9 +30,11 @@ interface ItagProps {
 export default function Tags(props: ItagProps) {
   const {items, clickProd} = props
   const [tagsItem, settagItems] = useState<Itag[]>([])
+  const context = useContext(GlobalContext)
   
 
   const handlerOnClick = (value:number) => {
+    console.log(context.tag)
     clickProd(value)
   }
   
@@ -43,11 +45,11 @@ export default function Tags(props: ItagProps) {
   return (
     <>
     <div className='w-100' style={{position: 'relative', height:'67vh', overflowY: 'scroll'}}>
-     {tagsItem.map((tag)=>(
-      <div key={tag.key} className={`row mb-2 mx-2 ${tag.isSelect ? 'bg-info text-white' : 'bg-light'}`} style={{border: '0.5px solid black'}} >
+     {tagsItem.map((t)=>(
+      <div key={t.key} className={`row mb-2 mx-2 ${t.isSelect ? 'bg-info text-white' : 'bg-light'}`} style={{border: '0.5px solid black'}} >
         <div className='col' >
           <div style={{cursor: 'pointer'}}
-            onClick={()=>handlerOnClick(tag.key)}>{tag.productName}
+            onClick={()=>handlerOnClick(t.key)}>{t.productName}
           </div>
         </div>
         

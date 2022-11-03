@@ -9,15 +9,14 @@ type GlobalTypeContext = {
     setTag:React.Dispatch<React.SetStateAction<Itag | undefined>>
 }
 
-export const GlobalContext = createContext({} as GlobalTypeContext)
+export const GlobalContext = createContext<GlobalTypeContext>({} as GlobalTypeContext)
 
 export default function Price() {
 
     const[product, setProduct] = useState([])
     const[tagItems, settagItems] = useState<Itag[]>([])
     const[tag, setTag] = useState<Itag>()
-    const[print, setPrint] = useState(false)
-    const tagSetContext = useContext(inputContex)
+    const[print, setPrint] = useState<boolean>()
     
     
     useEffect(()=>{
@@ -35,12 +34,13 @@ export default function Price() {
 
   function FindProduct(product: any[], name: string):Itag {
     const result = product.find((e: any[]) => {
-        return e[0]===name})
+        return e[0]===name})    
     const sizes:any[] = []
     product.map((prod)=>{
         if (prod[3] === result[3])
         sizes.push(prod[4])
-     })    
+     })
+    setTag(result) 
     return {
         productId: result[1],
         productName: result[0],
@@ -54,34 +54,36 @@ export default function Price() {
             settings:[result[9], result[10], result[11], result[12],result[13], result[14], result[15], result[16], result[17]]
         },
         isSelect: false     
-   }
-  }  
+    }
+    }  
 
   const handleClickProduct = (key:number) => {
     setPrint(false)
-    
     settagItems(tagItems.map(item => {
-        if (item.key != key) {
-            
+        if (item.key === key) {
             if (item.isSelect) {
-                return {
-                    ...item,
-                    isSelect:!item.isSelect
-                }
+                setTag({...item, isSelect:!item.isSelect})
+                return {...item, isSelect:!item.isSelect}
             }
+            setTag({...item, isSelect:!item.isSelect})
+            return {...item, isSelect:!item.isSelect}
+        }else{
+            if (item.isSelect){
+                setTag({...item, isSelect:!item.isSelect})
+                return {...item, isSelect:!item.isSelect}
+            }
+            setTag(item)
             return item
         }
-        setTag(item)
-        return {
-            ...item,
-            isSelect:!item.isSelect
-        }
-    }))
+        
+    }
+    ))
 } 
 
   const handleAddProduct = (name:string) => {
-    const fprod = FindProduct(product, name)
-    settagItems([...tagItems, fprod])
+    const res = FindProduct(product, name)
+    setTag(res)
+    settagItems([...tagItems, res])
   }
 
   const handleClickPrint = (value:boolean) => {
@@ -90,7 +92,7 @@ export default function Price() {
 
 
   return (
-    <GlobalContext.Provider value={{tag, setTag}}>
+    <GlobalContext.Provider value={{tag:tag, setTag:setTag}}>
     <div className='container'>
         <div className='row'>
             <div className='col-12 my-3'>

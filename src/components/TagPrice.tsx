@@ -3,9 +3,7 @@ import { useContext } from 'react';
 import { useReactToPrint } from 'react-to-print'
 import useFitText from "use-fit-text"
 import { GlobalContext } from '../pages/price';
-
-import Tags, { Itag } from './Tags'
-import { TagSettings } from './TagSettings/Tagsettings';
+import { inputContex} from './TagSettings/Tagsettings';
 
 interface ItagPriceProps {
   toPrint?:boolean
@@ -16,7 +14,6 @@ const TagPrice = (props:ItagPriceProps) => {
 
   const { fontSize, ref } = useFitText({logLevel:'debug', minFontSize:10, maxFontSize:100})
   const tag = useContext(GlobalContext)
- 
   const {toPrint} = props
   const dateTag = new Date()
   const componentRef = useRef<HTMLDivElement>(null)
@@ -32,7 +29,7 @@ const TagPrice = (props:ItagPriceProps) => {
   }, [toPrint])
 
   return (
-    <>
+  
     <div ref={componentRef}>
       <div className='container' style={{}}>
         <div className='row'>
@@ -107,9 +104,9 @@ const TagPrice = (props:ItagPriceProps) => {
                     </thead>
                     <tbody>
                       <tr>
-                        <td>200*160</td>
-                        <td>1000000</td>
-                        <td>599999</td>
+                        {/* <td>{context.length === 0 ? context?.[0].state[0]?.type : ''}</td>
+                        <td>{context.length === 0 ? context?.[0].state[0]?.value : ''}</td>
+                        <td>{context.length === 0 ? context?.[0].state[1]?.value : ''}</td> */}
                       </tr>
                     </tbody>
                   </table>
@@ -120,7 +117,7 @@ const TagPrice = (props:ItagPriceProps) => {
         </div>
       </div>
     </div>
-    </>
+    
   )
 }
 

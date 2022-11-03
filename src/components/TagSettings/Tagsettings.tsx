@@ -5,6 +5,7 @@ import { Itag } from '../Tags'
 
 type TvalueInput = {
   name:string
+  type:string
   value:string
 }
 
@@ -17,29 +18,36 @@ interface IcontextInput {
   setState: React.Dispatch<React.SetStateAction<TvalueInput[]>>
 }
 
-export const inputContex = createContext({} as IcontextInput)
+export const inputContex = createContext({} as IcontextInput[])
 
 export const TagSettings = (props: SettingProps) => {
   const { item } = props
-  const [valueInput, setValueInput] = useState<TvalueInput[]>([])
-
+  const [valueNewInput, setValueNewInput] = useState<TvalueInput[]>([])
+  const [valueOldInput, setValueOldInput] = useState<TvalueInput[]>([])
+  
   const handleSubmit = (event:any) => {
-      event.preventDefault()
-      const data = new FormData(event.currentTarget)
-      console.log(data)
+    ////////////////
   }
 
   useEffect(()=>{
-    setValueInput([])
+    setValueOldInput([])
     item?.property?.allSize?.map((i,index)=>{
-      setValueInput(Prev=> [...Prev, {name:`inputNew${index}`, value:''}])
+      setValueOldInput(Prev=> [...Prev, {name:`inputOld${index}`, value:'', type:i}])
+    })
+    setValueNewInput([])
+    item?.property?.allSize?.map((i,index)=>{
+      setValueNewInput(Prev=> [...Prev, {name:`inputNew${index}`, value:'', type:i}])
     })
    },[item]) 
 
 
   return (
     
-    <inputContex.Provider value={{state:valueInput, setState:setValueInput}}>
+    <inputContex.Provider 
+      value={[
+        {state:valueOldInput, setState:setValueOldInput},
+        {state:valueNewInput, setState:setValueNewInput}
+        ]}>
     <div className='container mb-2'>
     <form onSubmit={(event)=>handleSubmit(event)}>
       <div className='row'>
@@ -59,12 +67,14 @@ export const TagSettings = (props: SettingProps) => {
         <div className='col'>
         <span className='d-block mb-2'>Старая цена:</span>
           {item?.property?.allSize?.map((size, index) => (
-            <InputOldPrice id={index.toString()} name={`inputNew${index}`}/>
+            <InputOldPrice key={`New${size}`} id={index.toString()} name={`inputNew${index}`}/>
           ))}
         </div>
         <div className='col'>
         <span className='d-block mb-2'>Новая цена:</span>
-
+        {item?.property?.allSize?.map((size, index) => (
+            <InputOldPrice key={`Old${size}`} id={index.toString()} name={`inputOld${index}`}/>
+          ))}
         </div>
       </div>
       <div className='row'>
