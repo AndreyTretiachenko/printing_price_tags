@@ -20,20 +20,48 @@ interface IprintContext {
     setPrint: React.Dispatch<boolean>
 }
 
+
+interface IupdateContext {
+    update:boolean |  undefined
+    setUpdate: React.Dispatch<boolean>
+}
+
+
 export const GlobalContext = createContext<GlobalTypeContext>({
     tag:{} as Itag,
     setTag:() => {}
 })
+
+interface TvalueInput {
+    name:string
+    type:string
+    valueNew:string
+    valueOld:string
+  }
+
+
+interface IcontextInput {
+    state?:TvalueInput[],
+    setState?: React.Dispatch<React.SetStateAction<TvalueInput[]>>
+  }
+  
+  
+  export const inputContex = createContext<IcontextInput | undefined>({} as IcontextInput)
+
 export const ItemsContext = createContext<tagItemsContext>({} as tagItemsContext)
 export const PrintContext = createContext<IprintContext>({} as IprintContext)
+export const updateContext = createContext<IupdateContext>({} as IupdateContext)
 
 
 export default function Price() {
 
     const[product, setProduct] = useState([])
+    const[productList, setProductList] = useState([])
     const[tagItems, settagItems] = useState<Itag[]>([])
     const[tag, setTag] = useState<Itag>({} as Itag)
     const[print, setPrint] = useState<boolean>()
+    const [update, setUpdate] = useState(false)
+    const [valueInput, setValueInput] = useState<TvalueInput[]>([])
     
     
     useEffect(()=>{
@@ -45,6 +73,12 @@ export default function Price() {
         ).then((res) => {
             return res.json()}).then(result => {
                 setProduct(result['data'])
+                setProductList(Array.from(new Set(result['data'].map((prod:[]) => {
+                    return prod.find((item, index) => {
+                        if (index === 3) 
+                            return item
+                    })
+                }))))
                 setPrint(false)    
         })
         
@@ -53,11 +87,11 @@ export default function Price() {
 
   function FindProduct(product: any[], name: string):Itag {
     const result = product.find((e: any[]) => {
-        return e[0]===name})    
-    const sizes:any[] = []
-    product.map((prod) => {
+        return e[3]===name})    
+    const sizes: string[] = []
+    product.flatMap((prod) => {
         if (prod[3] === result[3])
-        sizes.push(prod[4])
+        sizes.push(prod[4].toString())
      })
 
     return {
@@ -66,7 +100,7 @@ export default function Price() {
         id:result[0],
         property:{
             size:result[4],
-            allSize:[...sizes].slice(0,6),
+            allSize:Array.from(new Set(sizes)),
             type:result[2],
             model:result[3],
             catigoryCloth:result[6],
@@ -89,13 +123,26 @@ export default function Price() {
     setPrint(false)
   },[tagItems])
 
+  useEffect(()=>{
+    setValueInput([])
+    tag?.property?.allSize?.map((i,index)=>{
+      setValueInput(Prev=> [...Prev, {name:`inputOld${index}`, valueNew:'', valueOld:'', type:i}])
+    })
+
+   },[tag]) 
+
 
   return (
     <GlobalContext.Provider value={{tag, setTag}}>
+    <updateContext.Provider value={{update:update, setUpdate:setUpdate}}>    
+    <inputContex.Provider value={{state:valueInput, setState:setValueInput}}>
+    
     <div className='container'>
         <div className='row'>
             <div className='col-12 my-3'>
-                <Products product={product} addProduct={handleAddProduct}/>
+                <Products 
+                product={productList} 
+                addProduct={handleAddProduct}/>
             </div>
         </div>
         <div className="row">
@@ -116,11 +163,13 @@ export default function Price() {
         <div className="row" style={{display:'block', padding: '10px', marginBottom: '5px',border: '0.5px solid black'}}>
             <div className="col-12">
                 <PrintContext.Provider value={{print:print, setPrint:() => setPrint}}>
-                <TagPrice toPrint={print}/>     
+                <TagPrice update={update} toPrint={print}/>     
                 </PrintContext.Provider>  
             </div>
         </div>
     </div>
+    </inputContex.Provider>
+    </updateContext.Provider>
     </GlobalContext.Provider>
   )
 }

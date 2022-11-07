@@ -17,7 +17,7 @@ export default function Products(props: ProductsProps) {
               onChange = {(e) => setValue(e.target.value)}
       >
       {product.map((tw: any)=>(
-        <option key={tw[1]} value={tw[0]}>{tw[0]}</option>
+        <option key={tw} value={tw}>{tw}</option>
       ))}  
       </select>
       <button className='btn btn-sm btn-secondary mx-3'

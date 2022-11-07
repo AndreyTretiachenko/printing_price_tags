@@ -2,22 +2,23 @@ import React, {useEffect, useRef, useState} from 'react'
 import { useContext } from 'react';
 import { useReactToPrint } from 'react-to-print'
 import useFitText from "use-fit-text"
-import { GlobalContext, PrintContext } from '../pages/price';
-import { inputContex} from './TagSettings/Tagsettings';
+import { GlobalContext, inputContex, PrintContext } from '../pages/price';
 
 interface ItagPriceProps {
   toPrint?:boolean
+  update: boolean
 
 }
-
 const TagPrice = (props:ItagPriceProps) => {
 
   const { fontSize, ref } = useFitText({logLevel:'debug', minFontSize:10, maxFontSize:100})
   const tag = useContext(GlobalContext)
+  const {print} = useContext(PrintContext)
   const {toPrint} = props
   const dateTag = new Date()
   const componentRef = useRef<HTMLDivElement>(null)
-  const {print} = useContext(PrintContext)
+  const context = useContext(inputContex)
+
 
   
   const handlePrint = useReactToPrint({
@@ -30,6 +31,7 @@ const TagPrice = (props:ItagPriceProps) => {
     if (print)
       handlePrint()
   }, [print])
+
 
   return (
   
@@ -56,9 +58,9 @@ const TagPrice = (props:ItagPriceProps) => {
                 <div className='d-flex justify-content-center align-items-center'
                 style={{marginBottom: '5px', height:'5%', textAlign:'center'}}>дата:&nbsp;{dateTag.getDate()}-{dateTag.getMonth()+1}-{dateTag.getFullYear()}</div>
               </div>
-              <div className="div2" style={{fontSize:'55pt', fontWeight:'550'}}>
+              <div className="div2" style={{fontSize:'29pt', fontWeight:'550'}}>
                 <div style={{fontSize:'30pt'}}><span>{tag.tag?.property?.type}</span></div>
-                <div ref={ref} style={{ fontSize, height: 75, width: 520, fontWeight:'1px' }}>
+                <div style={{ fontSize, height: 75, width: 520, fontWeight:'1px' }}>
                   <div style={{whiteSpace:'nowrap'}}>
                     {tag.tag?.property?.model}
                   </div>
@@ -108,11 +110,11 @@ const TagPrice = (props:ItagPriceProps) => {
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        {/* <td>{[...context][0].state[0]?.type}</td>
-                        <td>{[...context][0].state[0]?.value}</td>
-                        <td>{[...context][0].state[1]?.value}</td> */}
-                      </tr>
+                      
+                        {/* {contextNew?.state?.map(item =>(<div>{item?.type}</div>))}</td>
+                        {contextOld?.state?.map(item =>(<div>{item?.value}</div>))}</td>
+                        {contextNew?.state?.map(item =>(<div>{item?.value}</div>))}</td> */}
+                      
                     </tbody>
                   </table>
                 </div>
