@@ -36,13 +36,13 @@ export const InputOldPrice = ({name}:inputProps) => {
   
         }
     
-    const handleChangeNew = (e:React.ChangeEvent<HTMLInputElement>) => {
+    const handleChangeOld = (e:React.ChangeEvent<HTMLInputElement>) => {
       handleInputChangeOld(e)
   
     }  
 
-    const handleChangeOld= (e:React.ChangeEvent<HTMLInputElement>) => {
-      handleInputChangeNew(e)
+    const handleChangeNew = (y:React.ChangeEvent<HTMLInputElement>) => {
+      handleInputChangeNew(y)
   
     }  
 
@@ -61,8 +61,8 @@ export const InputOldPrice = ({name}:inputProps) => {
 
       return (
         <>
-        <input className='mb-1' onChange={(e)=> {handleChangeNew(e); handleSetNew(e)}} value={valueOld} name={`New${name}`} defaultValue='0'/>
-        <input className='mb-1' onChange={(y)=> {handleChangeOld(y); handleSetOld(y)}} value={valueNew} name={`Old${name}`} defaultValue='0'/>
+        <input className='mb-1' onChange={(e)=> {handleChangeNew(e); handleSetNew(e)}} value={valueNew} name={`New${name}`} defaultValue='0'/>
+        <input className='mb-1' onChange={(y)=> {handleChangeOld(y); handleSetOld(y)}} value={valueOld} name={`Old${name}`} defaultValue='0'/>
         </>
       )  
     }
