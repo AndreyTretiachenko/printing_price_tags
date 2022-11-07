@@ -11,21 +11,21 @@ interface GlobalTypeContext {
 
 interface tagItemsContext {
     tagItems: Itag[]
-    settagItems: React.Dispatch<Itag[]>
+    settagItems: React.Dispatch<React.SetStateAction<Itag[]>>
 }
     
+
+interface IprintContext {
+    print:boolean |  undefined
+    setPrint: React.Dispatch<boolean>
+}
 
 export const GlobalContext = createContext<GlobalTypeContext>({
     tag:{} as Itag,
     setTag:() => {}
 })
-
-
-export const ItemsContext = createContext<tagItemsContext>({
-    tagItems:{} as Itag[],
-    settagItems:()=>{}
-
-})
+export const ItemsContext = createContext<tagItemsContext>({} as tagItemsContext)
+export const PrintContext = createContext<IprintContext>({} as IprintContext)
 
 
 export default function Price() {
@@ -55,7 +55,7 @@ export default function Price() {
     const result = product.find((e: any[]) => {
         return e[0]===name})    
     const sizes:any[] = []
-    product.map((prod)=>{
+    product.map((prod) => {
         if (prod[3] === result[3])
         sizes.push(prod[4])
      })
@@ -66,7 +66,7 @@ export default function Price() {
         id:result[0],
         property:{
             size:result[4],
-            allSize:sizes,
+            allSize:[...sizes].slice(0,6),
             type:result[2],
             model:result[3],
             catigoryCloth:result[6],
@@ -76,19 +76,18 @@ export default function Price() {
     }
     }  
 
-  const handleClickProduct = (key:number) => {
-    setPrint(false)
-} 
-
   const handleAddProduct = (name:string) => {
     const res = FindProduct(product, name)
-    setTag(res)
     settagItems([...tagItems, res])
   }
 
   const handleClickPrint = (value:boolean) => {
     setPrint(value)
   }
+
+  useEffect(()=>{
+    setPrint(false)
+  },[tagItems])
 
 
   return (
@@ -102,7 +101,7 @@ export default function Price() {
         <div className="row">
             <div className="col-4 d-flex justify-content-start pt-2 mb-2" style={{border: '0.5px solid black'}}>
                 <ItemsContext.Provider value={{tagItems:tagItems, settagItems:settagItems}}>
-                    <Tags items={tagItems}/>
+                    <Tags/>
                 </ItemsContext.Provider>
             </div>
             <div className="col-8 d-flex justify-content-start pt-2 mb-2" style={{border: '0.5px solid black'}}>
@@ -116,7 +115,9 @@ export default function Price() {
         </div>
         <div className="row" style={{display:'block', padding: '10px', marginBottom: '5px',border: '0.5px solid black'}}>
             <div className="col-12">
-                <TagPrice toPrint={print}/>       
+                <PrintContext.Provider value={{print:print, setPrint:() => setPrint}}>
+                <TagPrice toPrint={print}/>     
+                </PrintContext.Provider>  
             </div>
         </div>
     </div>

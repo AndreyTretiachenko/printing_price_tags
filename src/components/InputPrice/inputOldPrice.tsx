@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { inputContex, useContextAndErrorIfNull } from '../TagSettings/Tagsettings'
+import { inputContex} from '../TagSettings/Tagsettings'
 
 interface inputProps  {
     name:string
@@ -31,13 +31,15 @@ export const InputOldPrice = ({name}:inputProps) => {
       }
     
     const handleChange = (e:React.ChangeEvent<HTMLInputElement>) => {
-      setValue(e.target.value)
+      setValue(e.currentTarget.value)
       handleInputChange(e)
     }  
 
     const inputText = () => {
       return (
-        <input className='mb-1' key={name} onChange={handleChange} value={value} name={name}/>
+        <>
+        <input className='mb-1' onChange={handleChange} value={value} name={name} defaultValue='0'/>
+        </>
       )  
     }
 

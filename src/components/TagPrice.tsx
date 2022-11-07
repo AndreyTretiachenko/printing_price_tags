@@ -2,7 +2,7 @@ import React, {useEffect, useRef, useState} from 'react'
 import { useContext } from 'react';
 import { useReactToPrint } from 'react-to-print'
 import useFitText from "use-fit-text"
-import { GlobalContext } from '../pages/price';
+import { GlobalContext, PrintContext } from '../pages/price';
 import { inputContex} from './TagSettings/Tagsettings';
 
 interface ItagPriceProps {
@@ -17,16 +17,19 @@ const TagPrice = (props:ItagPriceProps) => {
   const {toPrint} = props
   const dateTag = new Date()
   const componentRef = useRef<HTMLDivElement>(null)
+  const {print} = useContext(PrintContext)
 
   
   const handlePrint = useReactToPrint({
     content: () => componentRef.current
   })
 
+
+
   useEffect(()=>{
-    if (toPrint)
+    if (print)
       handlePrint()
-  }, [toPrint])
+  }, [print])
 
   return (
   
@@ -98,15 +101,17 @@ const TagPrice = (props:ItagPriceProps) => {
                 <div className='w-100'>
                   <table className='w-100' style={{textAlign:'center'}}>
                     <thead style={{fontSize:'24pt'}}>
+                      <tr>
                       <th style={{fontWeight:'500'}}>РАЗМЕР</th>
                       <th style={{fontWeight:'500'}}>СТАРАЯ ЦЕНА</th>
                       <th style={{fontWeight:'500'}}>НОВАЯ ЦЕНА</th>
+                      </tr>
                     </thead>
                     <tbody>
                       <tr>
-                        {/* <td>{context.length === 0 ? context?.[0].state[0]?.type : ''}</td>
-                        <td>{context.length === 0 ? context?.[0].state[0]?.value : ''}</td>
-                        <td>{context.length === 0 ? context?.[0].state[1]?.value : ''}</td> */}
+                        {/* <td>{[...context][0].state[0]?.type}</td>
+                        <td>{[...context][0].state[0]?.value}</td>
+                        <td>{[...context][0].state[1]?.value}</td> */}
                       </tr>
                     </tbody>
                   </table>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { INavigate } from '../medels/Navigate';
+import { INavigate } from '../models/Navigate';
 
 interface NavigateProps {
   navigate: INavigate
