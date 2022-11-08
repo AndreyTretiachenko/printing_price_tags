@@ -109,12 +109,14 @@ const TagPrice = (props:ItagPriceProps) => {
                       <th style={{fontWeight:'500'}}>НОВАЯ ЦЕНА</th>
                       </tr>
                     </thead>
-                    <tbody>
-                      
-                        {/* {contextNew?.state?.map(item =>(<div>{item?.type}</div>))}</td>
-                        {contextOld?.state?.map(item =>(<div>{item?.value}</div>))}</td>
-                        {contextNew?.state?.map(item =>(<div>{item?.value}</div>))}</td> */}
-                      
+                    <tbody style={{fontWeight:'500', fontSize:'24pt'}}>
+                        {context?.state?.map(item =>(
+                        <tr>
+                          <td>{item?.type}</td>
+                          <td style={{'textDecoration':'line-through'}}>{item?.valueOld} руб</td>
+                          <td>{item?.valueNew} руб</td>
+                        </tr>  
+                        ))}
                     </tbody>
                   </table>
                 </div>

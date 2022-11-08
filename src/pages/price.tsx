@@ -44,10 +44,15 @@ interface IcontextInput {
     state?:TvalueInput[],
     setState?: React.Dispatch<React.SetStateAction<TvalueInput[]>>
   }
-  
-  
-  export const inputContex = createContext<IcontextInput | undefined>({} as IcontextInput)
 
+  interface IcontextDiscount {
+    state?:string | undefined,
+    setState?: React.Dispatch<React.SetStateAction<string>> | undefined
+  }
+  
+  
+export const inputContex = createContext<IcontextInput | undefined>({} as IcontextInput)
+export const DiscountContext = createContext<IcontextDiscount>({})
 export const ItemsContext = createContext<tagItemsContext>({} as tagItemsContext)
 export const PrintContext = createContext<IprintContext>({} as IprintContext)
 export const updateContext = createContext<IupdateContext>({} as IupdateContext)
@@ -60,9 +65,9 @@ export default function Price() {
     const[tagItems, settagItems] = useState<Itag[]>([])
     const[tag, setTag] = useState<Itag>({} as Itag)
     const[print, setPrint] = useState<boolean>()
-    const [update, setUpdate] = useState(false)
-    const [valueInput, setValueInput] = useState<TvalueInput[]>([])
-    
+    const[update, setUpdate] = useState(false)
+    const[valueInput, setValueInput] = useState<TvalueInput[]>([])
+    const[discount, setDiscount] = useState<string>('')
     
     useEffect(()=>{
        fetch('http://service.dvinahome.ru/?count=2000',
@@ -100,7 +105,7 @@ export default function Price() {
         id:result[0],
         property:{
             size:result[4],
-            allSize:Array.from(new Set(sizes)),
+            allSize:Array.from(new Set(sizes)).slice(0,6),
             type:result[2],
             model:result[3],
             catigoryCloth:result[6],
@@ -133,6 +138,7 @@ export default function Price() {
 
 
   return (
+    <DiscountContext.Provider value={{state:discount, setState:setDiscount}}>
     <GlobalContext.Provider value={{tag, setTag}}>
     <updateContext.Provider value={{update:update, setUpdate:setUpdate}}>    
     <inputContex.Provider value={{state:valueInput, setState:setValueInput}}>
@@ -171,5 +177,6 @@ export default function Price() {
     </inputContex.Provider>
     </updateContext.Provider>
     </GlobalContext.Provider>
+    </DiscountContext.Provider>
   )
 }

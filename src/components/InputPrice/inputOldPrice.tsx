@@ -15,26 +15,28 @@ export const InputOldPrice = ({name}:inputProps) => {
     const handleInputChangeOld = (e:React.ChangeEvent<HTMLInputElement>) => {
       if (context?.setState != undefined && context?.state != undefined)
         context?.setState(context.state?.map(val => {
-          if (val.name === e.target.name)
+          if ('Old'+val.name === e.target.name)
             // Create a *new* object with changes
-            return {...val, value: e.target.value}
+            return {...val, valueOld: e.target.value}
           else 
             return val
             }))
 
       }
 
-      const handleInputChangeNew = (e:React.ChangeEvent<HTMLInputElement>) => {
+      const handleInputChangeNew = (y:React.ChangeEvent<HTMLInputElement>) => {
         if (context?.setState != undefined && context?.state != undefined)
           context?.setState(context.state?.map(val => {
-            if (val.name === e.target.name)
+            if ('New'+val.name === y.target.name)
               // Create a *new* object with changes
-              return {...val, value: e.target.value}
+              return {...val, valueNew: y.target.value}
             else 
               return val
               }))
   
         }
+
+        
     
     const handleChangeOld = (e:React.ChangeEvent<HTMLInputElement>) => {
       handleInputChangeOld(e)
@@ -61,8 +63,12 @@ export const InputOldPrice = ({name}:inputProps) => {
 
       return (
         <>
-        <input className='mb-1' onChange={(e)=> {handleChangeNew(e); handleSetNew(e)}} value={valueNew} name={`New${name}`} defaultValue='0'/>
-        <input className='mb-1' onChange={(y)=> {handleChangeOld(y); handleSetOld(y)}} value={valueOld} name={`Old${name}`} defaultValue='0'/>
+        <div style={{'display':'inline', 'paddingRight':40}}>
+          <input className='mb-1' onChange={(y)=> {handleChangeOld(y); handleSetOld(y)}} value={valueOld} name={`Old${name}`} defaultValue='0'/>
+        </div>
+        <div style={{'display':'inline', 'paddingRight':40}}>
+          <input className='mb-1' onChange={(e)=> {handleChangeNew(e); handleSetNew(e)}} value={valueNew} name={`New${name}`} defaultValue='0'/>
+        </div>
         </>
       )  
     }
