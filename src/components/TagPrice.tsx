@@ -2,7 +2,7 @@ import React, {useEffect, useRef, useState} from 'react'
 import { useContext } from 'react';
 import { useReactToPrint } from 'react-to-print'
 import useFitText from "use-fit-text"
-import { GlobalContext, inputContex, PrintContext } from '../pages/price';
+import { DiscountContext, GlobalContext, inputContex, PrintContext } from '../pages/price';
 
 interface ItagPriceProps {
   toPrint?:boolean
@@ -18,6 +18,7 @@ const TagPrice = (props:ItagPriceProps) => {
   const dateTag = new Date()
   const componentRef = useRef<HTMLDivElement>(null)
   const context = useContext(inputContex)
+  const {state: discount, setState: setDiscount} = useContext(DiscountContext)
 
 
   
@@ -71,34 +72,34 @@ const TagPrice = (props:ItagPriceProps) => {
                 <div style={{display: 'inline-flex',marginTop:10, marginRight:20, alignItems:'center', justifyContent:'center'}}><img src='askona_2.png' width={270} height={60}/></div>
                 <div style={{display: 'inline-flex', backgroundColor:'rgb(239,66,111)', width:'100%', color:'white'}}>
                   <div
-                    className='d-flex align-items-center' style={{display: 'inline-flex', fontSize:'18pt', margin: '5px', width:'25%', textAlign:'center'}}>РАССРОЧКА ПЛАТЕЖА</div>
-                  <div className='align-items-center' style={{display: 'flex', width:'25%'}}>
-                    <div style={{margin:'5px'}}>
-                      0-0-12
+                    className='d-flex align-items-center' style={{display: 'inline-flex', fontSize:'18pt', margin: '5px', width:'25%', textAlign:'center', fontWeight:'bold'}}>РАССРОЧКА ПЛАТЕЖА</div>
+                  <div  style={{display: 'block', width:'25%', fontSize:'18pt', textAlign:'center'}}>
+                    <div style={{margin:'5px', fontWeight:'bold'}}>
+                      0-0-10
                     </div>
-                    <div style={{margin:'5px'}}>
-                      от ХХХХХ руб
-                    </div>
-                  </div>
-                  <div className='d-flex align-items-center' style={{display: 'flex', width:'25%'}}>
-                    <div style={{margin:'5px'}}>
-                      0-0-12
-                    </div>
-                    <div style={{margin:'5px'}}>
-                      от ХХХХХ руб
+                    <div style={{margin:'5px', display:'block', fontWeight:'bold'}}>
+                      от {Math.round(Number(context?.state?.[0]?.valueNew)/10)} руб
                     </div>
                   </div>
-                  <div className='d-flex align-items-center' style={{display: 'inline-flex', width:'25%'}}>
-                    <div style={{margin:'5px'}}>
-                      0-0-12
+                  <div  style={{display: 'block', width:'25%', fontSize:'18pt', textAlign:'center', fontWeight:'bold'}}>
+                    <div style={{margin:'5px',display:'block', fontWeight:'bold'}}>
+                      0-0-9
                     </div>
                     <div style={{margin:'5px'}}>
-                      от ХХХХХ руб
+                      от {Math.round(Number(context?.state?.[0]?.valueNew)/9)} руб
+                    </div>
+                  </div>
+                  <div  style={{display: 'block', width:'25%', fontSize:'18pt', textAlign:'center', fontWeight:'bold'}}>
+                    <div style={{margin:'5px', fontWeight:'bold'}}>
+                      0-0-6
+                    </div>
+                    <div style={{margin:'5px'}}>
+                      от {Math.round(Number(context?.state?.[0]?.valueNew)/6)} руб
                     </div>
                   </div>
                 </div>
               </div>
-              <div className="div4 d-flex justify-content-center align-items-center" style={{padding:20}}>73%</div>
+              <div className="div4 d-flex justify-content-center align-items-center" style={{padding:20}}>{discount}%</div>
               <div className="div5 d-flex" style={{height:'350px'}}>
                 <div className='w-100'>
                   <table className='w-100' style={{textAlign:'center'}}>

@@ -102,6 +102,7 @@ export default function Price() {
     return {
         productId: result[1],
         productName: result[0],
+        cheked:false,
         id:result[0],
         property:{
             size:result[4],
@@ -142,7 +143,7 @@ export default function Price() {
     <GlobalContext.Provider value={{tag, setTag}}>
     <updateContext.Provider value={{update:update, setUpdate:setUpdate}}>    
     <inputContex.Provider value={{state:valueInput, setState:setValueInput}}>
-    
+    <ItemsContext.Provider value={{tagItems:tagItems, settagItems:settagItems}}>
     <div className='container'>
         <div className='row'>
             <div className='col-12 my-3'>
@@ -152,10 +153,8 @@ export default function Price() {
             </div>
         </div>
         <div className="row">
-            <div className="col-4 d-flex justify-content-start pt-2 mb-2" style={{border: '0.5px solid black'}}>
-                <ItemsContext.Provider value={{tagItems:tagItems, settagItems:settagItems}}>
+            <div className="col-4 d-block justify-content-start pt-2 mb-2" style={{border: '0.5px solid black'}}>
                     <Tags/>
-                </ItemsContext.Provider>
             </div>
             <div className="col-8 d-flex justify-content-start pt-2 mb-2" style={{border: '0.5px solid black'}}>
                 <TagSettings item={tag} key={tag?.property?.model}/>
@@ -174,6 +173,7 @@ export default function Price() {
             </div>
         </div>
     </div>
+    </ItemsContext.Provider>
     </inputContex.Provider>
     </updateContext.Provider>
     </GlobalContext.Provider>

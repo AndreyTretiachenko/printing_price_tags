@@ -63,7 +63,7 @@ export const InputOldPrice = ({name}:inputProps) => {
 
       return (
         <>
-        <div style={{'display':'inline', 'paddingRight':40}}>
+        <div style={{'display':'inline', 'paddingRight':80, paddingLeft:30}}>
           <input className='mb-1' onChange={(y)=> {handleChangeOld(y); handleSetOld(y)}} value={valueOld} name={`Old${name}`} defaultValue='0'/>
         </div>
         <div style={{'display':'inline', 'paddingRight':40}}>

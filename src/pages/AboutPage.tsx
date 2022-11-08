@@ -5,8 +5,8 @@ function AboutPage() {
   return (
     <div className='container'>
       <div className='row'>
-        <div className='col'>
-          <div>321</div>
+      <div className='col' style={{alignContent:'center', padding:40, margin:20}}>
+          <div>Сайт разработан команой IT dvinahome.ru</div>
         </div>
       </div>
     </div>

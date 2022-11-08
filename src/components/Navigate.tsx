@@ -13,7 +13,7 @@ function Navigate(props: NavigateProps) {
             <div className='col'>
               <nav className="navbar navbar-expand-lg bg-light px-4 shadow mt-1 mb-2">
                 <div className="container-fluid">
-                  <a className="navbar-brand" href="#">{props.navigate.title}</a>
+                  <a className="navbar-brand" href="/">{props.navigate.title}</a>
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Переключатель навигации">
                     <span className="navbar-toggler-icon"></span>
                     </button>
