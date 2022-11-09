@@ -3,6 +3,8 @@ import Products from "../components/Products"
 import TagPrice from "../components/TagPrice"
 import Tags, { Itag } from "../components/Tags"
 import { TagSettings } from "../components/TagSettings/Tagsettings"
+import { loadProducts } from "../features/products/productSlice"
+import { useAppDispatch } from "../hooks/hooks"
 
 interface GlobalTypeContext {
     tag:Itag
@@ -59,6 +61,8 @@ export const GlobalContext = createContext<GlobalTypeContext>({
 
 export default function Price() {
 
+    const dispatch = useAppDispatch()
+
     const[product, setProduct] = useState([])
     const[productList, setProductList] = useState([])
     const[tagItems, settagItems] = useState<Itag[]>([])
@@ -83,6 +87,7 @@ export default function Price() {
             }
         ).then((res) => {
             return res.json()}).then(result => {
+                dispatch(loadProducts(result['data']))
                 setProduct(result['data'])
                 setProductList(Array.from(new Set(result['data'].map((prod:[]) => {
                     return prod.find((item, index) => {
