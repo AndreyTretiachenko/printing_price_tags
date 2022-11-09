@@ -12,28 +12,23 @@ export const TagSettings = (props: SettingProps) => {
   const [value, setValue] = useState<string>('')
   const context = useContext(DiscountContext)
   const {tagItems, settagItems} = useContext(ItemsContext)
-  const [variant, setVariant] = useState<string>('1')
   const [valueCheck, setvalueCheck] = useState<boolean>()
+  const contextInput = useContext(inputContex)
+
+  const handlerAddDataTag = () => {
+    settagItems(prev => prev.map(i => {
+      if (i === item)
+        return {...i, cheked:valueCheck, data:[...contextInput.state]}
+      return i
+    }))
+  }
 
 
   const handleChangeChecked = (e:React.ChangeEvent<HTMLInputElement>) => {
     setvalueCheck(e.target.checked)
-    if (tagItems !== undefined)
-    settagItems(tagItems.map(i => {
-      if (i.id === item?.id)
-        return {...i, cheked:e.target.checked}
-      return i
-    }))
-
   }
 
-  const handleChangeVariant = (e:React.ChangeEvent<HTMLSelectElement>) => {
-    setVariant(e.currentTarget.value)
-    if (variant === '1')
-      setvalueCheck(false)
-  }
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeDiscount = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value)
   }
 
@@ -41,6 +36,20 @@ export const TagSettings = (props: SettingProps) => {
     if (context.setState != undefined)
       context.setState(value)
   }, [value])
+
+  useEffect(()=>{
+    if (item?.data?.length === 0) {
+      if (contextInput?.setState) {
+        contextInput?.setState([])
+        item?.property?.allSize?.map((i,index)=>{
+          contextInput.setState(prev => [...prev, {name:`inputOld${index}`, valueNew:'', valueOld:'', type:i}])
+      })}
+    }
+    else {
+      if (item?.data != undefined)
+      contextInput.setState(item?.data)
+    }  
+  },[])
 
   return (
     <>
@@ -51,16 +60,9 @@ export const TagSettings = (props: SettingProps) => {
         </div>
         <div className='col-6 mb-2'>
           <label htmlFor='discountInput'>Введите размер скидки:</label>  
-          <input name='discountInput' type={'number'} placeholder={'укажите скидку в %'} value={value} onChange={handleChange}></input>
+          <input name='discountInput' type={'number'} placeholder={'укажите скидку в %'} value={value} onChange={handleChangeDiscount}></input>
         </div>
-        <div style={{display:'inline'}}>
-          <label htmlFor='variantSelect'>Введите формат ценника:</label>  
-          <select className='mb-2 mx-2' name='variantSelect' value={variant} onChange={handleChangeVariant}>
-            <option value='1'>a4 горизонтальный</option>
-            <option value='2'>подвесной</option>
-          </select>
-      </div>
-      <div style={{display:'inline'}} className='mb-2 mx-2' hidden={variant === '1' ? true : false} defaultChecked={false}>
+      <div style={{display:'inline'}} className='mb-2 mx-2' defaultChecked={false}>
           <input name='multiTag' type={'checkbox'} checked={valueCheck} onChange={handleChangeChecked} />
           <label htmlFor="multiTag" style={{paddingLeft:10}}> добавить на лист</label>
       </div>
@@ -86,19 +88,15 @@ export const TagSettings = (props: SettingProps) => {
               </>
             )
         })}
-          </div>
+        </div>
       </div>
-
+      <div className='row'>
+        <div className='col'>
+          <button className='btn btn-primary' onClick={handlerAddDataTag}>применить</button>
+        </div>
+      </div>
     </div>
-
     </>
   )
 }
 
-// export const useContextAndErrorIfNull = (context: Context<IcontextInput>) => {
-//   const contextValue = useContext(context);
-//   if (contextValue === null) {
-//     throw Error("Context has not been Provided!");
-//   }
-//   return contextValue;
-// }

@@ -10,7 +10,7 @@ function Navigate(props: NavigateProps) {
     return (
         <div className='container'>
           <div className='row'>
-            <div className='col'>
+            <div className='col-12'>
               <nav className="navbar navbar-expand-lg bg-light px-4 shadow mt-1 mb-2">
                 <div className="container-fluid">
                   <a className="navbar-brand" href="/">{props.navigate.title}</a>

@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from 'react'
-import { GlobalContext, ItemsContext, PrintContext } from '../pages/price'
-
+import { GlobalContext, inputContex, ItemsContext, PrintContext, TvalueInput } from '../pages/price'
 
 
 export interface Itag {
@@ -10,8 +9,10 @@ export interface Itag {
   cheked?:boolean,
   id:string,
   property?:ItagProperty,
-  isSelect?: boolean
+  isSelect?: boolean,
+  data?:TvalueInput[]
 }
+
 
 interface ItagProperty {
   size?: number,
@@ -24,10 +25,10 @@ interface ItagProperty {
 
 
 export default function Tags() {
-  const {setTag} = useContext(GlobalContext)
+  const {tag, setTag} = useContext(GlobalContext)
   const {tagItems, settagItems} = useContext(ItemsContext)
-  const {setPrint} = useContext(PrintContext)
-
+  const {setState, state} = useContext(inputContex)
+  
   const hanlerDeleteTag = (e:React.MouseEvent) => {
     try {
       settagItems([...tagItems].filter(item => (item.id !== e.currentTarget.id)))
@@ -56,7 +57,12 @@ export default function Tags() {
             return {...item, isSelect:!item.isSelect}
           }
         }
-  }))) 
+  })))
+  if (setState) {
+    setState([])
+    tag?.property?.allSize?.map((i,index)=>{
+      setState(prev => [...prev, {name:`inputOld${index}`, valueNew:'', valueOld:'', type:i}])
+  })}
   }
 
   useEffect(()=>{
@@ -71,6 +77,7 @@ export default function Tags() {
     else {
       setTag({productId:'', productName: '',  id:''})
     }
+
   }, [tagItems])
 
 
@@ -82,7 +89,7 @@ export default function Tags() {
         <div className='col' style={{display:'inline'}}>
           <div style={{cursor: 'pointer'}} id={t.id} 
           onClick={handlerOnClick}
-            >{t.productName}
+            >{t?.property?.model}
           </div>
         </div>
       <div className='row'>

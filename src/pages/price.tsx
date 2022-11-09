@@ -17,7 +17,7 @@ interface tagItemsContext {
 
 interface IprintContext {
     print:boolean |  undefined
-    setPrint: React.Dispatch<boolean>
+    setPrint: React.Dispatch<boolean |  undefined>
 }
 
 
@@ -27,12 +27,7 @@ interface IupdateContext {
 }
 
 
-export const GlobalContext = createContext<GlobalTypeContext>({
-    tag:{} as Itag,
-    setTag:() => {}
-})
-
-interface TvalueInput {
+export interface TvalueInput {
     name:string
     type:string
     valueNew:string
@@ -41,8 +36,8 @@ interface TvalueInput {
 
 
 interface IcontextInput {
-    state?:TvalueInput[],
-    setState?: React.Dispatch<React.SetStateAction<TvalueInput[]>>
+    state:TvalueInput[],
+    setState: React.Dispatch<React.SetStateAction<TvalueInput[]>>
   }
 
   interface IcontextDiscount {
@@ -51,11 +46,15 @@ interface IcontextInput {
   }
   
   
-export const inputContex = createContext<IcontextInput | undefined>({} as IcontextInput)
+export const inputContex = createContext<IcontextInput>({} as IcontextInput)
 export const DiscountContext = createContext<IcontextDiscount>({})
 export const ItemsContext = createContext<tagItemsContext>({} as tagItemsContext)
 export const PrintContext = createContext<IprintContext>({} as IprintContext)
 export const updateContext = createContext<IupdateContext>({} as IupdateContext)
+export const GlobalContext = createContext<GlobalTypeContext>({
+    tag:{} as Itag,
+    setTag:() => {}
+})
 
 
 export default function Price() {
@@ -64,11 +63,18 @@ export default function Price() {
     const[productList, setProductList] = useState([])
     const[tagItems, settagItems] = useState<Itag[]>([])
     const[tag, setTag] = useState<Itag>({} as Itag)
-    const[print, setPrint] = useState<boolean>()
+    const[print, setPrint] = useState<boolean>(false)
     const[update, setUpdate] = useState(false)
     const[valueInput, setValueInput] = useState<TvalueInput[]>([])
     const[discount, setDiscount] = useState<string>('')
+    const[tagType, setTagType] = useState<string>('noset')
+
+
+    const handleChangeTagType = (e:React.ChangeEvent<HTMLSelectElement>) => {
+        setTagType(e.target.value)
+    }
     
+
     useEffect(()=>{
        fetch('http://service.dvinahome.ru/?count=2000',
             {
@@ -84,10 +90,8 @@ export default function Price() {
                             return item
                     })
                 }))))
-                setPrint(false)    
+            setPrint(false)    
         })
-        
-
     },[])
 
   function FindProduct(product: any[], name: string):Itag {
@@ -98,7 +102,7 @@ export default function Price() {
         if (prod[3] === result[3])
         sizes.push(prod[4].toString())
      })
-
+    
     return {
         productId: result[1],
         productName: result[0],
@@ -112,30 +116,26 @@ export default function Price() {
             catigoryCloth:result[6],
             settings:[result[9], result[10], result[11], result[12],result[13], result[14], result[15], result[16], result[17]]
         },
-        isSelect: false     
+        isSelect: false,
+        data:[]     
     }
     }  
 
   const handleAddProduct = (name:string) => {
     const res = FindProduct(product, name)
     settagItems([...tagItems, res])
+
   }
 
   const handleClickPrint = (value:boolean) => {
     setPrint(value)
+    setTimeout(()=>{setPrint(!value)}, 500)
   }
 
   useEffect(()=>{
     setPrint(false)
   },[tagItems])
 
-  useEffect(()=>{
-    setValueInput([])
-    tag?.property?.allSize?.map((i,index)=>{
-      setValueInput(Prev=> [...Prev, {name:`inputOld${index}`, valueNew:'', valueOld:'', type:i}])
-    })
-
-   },[tag]) 
 
 
   return (
@@ -143,7 +143,7 @@ export default function Price() {
     <GlobalContext.Provider value={{tag, setTag}}>
     <updateContext.Provider value={{update:update, setUpdate:setUpdate}}>    
     <inputContex.Provider value={{state:valueInput, setState:setValueInput}}>
-    <ItemsContext.Provider value={{tagItems:tagItems, settagItems:settagItems}}>
+    <ItemsContext.Provider value={{tagItems:tagItems, settagItems:settagItems}}>  
     <div className='container'>
         <div className='row'>
             <div className='col-12 my-3'>
@@ -161,14 +161,31 @@ export default function Price() {
             </div>
         </div>
         <div className="row" style={{marginBottom:'10px'}}>
-            <div className="col px-0"> 
+        <div className="col-4 px-0"> 
+                <label htmlFor='TagType'>Формат ценника:&nbsp;</label>
+                <select onChange={handleChangeTagType} value={tagType} name={'TagType'}>
+                    <option value={'noset'}>
+                        не выбран
+                    </option>
+                    <option value={'a4h'}>
+                        a4 горионтальный
+                    </option>
+                    <option value={'a4v'}>
+                        a4 вертикальный
+                    </option>
+                    <option value={'podves'}>
+                        подвесной
+                    </option>
+                </select>
+            </div>
+            <div className="col-2 px-0"> 
                 <button onClick={()=>handleClickPrint(true)}>Печать</button>
             </div>
         </div>
-        <div className="row" style={{display:'block', padding: '10px', marginBottom: '5px',border: '0.5px solid black'}}>
+        <div className="row" style={{display:'block', marginBottom: '30px',border: '0.5px solid black'}}>
             <div className="col-12">
                 <PrintContext.Provider value={{print:print, setPrint:() => setPrint}}>
-                <TagPrice update={update} toPrint={print}/>     
+                <TagPrice tagType={tagType}/>     
                 </PrintContext.Provider>  
             </div>
         </div>

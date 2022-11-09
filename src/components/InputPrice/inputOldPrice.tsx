@@ -1,5 +1,6 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { inputContex } from '../../pages/price'
+import React, { useContext, useEffect, useRef, useState } from 'react'
+import { GlobalContext, inputContex, ItemsContext } from '../../pages/price'
+
 
 
 interface inputProps  {
@@ -11,47 +12,44 @@ interface inputProps  {
 export const InputOldPrice = ({name}:inputProps) => {
 
     const context = useContext(inputContex)
+    const {tagItems, settagItems} = useContext(ItemsContext)
+    const {tag,setTag} = useContext(GlobalContext)
 
     const handleInputChangeOld = (e:React.ChangeEvent<HTMLInputElement>) => {
       if (context?.setState != undefined && context?.state != undefined)
-        context?.setState(context.state?.map(val => {
+        context?.setState(context?.state?.map(val => {
           if ('Old'+val.name === e.target.name)
             // Create a *new* object with changes
             return {...val, valueOld: e.target.value}
           else 
             return val
             }))
-
       }
 
       const handleInputChangeNew = (y:React.ChangeEvent<HTMLInputElement>) => {
         if (context?.setState != undefined && context?.state != undefined)
-          context?.setState(context.state?.map(val => {
+          context?.setState(context?.state?.map(val => {
             if ('New'+val.name === y.target.name)
               // Create a *new* object with changes
               return {...val, valueNew: y.target.value}
             else 
               return val
               }))
-  
-        }
+      }   
 
-        
-    
     const handleChangeOld = (e:React.ChangeEvent<HTMLInputElement>) => {
       handleInputChangeOld(e)
-  
     }  
 
     const handleChangeNew = (y:React.ChangeEvent<HTMLInputElement>) => {
       handleInputChangeNew(y)
-  
     }  
 
     const InputText = () => {
 
       const [valueNew, setValueNew] = useState<string>()
       const [valueOld, setValueOld] = useState<string>()
+      const oldPef = useRef<HTMLInputElement>(null)
 
       const handleSetNew = (e:React.ChangeEvent<HTMLInputElement>) => {
         setValueNew(e.target.value)
@@ -61,10 +59,18 @@ export const InputOldPrice = ({name}:inputProps) => {
         setValueOld(y.target.value)
       }
 
+      useEffect(()=>{
+        console.log(oldPef)
+      },[])
+
+
       return (
         <>
         <div style={{'display':'inline', 'paddingRight':80, paddingLeft:30}}>
-          <input className='mb-1' onChange={(y)=> {handleChangeOld(y); handleSetOld(y)}} value={valueOld} name={`Old${name}`} defaultValue='0'/>
+          <input ref={oldPef} className='mb-1' onChange={(y)=> {handleChangeOld(y); handleSetOld(y)}} 
+          value={valueOld} 
+          name={`Old${name}`} 
+          defaultValue='0'/>
         </div>
         <div style={{'display':'inline', 'paddingRight':40}}>
           <input className='mb-1' onChange={(e)=> {handleChangeNew(e); handleSetNew(e)}} value={valueNew} name={`New${name}`} defaultValue='0'/>
