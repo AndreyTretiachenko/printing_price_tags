@@ -1,5 +1,8 @@
 import React, { useContext, useEffect, useRef, useState } from 'react'
-import { GlobalContext, inputContex, ItemsContext, PrintContext, TvalueInput } from '../pages/price'
+import { setSelectTag } from '../features/selectTag/selectTagSlice'
+import { deleteTag, selectTag } from '../features/tags/tagsSlice'
+
+import { useAppDispatch, useAppSelector } from '../hooks/hooks'
 
 
 export interface Itag {
@@ -11,6 +14,13 @@ export interface Itag {
   property?:ItagProperty,
   isSelect?: boolean,
   data?:TvalueInput[]
+}
+
+export interface TvalueInput {
+  name:string
+  type:string
+  valueNew:string
+  valueOld:string
 }
 
 
@@ -25,70 +35,33 @@ interface ItagProperty {
 
 
 export default function Tags() {
-  const {tag, setTag} = useContext(GlobalContext)
-  const {tagItems, settagItems} = useContext(ItemsContext)
-  const {setState, state} = useContext(inputContex)
-  
-  const hanlerDeleteTag = (e:React.MouseEvent) => {
-    try {
-      settagItems([...tagItems].filter(item => (item.id !== e.currentTarget.id)))
-    } catch (error){
-      console.log(error)
-    }
-  }
+
+  const {tagList} = useAppSelector((state) => state.tags)
+  const dispatch = useAppDispatch()
 
 
-  const handlerOnClick = (e:any) => {
-    settagItems(prev => (
-      [...prev].map((item)=>{
-        if (item.id === e.target.id) {
-          if (!item.isSelect) {
-            return {...item, isSelect:!item.isSelect}
-          }
-          else {
-            return {...item, isSelect:!item.isSelect}
-          }
-        }
-        else {
-          if (!item.isSelect) {
-            return item
-          }
-          else {
-            return {...item, isSelect:!item.isSelect}
-          }
-        }
-  })))
-  if (setState) {
-    setState([])
-    tag?.property?.allSize?.map((i,index)=>{
-      setState(prev => [...prev, {name:`inputOld${index}`, valueNew:'', valueOld:'', type:i}])
-  })}
-  }
-
-  useEffect(()=>{
-    
-    const select = tagItems.find(item => {
-      if (item.isSelect) 
-        return item
+  const handleSelectTag = (id:string) => {
+    dispatch(selectTag(id))
+    setTimeout(()=>{
+      
     })
-    if (select?.isSelect){
-      setTag(select)
-    }
-    else {
-      setTag({productId:'', productName: '',  id:''})
-    }
-
-  }, [tagItems])
+    dispatch(setSelectTag(tagList.find((item:any)=> id === item.id)))
+  }
 
 
+  const handleDeleteDivTag = (e:string) => {
+    dispatch(deleteTag(e))
+    
+  }
+  
   return (
     <>
     <div className='w-100' style={{position: 'relative', height:'67vh', overflowY: 'scroll', display:'block'}}>
-     {tagItems?.map((t)=>(
+     {tagList.map((t:any)=>(
       <div key={t.id} className={`row mb-2 mx-2 ${t.isSelect ? 'bg-info text-white' : 'bg-light'}`} style={{border: '0.5px solid black'}} >
         <div className='col' style={{display:'inline'}}>
-          <div style={{cursor: 'pointer'}} id={t.id} 
-          onClick={handlerOnClick}
+          <div style={{cursor: 'pointer'}}
+          onClick={(e)=>handleSelectTag(t.id)}
             >{t?.property?.model}
           </div>
         </div>
@@ -96,7 +69,7 @@ export default function Tags() {
         <div className='col'>
 
           <div style={{display:'inline-flex', cursor:'pointer'}}>
-          <button id={t.id} className='btn bi bi-x-circle' onClick={hanlerDeleteTag}>
+          <button className='btn bi bi-x-circle' onClick={()=>handleDeleteDivTag(t.id)}>
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-trash3" viewBox="0 0 16 16">
             <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
           </svg>

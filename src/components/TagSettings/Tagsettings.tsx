@@ -1,55 +1,43 @@
-import React, { Context, createContext, useContext, useEffect, useRef, useState } from 'react'
-import { DiscountContext, inputContex, ItemsContext } from '../../pages/price'
+import React, { useEffect, useState } from 'react'
+
+import { useAppDispatch, useAppSelector} from '../../hooks/hooks'
 import {InputOldPrice} from '../InputPrice/inputOldPrice'
 import { Itag } from '../Tags'
 
+
 interface SettingProps {
-  item?:Itag
+  item:Itag
 }
 
 export const TagSettings = (props: SettingProps) => {
   const { item } = props
   const [value, setValue] = useState<string>('')
-  const context = useContext(DiscountContext)
-  const {tagItems, settagItems} = useContext(ItemsContext)
   const [valueCheck, setvalueCheck] = useState<boolean>()
-  const contextInput = useContext(inputContex)
 
-  const handlerAddDataTag = () => {
-    settagItems(prev => prev.map(i => {
-      if (i === item)
-        return {...i, cheked:valueCheck, data:[...contextInput.state]}
-      return i
-    }))
-  }
+  const {tagList} = useAppSelector((state) => state.tags)
+  const dispatch = useAppDispatch()
+
+  
+
+  // const handlerAddDataTag = () => {
+  //   dispatch(setData(tagList.map((i:any) =>{
+  //     if (i.id === item.id)
+  //       return {...i, data:[]}
+  //     return i
+  //   })))
+  // }
 
 
   const handleChangeChecked = (e:React.ChangeEvent<HTMLInputElement>) => {
     setvalueCheck(e.target.checked)
+    // dispatch(setSettingCheked(e.target.checked))
   }
 
   const handleChangeDiscount = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value)
+    // dispatch(setSettingDiscount(e.target.value))
   }
 
-  useEffect(()=>{
-    if (context.setState != undefined)
-      context.setState(value)
-  }, [value])
-
-  useEffect(()=>{
-    if (item?.data?.length === 0) {
-      if (contextInput?.setState) {
-        contextInput?.setState([])
-        item?.property?.allSize?.map((i,index)=>{
-          contextInput.setState(prev => [...prev, {name:`inputOld${index}`, valueNew:'', valueOld:'', type:i}])
-      })}
-    }
-    else {
-      if (item?.data != undefined)
-      contextInput.setState(item?.data)
-    }  
-  },[])
 
   return (
     <>
@@ -77,12 +65,12 @@ export const TagSettings = (props: SettingProps) => {
         {item?.property?.allSize?.map((size, index) => {
             return ( 
               <> 
-              <div className='row'>
+              <div className='row' key={size}>
               <div className='col-3' > 
                 <div style={{'display':'inline-flex'}}>{size}</div>  
               </div>
               <div className='col-9'>
-              <div style={{'display':'inline-flex'}}><InputOldPrice key={`Old${size}`} id={index.toString()} name={`inputOld${index}`}/></div>
+              <div style={{'display':'inline-flex'}}><InputOldPrice key={`Old${size}`} id={index.toString()} name={`Input${index}`} /></div>
               </div> 
               </div>
               </>
@@ -92,7 +80,7 @@ export const TagSettings = (props: SettingProps) => {
       </div>
       <div className='row'>
         <div className='col'>
-          <button className='btn btn-primary' onClick={handlerAddDataTag}>применить</button>
+          <button className='btn btn-primary'>применить</button>
         </div>
       </div>
     </div>

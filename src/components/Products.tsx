@@ -1,15 +1,41 @@
-import React, { ChangeEventHandler, useState } from 'react'
-import { useAppSelector } from '../hooks/hooks';
+import React, {  useState } from 'react'
+import { addTag } from '../features/tags/tagsSlice';
+import { useAppDispatch, useAppSelector } from '../hooks/hooks';
 
-interface ProductsProps {
-  product: any
-  addProduct:(name:string)=>void;
-}
 
-export default function Products(props: ProductsProps) {
-  // const {product, addProduct} = props
+export default function Products() {
+
   const [value, setValue] = useState('')
-  const productList = useAppSelector((state) => state.products.product)
+  const {productListModel, products} = useAppSelector((state) => state.products)
+  const dispatch = useAppDispatch()
+
+  function handlerAddTag(model:string) {
+    let result = products.find(item => item[3] === model) || []
+    const sizes: string[] = []
+    products.map((prod:any) => {
+        if (prod[3] === result[3])
+        sizes.push(prod[4].toString())
+     })
+     dispatch(addTag({
+      productId: result[1],
+      productName: result[0],
+      cheked: false,
+      id: result[0],
+      property: {
+          size:result[4],
+          allSize: Array.from(new Set(sizes)).slice(0,6),
+          type: result[2],
+          model: result[3],
+          catigoryCloth:result[6],
+          settings: [result[9], result[10], result[11], result[12],result[13], result[14], result[15], result[16], result[17]]
+      },
+      isSelect: false,
+      data: Array.from(new Set(sizes)).slice(0,6).map((item) =>{
+        return {name:item, valueNew:'', valueOld:''}
+      })     
+     }))
+  }
+
 
   return (
     <div className='d-flex justify-content-start my-3'>
@@ -18,13 +44,13 @@ export default function Products(props: ProductsProps) {
               value = {value}
               onChange = {(e) => setValue(e.target.value)}
       >
-      {productList.map((tw: any)=>(
+      {productListModel.map((tw: any)=>(
         <option key={tw} value={tw}>{tw}</option>
       ))}  
       </select>
-      {/* <button className='btn btn-sm btn-secondary mx-3'
-      onClick={()=>addProduct(value)}
-      >добавить</button> */}
+      <button className='btn btn-sm btn-secondary mx-3'
+      onClick={()=>handlerAddTag(value)}
+      >добавить</button>
     </div>
   )
 }

@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useRef, useState } from 'react'
-import { GlobalContext, inputContex, ItemsContext } from '../../pages/price'
+import { updateDataValue } from '../../features/tags/tagsSlice'
+import { useAppDispatch, useAppSelector } from '../../hooks/hooks'
 
 
 
@@ -10,78 +11,63 @@ interface inputProps  {
 
 
 export const InputOldPrice = ({name}:inputProps) => {
-
-    const context = useContext(inputContex)
-    const {tagItems, settagItems} = useContext(ItemsContext)
-    const {tag,setTag} = useContext(GlobalContext)
-
-    const handleInputChangeOld = (e:React.ChangeEvent<HTMLInputElement>) => {
-      if (context?.setState != undefined && context?.state != undefined)
-        context?.setState(context?.state?.map(val => {
-          if ('Old'+val.name === e.target.name)
-            // Create a *new* object with changes
-            return {...val, valueOld: e.target.value}
-          else 
-            return val
-            }))
-      }
-
-      const handleInputChangeNew = (y:React.ChangeEvent<HTMLInputElement>) => {
-        if (context?.setState != undefined && context?.state != undefined)
-          context?.setState(context?.state?.map(val => {
-            if ('New'+val.name === y.target.name)
-              // Create a *new* object with changes
-              return {...val, valueNew: y.target.value}
-            else 
-              return val
-              }))
-      }   
-
-    const handleChangeOld = (e:React.ChangeEvent<HTMLInputElement>) => {
-      handleInputChangeOld(e)
-    }  
-
-    const handleChangeNew = (y:React.ChangeEvent<HTMLInputElement>) => {
-      handleInputChangeNew(y)
-    }  
-
-    const InputText = () => {
-
+ 
       const [valueNew, setValueNew] = useState<string>()
       const [valueOld, setValueOld] = useState<string>()
+      const {data, id} = useAppSelector((state) => state.selectTag)
+      const {tagList} = useAppSelector((state) => state.tags) 
+      const dispatch = useAppDispatch()
       const oldPef = useRef<HTMLInputElement>(null)
+
 
       const handleSetNew = (e:React.ChangeEvent<HTMLInputElement>) => {
         setValueNew(e.target.value)
+        const newDataNew = data?.map((item:any, index) =>{
+          if ('NewInput'+`${index}`+item?.name === e.target.name+item?.name) {
+            console.log('NewInput'+`${index}`+ item?.name === e.target.name+item?.name)
+            return {...item, valueNew: e.target.value}
+          } 
+          else {
+            return item
+          } 
+        })
+        dispatch(updateDataValue(tagList.map((item:any) => {
+          if (id === item.id) 
+            return {...item, data: newDataNew}
+          return item
+        })))
       }
 
       const handleSetOld = (y:React.ChangeEvent<HTMLInputElement>) => {
         setValueOld(y.target.value)
+        const newDataOld = data?.map((item:any, index) =>{
+          if ('OldInput'+`${index}`+item?.name === y.target.name+item?.name) {
+            console.log('OldInput'+`${index}`+ item?.name === y.target.name+item?.name)
+            return {...item, valueOld: y.target.value}
+          } 
+          else {
+            return item
+          }  
+        })
+        dispatch(updateDataValue(tagList.map((item:any) => {
+          if (id === item.id) 
+            return {...item, data: newDataOld}
+          return item
+        })))
       }
-
-      useEffect(()=>{
-        console.log(oldPef)
-      },[])
-
 
       return (
         <>
         <div style={{'display':'inline', 'paddingRight':80, paddingLeft:30}}>
-          <input ref={oldPef} className='mb-1' onChange={(y)=> {handleChangeOld(y); handleSetOld(y)}} 
+          <input ref={oldPef} className='mb-1' onChange={(y)=> {handleSetOld(y)}} 
           value={valueOld} 
           name={`Old${name}`} 
           defaultValue='0'/>
         </div>
         <div style={{'display':'inline', 'paddingRight':40}}>
-          <input className='mb-1' onChange={(e)=> {handleChangeNew(e); handleSetNew(e)}} value={valueNew} name={`New${name}`} defaultValue='0'/>
+          <input className='mb-1' onChange={(e)=> { handleSetNew(e)}} value={valueNew} name={`New${name}`}/>
         </div>
         </>
       )  
     }
 
-  return (
-    <>
-    {InputText()}
-    </>
-  )
-}

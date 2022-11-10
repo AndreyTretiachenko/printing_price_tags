@@ -1,6 +1,6 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import useFitText from 'use-fit-text'
-import { DiscountContext, inputContex } from '../pages/price'
+import { useAppSelector } from '../hooks/hooks'
 import { Itag } from './Tags'
 
 interface ItagA4h {
@@ -9,10 +9,9 @@ interface ItagA4h {
 
 export const TagA4h = ({tag}:ItagA4h) => {
 
-    const dateTag = new Date()
-    const { fontSize, ref } = useFitText({logLevel:'debug', minFontSize:10, maxFontSize:100})
-    const context = useContext(inputContex)
-    const {state: discount} = useContext(DiscountContext)
+  const dateTag = new Date()
+  const { fontSize, ref } = useFitText({logLevel:'debug', minFontSize:10, maxFontSize:100})
+  const {data, discount} = useAppSelector((state) => state.selectTag)
 
   return (
     <div>
@@ -22,7 +21,7 @@ export const TagA4h = ({tag}:ItagA4h) => {
             <div className="parent">
               <div className="div1" style={{fontSize:'12pt', margin:'0.8rem', fontWeight:'500'}}>
                 <div className='d-flex justify-content-center align-items-center'
-                style={{marginBottom: '15px', height:'10%', textAlign:'center', backgroundColor:'#f0f0f0'}}>{tag.property?.settings?.[1]}</div>
+                style={{marginBottom: '15px', height:'10%', textAlign:'center', backgroundColor:'#f0f0f0'}}>{tag?.property?.settings?.[1]}</div>
                 <div className='d-flex justify-content-center align-items-center'
                 style={{marginBottom: '15px', height:'10%', textAlign:'center', backgroundColor:'#f0f0f0'}}>{tag?.property?.settings?.[2]}</div>
                 <div className='d-flex justify-content-center align-items-center'
@@ -57,7 +56,7 @@ export const TagA4h = ({tag}:ItagA4h) => {
                       0-0-10
                     </div>
                     <div style={{margin:'5px', display:'block', fontWeight:'bold'}}>
-                      от {Math.round(Number(context?.state?.[0]?.valueNew)/10)} руб
+                      {/* от {Math.round(Number(context?.state?.[0]?.valueNew)/10)} руб */}
                     </div>
                   </div>
                   <div  style={{display: 'block', width:'25%', fontSize:'18pt', textAlign:'center', fontWeight:'bold'}}>
@@ -65,7 +64,7 @@ export const TagA4h = ({tag}:ItagA4h) => {
                       0-0-9
                     </div>
                     <div style={{margin:'5px'}}>
-                      от {Math.round(Number(context?.state?.[0]?.valueNew)/9)} руб
+                      {/* от {Math.round(Number(context?.state?.[0]?.valueNew)/9)} руб */}
                     </div>
                   </div>
                   <div  style={{display: 'block', width:'25%', fontSize:'18pt', textAlign:'center', fontWeight:'bold'}}>
@@ -73,7 +72,7 @@ export const TagA4h = ({tag}:ItagA4h) => {
                       0-0-6
                     </div>
                     <div style={{margin:'5px'}}>
-                      от {Math.round(Number(context?.state?.[0]?.valueNew)/6)} руб
+                      {/* от {Math.round(Number(tagSetting?.values[0]?.valueNew)/6)} руб */}
                     </div>
                   </div>
                 </div>
@@ -90,11 +89,11 @@ export const TagA4h = ({tag}:ItagA4h) => {
                       </tr>
                     </thead>
                     <tbody style={{fontWeight:'500', fontSize:'24pt'}}>
-                        {context?.state?.map(item =>(
+                        {data?.map((item:any) =>(
                         <tr>
-                          <td>{item?.type}</td>
-                          <td style={{'textDecoration':'line-through'}}>{item?.valueOld} руб</td>
-                          <td>{item?.valueNew} руб</td>
+                          <td>{item.name}</td>
+                          <td style={{'textDecoration':'line-through'}}>{item.valueOld} руб</td>
+                          <td>{item.valueNew} руб</td>
                         </tr>  
                         ))}
                     </tbody>
