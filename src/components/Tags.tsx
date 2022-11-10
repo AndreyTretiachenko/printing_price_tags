@@ -8,7 +8,7 @@ import { useAppDispatch, useAppSelector } from '../hooks/hooks'
 export interface Itag {
   productName:string,
   productId: string,
-  discount?:number,
+  discount?:string,
   cheked?:boolean,
   id:string,
   property?:ItagProperty,
@@ -25,7 +25,7 @@ export interface TvalueInput {
 
 
 interface ItagProperty {
-  size?: number,
+  size?: string,
   allSize?:any[],
   type?:string,
   model?:string,
@@ -42,10 +42,8 @@ export default function Tags() {
 
   const handleSelectTag = (id:string) => {
     dispatch(selectTag(id))
-    setTimeout(()=>{
-      
-    })
     dispatch(setSelectTag(tagList.find((item:any)=> id === item.id)))
+    
   }
 
 
@@ -57,7 +55,7 @@ export default function Tags() {
   return (
     <>
     <div className='w-100' style={{position: 'relative', height:'67vh', overflowY: 'scroll', display:'block'}}>
-     {tagList.map((t:any)=>(
+     {tagList?.map((t:any)=>(
       <div key={t.id} className={`row mb-2 mx-2 ${t.isSelect ? 'bg-info text-white' : 'bg-light'}`} style={{border: '0.5px solid black'}} >
         <div className='col' style={{display:'inline'}}>
           <div style={{cursor: 'pointer'}}

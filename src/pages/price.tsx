@@ -12,6 +12,7 @@ export default function Price() {
 
     const dispatch = useAppDispatch()
     const {tagList} = useAppSelector((state) => state.tags)
+    const {selectTag} = useAppSelector((state)=> state)
 
 
     useEffect(()=>{
@@ -28,13 +29,6 @@ export default function Price() {
     },[])
  
 
-  const getSelectTag:any = () => {
-    if (tagList) {
-        const selectTag = tagList.find((item:any)=> item.isSelect)
-        return selectTag
-    }
-  }
-
 
   return (
 
@@ -49,7 +43,7 @@ export default function Price() {
                 <Tags/>
             </div>
             <div className="col-8 d-flex justify-content-start pt-2 mb-2" style={{border: '0.5px solid black'}}>
-                <TagSettings item={getSelectTag()} key={getSelectTag()?.id}/>
+                <TagSettings item={selectTag} key={selectTag.id}/>
             </div>
         </div>
         <div className="row" style={{marginBottom:'10px'}}>

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { setCheckedSelectTag, setDiscountSelectTag } from '../../features/selectTag/selectTagSlice'
 
 import { useAppDispatch, useAppSelector} from '../../hooks/hooks'
 import {InputOldPrice} from '../InputPrice/inputOldPrice'
@@ -6,7 +7,7 @@ import { Itag } from '../Tags'
 
 
 interface SettingProps {
-  item:Itag
+  item?:Itag
 }
 
 export const TagSettings = (props: SettingProps) => {
@@ -14,28 +15,19 @@ export const TagSettings = (props: SettingProps) => {
   const [value, setValue] = useState<string>('')
   const [valueCheck, setvalueCheck] = useState<boolean>()
 
-  const {tagList} = useAppSelector((state) => state.tags)
   const dispatch = useAppDispatch()
 
   
 
-  // const handlerAddDataTag = () => {
-  //   dispatch(setData(tagList.map((i:any) =>{
-  //     if (i.id === item.id)
-  //       return {...i, data:[]}
-  //     return i
-  //   })))
-  // }
-
 
   const handleChangeChecked = (e:React.ChangeEvent<HTMLInputElement>) => {
     setvalueCheck(e.target.checked)
-    // dispatch(setSettingCheked(e.target.checked))
+    dispatch(setCheckedSelectTag(e.target.checked))
   }
 
   const handleChangeDiscount = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value)
-    // dispatch(setSettingDiscount(e.target.value))
+    dispatch(setDiscountSelectTag(e.target.value))
   }
 
 

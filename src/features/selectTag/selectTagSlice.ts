@@ -24,12 +24,30 @@ const selectTagSlice = createSlice({
     initialState,
     reducers:{
         setSelectTag:(state, action) => {
-            state = action.payload 
+            return action.payload
+        },
+        updateDataSelectTag: (state, action) => {
+            return {
+                ...state,
+                data: action.payload
+            }
+        },
+        setCheckedSelectTag: (state, action) => {
+            return {
+                ...state,
+                cheked: action.payload
+            }
+        },
+        setDiscountSelectTag: (state, action) => {
+            return {
+                ...state,
+                discount: action.payload
+            }
         }
     }
 })    
 
 
 
-export const { setSelectTag } = selectTagSlice.actions
+export const { setSelectTag, updateDataSelectTag, setCheckedSelectTag, setDiscountSelectTag } = selectTagSlice.actions
 export default selectTagSlice.reducer
