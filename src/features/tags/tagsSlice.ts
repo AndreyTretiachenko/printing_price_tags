@@ -42,6 +42,7 @@ const tagsSlice = createSlice({
         }
       },
       updateDataValue: (state, action) => {
+        
         return {
           ...state,
           tagList: action.payload
