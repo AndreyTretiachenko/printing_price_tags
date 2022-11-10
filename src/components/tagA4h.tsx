@@ -11,7 +11,7 @@ export const TagA4h = ({tag}:ItagA4h) => {
 
   const dateTag = new Date()
   const { fontSize, ref } = useFitText({logLevel:'debug', minFontSize:10, maxFontSize:100})
-  const {data, discount} = useAppSelector((state) => state.selectTag)
+  const {data} = useAppSelector((state) => state.selectTag)
 
   return (
     <div>
@@ -77,7 +77,7 @@ export const TagA4h = ({tag}:ItagA4h) => {
                   </div>
                 </div>
               </div>
-              <div className="div4 d-flex justify-content-center align-items-center" style={{padding:20}}>{discount}%</div>
+              <div className="div4 d-flex justify-content-center align-items-center" style={{padding:20}}>{tag?.discount}%</div>
               <div className="div5 d-flex" style={{height:'350px'}}>
                 <div className='w-100'>
                   <table className='w-100' style={{textAlign:'center'}}>

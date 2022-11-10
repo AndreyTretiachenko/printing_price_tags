@@ -9,10 +9,11 @@ import { Itag } from '../Tags'
 interface inputProps  {
     name:string
     id:string
+    defvalue:{name:string, valueNew:string, valueOld:string}
 }
 
 
-export const InputOldPrice = ({name}:inputProps) => {
+export const InputOldPrice = ({name, defvalue}:inputProps) => {
  
       const [valueNew, setValueNew] = useState<string>()
       const [valueOld, setValueOld] = useState<string>()
@@ -67,10 +68,10 @@ export const InputOldPrice = ({name}:inputProps) => {
           <input className='mb-1' onChange={(y)=> {handleSetOld(y)}} 
           value={valueOld} 
           name={`Old${name}`} 
-          defaultValue='0'/>
+          defaultValue={defvalue?.valueOld}/>
         </div>
         <div style={{'display':'inline', 'paddingRight':40}}>
-          <input className='mb-1' onChange={(e)=> { handleSetNew(e)}} value={valueNew} name={`New${name}`}/>
+          <input defaultValue={defvalue?.valueNew} className='mb-1' onChange={(e)=> { handleSetNew(e)}} value={valueNew} name={`New${name}`}/>
         </div>
         </>
       )  

@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { setCheckedSelectTag, setDiscountSelectTag } from '../../features/selectTag/selectTagSlice'
 
-import { useAppDispatch, useAppSelector} from '../../hooks/hooks'
+import { useAppDispatch} from '../../hooks/hooks'
 import {InputOldPrice} from '../InputPrice/inputOldPrice'
 import { Itag } from '../Tags'
 
 
 interface SettingProps {
-  item?:Itag
+  item:Itag
 }
 
 export const TagSettings = (props: SettingProps) => {
@@ -40,10 +40,10 @@ export const TagSettings = (props: SettingProps) => {
         </div>
         <div className='col-6 mb-2'>
           <label htmlFor='discountInput'>Введите размер скидки:</label>  
-          <input name='discountInput' type={'number'} placeholder={'укажите скидку в %'} value={value} onChange={handleChangeDiscount}></input>
+          <input name='discountInput' type={'number'} placeholder={'укажите скидку в %'} value={item?.discount ? item?.discount:value} onChange={handleChangeDiscount}></input>
         </div>
       <div style={{display:'inline'}} className='mb-2 mx-2' defaultChecked={false}>
-          <input name='multiTag' type={'checkbox'} checked={valueCheck} onChange={handleChangeChecked} />
+          <input defaultChecked={item?.cheked} name='multiTag' type={'checkbox'} checked={valueCheck} onChange={handleChangeChecked} />
           <label htmlFor="multiTag" style={{paddingLeft:10}}> добавить на лист</label>
       </div>
       </div>
@@ -62,17 +62,14 @@ export const TagSettings = (props: SettingProps) => {
                 <div style={{'display':'inline-flex'}}>{size}</div>  
               </div>
               <div className='col-9'>
-              <div style={{'display':'inline-flex'}}><InputOldPrice key={`Old${size}`} id={index.toString()} name={`Input${index}`} /></div>
+              <div style={{'display':'inline-flex'}}><InputOldPrice 
+              defvalue={item.data != undefined ? item?.data[index]: {name:'', valueNew:'', valueOld:''}}
+              key={`Old${size}`} id={index.toString()} name={`Input${index}`} /></div>
               </div> 
               </div>
               </>
             )
         })}
-        </div>
-      </div>
-      <div className='row'>
-        <div className='col'>
-          <button className='btn btn-primary'>применить</button>
         </div>
       </div>
     </div>

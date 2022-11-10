@@ -11,7 +11,6 @@ import { useAppDispatch, useAppSelector } from "../hooks/hooks"
 export default function Price() {
 
     const dispatch = useAppDispatch()
-    const {tagList} = useAppSelector((state) => state.tags)
     const {selectTag} = useAppSelector((state)=> state)
 
 
