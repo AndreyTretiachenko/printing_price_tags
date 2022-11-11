@@ -12,6 +12,7 @@ interface SettingProps {
 
 export const TagSettings = (props: SettingProps) => {
   const { item } = props
+  const [variant, setVariant] = useState('')
 
   const dispatch = useAppDispatch()
 
@@ -40,9 +41,27 @@ export const TagSettings = (props: SettingProps) => {
           <label htmlFor="multiTag" style={{paddingLeft:10}} > добавить на лист</label>
       </div>
       </div>
-      <div className='row' style={{padding:10}}>
+      <div className='row'>
         <div className='col'>
-        <div className='row ' style={{padding:10}}>
+          <div>
+            <input type={'radio'} value='size' name='variant' id='sizeRadio' 
+            onChange={() => setVariant('size')}
+            />
+            <label htmlFor='sizeRadio'>по размерам</label>
+            <input type='radio' value='fix' name='variant' id='fixRadio' 
+            onChange={() => setVariant('fix')}
+            />
+            <label htmlFor='fixRadio'>цена выставочного образца</label>
+            <input type='radio' value='at' name='variant' id='atRadio' 
+            onChange={() => setVariant('at')}
+            />
+            <label htmlFor='atRadio'>цена ОТ</label>
+          </div>
+        </div>
+      </div>
+      <div className='row' hidden={variant !== 'size' ? true : false}style={{padding:10}}>
+        <div className='col'>
+        <div className='row '  style={{padding:10}}>
                 <div className='col-4'>Размер</div>
                 <div className='col-4'>Старая цена</div>
                 <div className='col-4'>Новая цена</div>
