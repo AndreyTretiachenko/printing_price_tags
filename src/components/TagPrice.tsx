@@ -3,6 +3,7 @@ import { useReactToPrint } from 'react-to-print'
 import { useAppSelector } from '../hooks/hooks';
 import { TagA4h } from './tagA4h';
 import TagPodves from './tagPodves';
+import { Itag } from './Tags';
 
 interface ItagPriceProps {
   tagType?:string
@@ -36,14 +37,20 @@ const TagPrice = (props:ItagPriceProps) => {
   
     <div ref={componentRef}>
       <>
-      {tagList.map((item:any) =>  {
+      {tagType === 'a4h' && tagList.map((item:any) =>  {
         if (item.checked === true) 
           return (<TagA4h tag={item} key={item.id}/>)
       })
       }
       </>
       {tagType === 'a4v' && <div> формат ценника в разработке </div>}
-      {tagType === 'podves' && <TagPodves tag={selectTag}/>}
+      {tagType === 'podves' && 
+      tagList.map((item:Itag) => {
+        if (item.checked)
+          return <TagPodves tag={item}/>
+      })
+      
+      }
       {tagType === 'noset' && <div> необходимо выбрать формат ценника </div>}
     </div>
     
