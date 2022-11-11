@@ -17,7 +17,7 @@ export const InputOldPrice = ({name, defvalue}:inputProps) => {
  
       const [valueNew, setValueNew] = useState<string>()
       const [valueOld, setValueOld] = useState<string>()
-      const {data, id, cheked, discount} = useAppSelector((state) => state.selectTag)
+      const {data, id, checked, discount} = useAppSelector((state) => state.selectTag)
       const {tagList} = useAppSelector((state) => state.tags) 
       const dispatch = useAppDispatch()
 
@@ -54,13 +54,15 @@ export const InputOldPrice = ({name, defvalue}:inputProps) => {
             return {
               ...item, 
               data: data,
-              cheked: cheked,
+              checked: checked,
               discount: discount
             } 
           return item
-        })))
+        }
+        )
+      ))
 
-      }, [data, cheked, discount])
+      }, [data, checked, discount])
 
       return (
         <>

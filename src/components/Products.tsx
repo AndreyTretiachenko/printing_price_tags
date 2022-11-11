@@ -19,7 +19,7 @@ export default function Products() {
      dispatch(addTag({
       productId: result[1],
       productName: result[0],
-      cheked: false,
+      checked: false,
       id: result[0],
       property: {
           size:result[4],

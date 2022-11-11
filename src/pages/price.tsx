@@ -3,6 +3,7 @@ import Products from "../components/Products"
 import TagPrice from "../components/TagPrice"
 import Tags from "../components/Tags"
 import { TagSettings } from "../components/TagSettings/Tagsettings"
+import { setStatus } from "../features/print/printSlice"
 import { loadProducts, setProductListModel } from "../features/products/productSlice"
 import { useAppDispatch, useAppSelector } from "../hooks/hooks"
 
@@ -12,6 +13,15 @@ export default function Price() {
 
     const dispatch = useAppDispatch()
     const {selectTag} = useAppSelector((state)=> state)
+    const {tagList} = useAppSelector((state) => state.tags)
+
+    const handleClickPrint = () => {
+        dispatch(setStatus(true))
+        setTimeout(()=>{
+            dispatch(setStatus(false))
+        }, 500)
+
+    }
 
 
     useEffect(()=>{
@@ -48,7 +58,7 @@ export default function Price() {
         <div className="row" style={{marginBottom:'10px'}}>
         <div className="col-4 px-0"> 
                 <label htmlFor='TagType'>Формат ценника:&nbsp;</label>
-                <select  name={'TagType'}>
+                <select disabled  name={'TagType'}>
                     <option value={'noset'}>
                         не выбран
                     </option>
@@ -64,15 +74,14 @@ export default function Price() {
                 </select>
             </div>
             <div className="col-2 px-0"> 
-                <button>Печать</button>
+                <button onClick={handleClickPrint}>Печать</button>
             </div>
         </div>
         <div className="row" style={{display:'block', marginBottom: '30px',border: '0.5px solid black'}}>
             <div className="col-12">
-                <TagPrice tagType="a4h"/>
+                <TagPrice tagType="podves"/>
             </div>
         </div>
     </div>
-
   )
 }

@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useRef, useState } from 'react'
-import { setSelectTag } from '../features/selectTag/selectTagSlice'
+import React from 'react'
+import { setSelectTag, updateDataSelectTag } from '../features/selectTag/selectTagSlice'
 import { deleteTag, selectTag } from '../features/tags/tagsSlice'
 
 import { useAppDispatch, useAppSelector } from '../hooks/hooks'
@@ -9,7 +9,7 @@ export interface Itag {
   productName:string,
   productId: string,
   discount?:string,
-  cheked?:boolean,
+  checked?:boolean,
   id:string,
   property?:ItagProperty,
   isSelect?: boolean,
@@ -43,13 +43,12 @@ export default function Tags() {
   const handleSelectTag = (id:string) => {
     dispatch(selectTag(id))
     dispatch(setSelectTag(tagList.find((item:any)=> id === item.id)))
-    
   }
 
 
   const handleDeleteDivTag = (e:string) => {
     dispatch(deleteTag(e))
-    
+    dispatch(setSelectTag({}))
   }
   
   return (
@@ -74,9 +73,12 @@ export default function Tags() {
           </button>
           </div>
         </div>
+        <div className='col' style={{position:'relative'}}>
+          {t.checked && (
+          <>
+          <div className={t.isSelect ? 'text-white' : 'text-success' } style={{fontSize:'10pt', position:'absolute', bottom:0}}>добавлен на лист</div>
+          </>)}
         </div>
-        <div className='col'>
-        
         </div>
       </div>
       ))}

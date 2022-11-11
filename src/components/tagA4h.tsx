@@ -15,7 +15,7 @@ export const TagA4h = ({tag}:ItagA4h) => {
 
   return (
     <div>
-      <div className='container' style={{}}>
+      <div className='container' style={{paddingBottom:10}}>
         <div className='row'>
           <div className='col'>
             <div className="parent">
@@ -89,7 +89,7 @@ export const TagA4h = ({tag}:ItagA4h) => {
                       </tr>
                     </thead>
                     <tbody style={{fontWeight:'500', fontSize:'24pt'}}>
-                        {data?.map((item:any) =>(
+                        {tag.data?.map((item:any) =>(
                         <tr>
                           <td>{item.name}</td>
                           <td style={{'textDecoration':'line-through'}}>{item.valueOld} руб</td>

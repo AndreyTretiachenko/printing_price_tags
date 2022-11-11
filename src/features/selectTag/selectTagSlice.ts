@@ -5,7 +5,7 @@ const initialState = {
     productId: '',
       productName: '',
       discount:'',
-      cheked: false,
+      checked: false,
       id: '',
       property: {
           size: '',
@@ -35,7 +35,7 @@ const selectTagSlice = createSlice({
         setCheckedSelectTag: (state, action) => {
             return {
                 ...state,
-                cheked: action.payload
+                checked: action.payload
             }
         },
         setDiscountSelectTag: (state, action) => {
