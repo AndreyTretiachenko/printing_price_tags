@@ -69,7 +69,7 @@ export default function Products() {
         <option value={tw}>{tw}</option>
       ))}  
       </select>
-      <button className='btn btn-sm btn-secondary mx-3'
+      <button className='btn btn-sm btn-primary mx-3'
       onClick={()=>hadlerGetProduct(category)}
       >загрузить</button>
       </div>
@@ -86,7 +86,7 @@ export default function Products() {
       ))}  
       </select>
       
-      <button className='btn btn-sm btn-secondary mx-3'
+      <button className='btn btn-sm btn-success mx-3'
       onClick={()=>handlerAddTag(value)}
       >добавить</button>
       </div>

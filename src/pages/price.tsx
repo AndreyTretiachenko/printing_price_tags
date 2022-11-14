@@ -1,10 +1,10 @@
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import Products from "../components/Products"
 import TagPrice from "../components/TagPrice"
 import Tags from "../components/Tags"
 import { TagSettings } from "../components/TagSettings/Tagsettings"
 import { setStatus } from "../features/print/printSlice"
-import { loadProducts, setCategoryList, setProductListModel } from "../features/products/productSlice"
+import { setCategoryList } from "../features/products/productSlice"
 import { useAppDispatch, useAppSelector } from "../hooks/hooks"
 
 
@@ -13,7 +13,7 @@ export default function Price() {
 
     const dispatch = useAppDispatch()
     const {selectTag} = useAppSelector((state)=> state)
-    const {tagList} = useAppSelector((state) => state.tags)
+    const [tagType, setTagType] = useState('')
 
     const handleClickPrint = () => {
         dispatch(setStatus(true))
@@ -57,14 +57,17 @@ export default function Price() {
         <div className="row" style={{marginBottom:'10px'}}>
         <div className="col-4 px-0"> 
                 <label htmlFor='TagType'>Формат ценника:&nbsp;</label>
-                <select disabled  name={'TagType'}>
+                <select  name={'TagType'}
+                onChange={(e) => setTagType(e.currentTarget.value)}
+                
+                >
                     <option value={'noset'}>
                         не выбран
                     </option>
                     <option value={'a4h'}>
-                        a4 горионтальный
+                        a4 гориpзонтальный
                     </option>
-                    <option value={'a4v'}>
+                    <option hidden value={'a4v'}>
                         a4 вертикальный
                     </option>
                     <option value={'podves'}>
@@ -78,7 +81,7 @@ export default function Price() {
         </div>
         <div className="row" style={{display:'block', marginBottom: '30px',border: '0.5px solid black'}}>
             <div className="col-12">
-                <TagPrice tagType="podves"/>
+                <TagPrice tagType={tagType}/>
             </div>
         </div>
     </div>

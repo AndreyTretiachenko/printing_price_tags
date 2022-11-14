@@ -1,6 +1,5 @@
 import React from 'react'
 import useFitText from 'use-fit-text'
-import { useAppSelector } from '../hooks/hooks'
 import { Itag } from './Tags'
 
 interface ItagA4h {
@@ -11,7 +10,7 @@ export const TagA4h = ({tag}:ItagA4h) => {
 
   const dateTag = new Date()
   const { fontSize, ref } = useFitText({logLevel:'debug', minFontSize:10, maxFontSize:100})
-  const {data} = useAppSelector((state) => state.selectTag)
+
 
   return (
     <div>

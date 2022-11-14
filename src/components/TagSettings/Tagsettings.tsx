@@ -13,7 +13,7 @@ interface SettingProps {
 export const TagSettings = (props: SettingProps) => {
   const { item } = props
   const [variant, setVariant] = useState('size')
-  const {fixNewPrice,fixOldPrice} = useAppSelector((state) => state.selectTag)
+  const {fixNewPrice,fixOldPrice, discount, checked} = useAppSelector((state) => state.selectTag)
   const {tagList} = useAppSelector((state) => state.tags) 
 
   const dispatch = useAppDispatch()
@@ -32,7 +32,9 @@ export const TagSettings = (props: SettingProps) => {
         return {
           ...i, 
           fixNewPrice: fixNewPrice,
-          fixOldPrice: fixOldPrice
+          fixOldPrice: fixOldPrice,
+          discount: discount,
+          checked: checked
         } 
       return i
     }
@@ -58,7 +60,7 @@ export const TagSettings = (props: SettingProps) => {
           <label htmlFor="multiTag" style={{paddingLeft:5}} > добавить на лист</label>
       </div>
       </div>
-      <div className='row'>
+      <div className='row' style={{marginBottom:10}}>
         <div className='col'>
           <div style={{display:'inline'}}>
             <div style={{display:'inherit', paddingRight:30}}>
@@ -83,20 +85,20 @@ export const TagSettings = (props: SettingProps) => {
         </div>
       </div>
       {variant === 'size' && 
-      <div className='row' style={{paddingTop:10}}>
+      <div className='row' style={{marginTop:5, marginBottom:5, paddingTop:5, paddingBottom:5, border: '0.5px solid black'}}>
         
         <div className='col'>
-        <div className='row '  style={{padding:10}}>
-                <div className='col-4'>Размер</div>
-                <div className='col-4'>Старая цена</div>
-                <div className='col-4'>Новая цена</div>
+        <div className='row '  style={{padding:5, fontWeight:'500'}}>
+                <div className='col-3' style={{textAlign:'center'}}>Размер</div>
+                <div className='col-4' style={{textAlign:'center'}}>Старая цена</div>
+                <div className='col-4' style={{textAlign:'center'}}>Новая цена</div>
         </div>
         {item?.property?.allSize?.map((size, index) => {
             return ( 
               <> 
               <div className='row' key={size}>
                 <div className='col-3' > 
-                  <div style={{'display':'inline-flex'}}>{size}</div>  
+                  <div style={{textAlign:'center'}}>{size}</div>  
                 </div>
               <div className='col-9'>
                 <div style={{'display':'inline-flex'}}>
@@ -115,11 +117,11 @@ export const TagSettings = (props: SettingProps) => {
       <div className='row' style={{paddingTop:10}}>
         <div className='col'>
           <label htmlFor='oldFixPrice'>старая цена выставочного образца</label>
-          <input name={'oldFixPrice'} onChange={(e) => dispatch(setFixOldPriceSelectTag(e.target.value))} />
+          <input name={'oldFixPrice'} defaultValue={item.fixOldPrice} onChange={(e) => dispatch(setFixOldPriceSelectTag(e.target.value))} />
         </div>
         <div className='col'>
           <label htmlFor='NewFixPrice'>новая цена выставочного образца</label>
-          <input name={'NewFixPrice'} onChange={(e) => dispatch(setFixNewPriceSelectTag(e.target.value))} />
+          <input name={'NewFixPrice'} defaultValue={item.fixNewPrice} onChange={(e) => dispatch(setFixNewPriceSelectTag(e.target.value))} />
           
         </div>
       </div>
