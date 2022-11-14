@@ -56,7 +56,7 @@ export const TagA4h = ({tag}:ItagA4h) => {
                       0-0-10
                     </div>
                     <div style={{margin:'5px', display:'block', fontWeight:'bold'}}>
-                      от {Math.round(Number(tag?.data?.[0].valueNew)/10)} руб
+                      от {Math.round(Number(tag?.data?.[0].valueNew.replaceAll(' ',''))/10)} руб
                     </div>
                   </div>
                   <div  style={{display: 'block', width:'25%', fontSize:'18pt', textAlign:'center', fontWeight:'bold'}}>
@@ -64,7 +64,7 @@ export const TagA4h = ({tag}:ItagA4h) => {
                       0-0-9
                     </div>
                     <div style={{margin:'5px'}}>
-                      от {Math.round(Number(tag?.data?.[0].valueNew)/9)} руб
+                      от {Math.round(Number(tag?.data?.[0].valueNew.replaceAll(' ',''))/9)} руб
                     </div>
                   </div>
                   <div  style={{display: 'block', width:'25%', fontSize:'18pt', textAlign:'center', fontWeight:'bold'}}>
@@ -72,7 +72,7 @@ export const TagA4h = ({tag}:ItagA4h) => {
                       0-0-6
                     </div>
                     <div style={{margin:'5px'}}>
-                      от {Math.round(Number(tag?.data?.[0].valueNew)/6)} руб
+                      от {Math.round(Number(tag?.data?.[0].valueNew.replaceAll(' ',''))/6)} руб
                     </div>
                   </div>
                 </div>

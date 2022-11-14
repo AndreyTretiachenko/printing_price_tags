@@ -70,7 +70,8 @@ export const InputOldPrice = ({name, defvalue}:inputProps) => {
           <input className='mb-1' onChange={(y)=> {handleSetOld(y)}} 
           value={valueOld} 
           name={`Old${name}`} 
-          defaultValue={defvalue?.valueOld}/>
+          defaultValue={defvalue?.valueOld}
+          />
         </div>
         <div style={{'display':'inline', 'paddingRight':40}}>
           <input defaultValue={defvalue?.valueNew} className='mb-1' onChange={(e)=> { handleSetNew(e)}} value={valueNew} name={`New${name}`}/>

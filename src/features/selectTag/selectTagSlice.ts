@@ -7,6 +7,8 @@ const initialState = {
       discount:'',
       checked: false,
       id: '',
+      fixOldPrice:'',
+      fixNewPrice:'',
       property: {
           size: '',
           allSize: [],
@@ -43,11 +45,24 @@ const selectTagSlice = createSlice({
                 ...state,
                 discount: action.payload
             }
+        },
+        setFixOldPriceSelectTag: (state, action) => {
+            return {
+                ...state,
+                fixOldPrice: action.payload
+            }
+        },
+        setFixNewPriceSelectTag: (state, action) => {
+            return {
+                ...state,
+                fixNewPrice: action.payload
+            }
         }
     }
 })    
 
 
 
-export const { setSelectTag, updateDataSelectTag, setCheckedSelectTag, setDiscountSelectTag } = selectTagSlice.actions
+export const { setSelectTag, updateDataSelectTag, setCheckedSelectTag, setDiscountSelectTag, setFixNewPriceSelectTag
+, setFixOldPriceSelectTag} = selectTagSlice.actions
 export default selectTagSlice.reducer

@@ -4,7 +4,7 @@ import TagPrice from "../components/TagPrice"
 import Tags from "../components/Tags"
 import { TagSettings } from "../components/TagSettings/Tagsettings"
 import { setStatus } from "../features/print/printSlice"
-import { loadProducts, setProductListModel } from "../features/products/productSlice"
+import { loadProducts, setCategoryList, setProductListModel } from "../features/products/productSlice"
 import { useAppDispatch, useAppSelector } from "../hooks/hooks"
 
 
@@ -25,16 +25,15 @@ export default function Price() {
 
 
     useEffect(()=>{
-       fetch('http://service.dvinahome.ru/?count=2000',
-            {
-                method: 'POST',
-                headers: {'Authorization':'basic dXNlcjpwYXNz'}
-            }
-        ).then((res) => {
-            return res.json()}).then(result => {
-                dispatch(loadProducts(result['data']))
-                dispatch(setProductListModel(result['data']))  
-        })
+        fetch('http://service.dvinahome.ru/getCategory',
+        {
+            method: 'POST',
+            headers: {'Authorization':'basic dXNlcjpwYXNz'}
+        }
+            ).then((res) => {
+        return res.json()}).then(result => {
+            dispatch(setCategoryList(result['data']))
+    })
     },[])
  
 

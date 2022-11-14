@@ -13,7 +13,9 @@ export interface Itag {
   id:string,
   property?:ItagProperty,
   isSelect?: boolean,
-  data?:TvalueInput[]
+  data?:TvalueInput[],
+  fixOldPrice?:string,
+  fixNewPrice?:string
 }
 
 export interface TvalueInput {
@@ -59,7 +61,7 @@ export default function Tags() {
         <div className='col' style={{display:'inline'}}>
           <div style={{cursor: 'pointer'}}
           onClick={(e)=>handleSelectTag(t.id)}
-            >{t?.property?.model}
+            >{t?.productName}
           </div>
         </div>
       <div className='row'>
