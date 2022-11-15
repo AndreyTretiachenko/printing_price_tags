@@ -2,6 +2,7 @@ import React, {useEffect, useRef, useState} from 'react'
 import { useReactToPrint } from 'react-to-print'
 import { useAppSelector } from '../hooks/hooks';
 import { TagA4h } from './tagA4h';
+import { TagA4v } from './tagA4v';
 import TagPodves from './tagPodves';
 import { Itag } from './Tags';
 
@@ -36,14 +37,16 @@ const TagPrice = (props:ItagPriceProps) => {
   return (
   
     <div ref={componentRef}>
-      <>
       {tagType === 'a4h' && tagList.map((item:any) =>  {
         if (item.checked === true) 
           return (<TagA4h tag={item} key={item.id}/>)
       })
       }
-      </>
-      {tagType === 'a4v' && <div> формат ценника в разработке </div>}
+      {tagType === 'a4v' && tagList.map((item:any) =>  {
+        if (item.checked === true) 
+          return (<TagA4v tag={item} key={item.id}/>)
+      })
+      }
       {tagType === 'podves' && 
       tagList.map((item:Itag) => {
         if (item.checked)
