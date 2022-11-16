@@ -1,6 +1,7 @@
 import React from "react";
 import useFitText from "use-fit-text";
 import { Itag } from "./Tags";
+import { FormControl } from "@mui/material";
 
 interface ItagA4v {
   tag: Itag;
@@ -23,12 +24,12 @@ export const TagA4v = ({ tag }: ItagA4v) => {
       </div>
       <div className="row">
         <div className="col">
-          Модель
+
         </div>
       </div>
       <div className="row">
         <div className="col">
-        <div style={{padding:20, backgroundColor:'rgb(239,66,111)'}}>{tag?.discount}%</div>
+        <div style={{padding:20, backgroundColor:'rgb(239,66,111)', marginLeft:'auto', marginRight:0}}>{tag?.discount}%</div>
         </div>
       </div>
     </div>

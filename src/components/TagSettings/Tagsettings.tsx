@@ -17,7 +17,7 @@ interface SettingProps {
 export const TagSettings = (props: SettingProps) => {
   const { item } = props;
   const [variant, setVariant] = useState("size");
-  const { fixNewPrice, fixOldPrice, discount, checked } = useAppSelector(
+  const { fixNewPrice, fixOldPrice, discount, checked} = useAppSelector(
     (state) => state.selectTag
   );
   const { tagList } = useAppSelector((state) => state.tags);
@@ -54,19 +54,13 @@ export const TagSettings = (props: SettingProps) => {
     <>
       <div className="container mb-2">
         <div className="row">
-          <div className="col-6 mb-2">{item?.productName}</div>
-          <div className="col-6 mb-2">
-            <label htmlFor="discountInput">Введите размер скидки:</label>
-            <input
-              name="discountInput"
-              type={"number"}
-              placeholder={"укажите скидку в %"}
-              value={item?.discount ? item?.discount : ""}
-              onChange={handleChangeDiscount}
-            ></input>
-          </div>
+          <div className="col-12">
+          <label htmlFor="productName" style={{marginBottom:5}}>Наименование товара:</label>  
+          <div 
+            id = 'productName'
+            style={{marginBottom: 10 }}>{item?.productName ?<span>{item?.productName}</span>:<span>не выбран товар</span>}</div>
           <div
-            style={{ display: "inline", marginBottom: 20 }}
+            style={{marginBottom: 5 }}
             defaultChecked={false}
           >
             <input
@@ -80,7 +74,20 @@ export const TagSettings = (props: SettingProps) => {
               добавить на лист
             </label>
           </div>
+          </div>
+          <hr />
+          <div>
+          <label htmlFor="discountInput" style={{marginRight:5}}>Введите размер скидки:</label>
+            <input
+              name="discountInput"
+              type={"number"}
+              placeholder={"укажите скидку в %"}
+              value={item?.discount ? item?.discount : ""}
+              onChange={handleChangeDiscount}
+            ></input>
+            </div>
         </div>
+        <hr />
         <div className="row" style={{ marginBottom: 10 }}>
           <div className="col">
             <div style={{ display: "inline" }}>
@@ -141,14 +148,15 @@ export const TagSettings = (props: SettingProps) => {
                 <div className="col-3" style={{ textAlign: "center" }}>
                   Размер
                 </div>
-                <div className="col-4" style={{ textAlign: "center" }}>
+                <div className="col-4" style={{ textAlign: "center", marginLeft:50 }}>
                   Старая цена
                 </div>
-                <div className="col-4" style={{ textAlign: "center" }}>
+                <div className="col-4" style={{ textAlign: "center", marginLeft:0 }}>
                   Новая цена
                 </div>
               </div>
-              {item?.property?.allSize?.map((size, index) => {
+              {item?.property?.allSize?.at(0) != null ?
+              item?.property?.allSize?.map((size, index) => {
                 return (
                   <>
                     <div className="row" key={size}>
@@ -172,7 +180,10 @@ export const TagSettings = (props: SettingProps) => {
                     </div>
                   </>
                 );
-              })}
+              })
+              :
+              <div style={{textAlign:'center'}}>нет рамеров для заполения</div>
+              }
             </div>
           </div>
         )}
@@ -194,7 +205,8 @@ export const TagSettings = (props: SettingProps) => {
               >
                 старая цена выставочного образца
               </label>
-              <input
+              <input style={{marginTop:5, marginBottom:5}}
+                type={'number'}
                 name={"oldFixPrice"}
                 defaultValue={item.fixOldPrice}
                 onChange={(e) =>
@@ -209,7 +221,8 @@ export const TagSettings = (props: SettingProps) => {
               >
                 новая цена выставочного образца
               </label>
-              <input
+              <input style={{marginTop:5, marginBottom:5}}
+                type={'number'}
                 name={"NewFixPrice"}
                 defaultValue={item.fixNewPrice}
                 onChange={(e) =>

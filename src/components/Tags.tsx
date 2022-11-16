@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { setSelectTag, updateDataSelectTag } from '../features/selectTag/selectTagSlice'
 import { deleteTag, selectTag } from '../features/tags/tagsSlice'
 
@@ -39,7 +39,16 @@ interface ItagProperty {
 export default function Tags() {
 
   const {tagList} = useAppSelector((state) => state.tags)
+  const [colorOverTag, setColorOverTag] = useState('#F8F9FA')
   const dispatch = useAppDispatch()
+
+  const handleOverTag = (e: React.MouseEvent<HTMLDivElement>) => {
+    setColorOverTag('white')
+  }
+
+  const handleLeaveTag = () => {
+    setColorOverTag('#F8F9FA')
+  }
 
 
   const handleSelectTag = (id:string) => {
@@ -57,10 +66,13 @@ export default function Tags() {
     <>
     <div className='w-100' style={{position: 'relative', height:'67vh', overflowY: 'scroll', display:'block'}}>
      {tagList?.map((t:any)=>(
-      <div key={t.id} className={`row mb-2 mx-2 ${t.isSelect ? 'bg-info text-white' : 'bg-light'}`} style={{border: '0.5px solid black'}} >
+      <div key={t.id} className={`row mb-2 mx-2 ${t.isSelect ? 'bg-info text-white' : 'bg-light'}`} style={{ border: '0.5px solid black'}} >
         <div className='col' style={{display:'inline'}}>
-          <div style={{cursor: 'pointer'}}
-          onClick={(e)=>handleSelectTag(t.id)}
+          <div 
+          style={{cursor: 'pointer'}}
+          onMouseOver = {(e) => handleOverTag(e)}
+          onMouseLeave = {(e) => handleLeaveTag}
+          onClick={()=>handleSelectTag(t.id)}
             >{t?.productName}
           </div>
         </div>

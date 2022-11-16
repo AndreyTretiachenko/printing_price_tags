@@ -67,7 +67,7 @@ export default function Price() {
                     <option value={'a4h'}>
                         a4 гориpзонтальный
                     </option>
-                    <option  value={'a4v'}>
+                    <option  hidden value={'a4v'}>
                         a4 вертикальный
                     </option>
                     <option value={'podves'}>

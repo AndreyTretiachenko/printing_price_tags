@@ -19,7 +19,7 @@ const tagsSlice = createSlice({
                     return {...item, isSelect:!item.isSelect}
                   }
                   else {
-                    return {...item, isSelect:!item.isSelect}
+                    return item
                   }
                 }
                 else {

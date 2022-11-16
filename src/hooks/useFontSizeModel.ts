@@ -1,6 +1,6 @@
 import { Itag } from "../components/Tags"
 
-export const useFontSize = (tag:Itag) => {
+export const useFontSizeModel = (tag:Itag) => {
     let len = tag.property?.model?.length
 
     if (len && len >= 16 && len < 20) {
