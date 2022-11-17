@@ -4,6 +4,7 @@ import { useAppSelector } from "../hooks/hooks";
 import { TagA4h } from "./tagA4h";
 import { TagA4v } from "./tagA4v";
 import TagPodves from "./tagPodves";
+import TagPodvesOT from "./tagPodvesOT";
 import { Itag } from "./Tags";
 
 interface ItagPriceProps {
@@ -37,6 +38,10 @@ const TagPrice = (props: ItagPriceProps) => {
       {tagType === "podves" &&
         tagList.map((item: Itag) => {
           if (item.checked) return <TagPodves tag={item} />;
+        })}
+      {tagType === "podvesOT" &&
+        tagList.map((item: Itag) => {
+          if (item.checked) return <TagPodvesOT tag={item} />;
         })}
       {tagType === "noset" && <div> необходимо выбрать формат ценника </div>}
     </div>

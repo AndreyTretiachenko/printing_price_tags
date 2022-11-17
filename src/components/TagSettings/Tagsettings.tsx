@@ -114,20 +114,7 @@ export const TagSettings = (props: SettingProps) => {
                   onChange={() => setVariant("fix")}
                 />
                 <label htmlFor="fixRadio" style={{ paddingLeft: 5 }}>
-                  цена выставочного образца
-                </label>
-              </div>
-              <div style={{ display: "inherit" }}>
-                <input
-                  disabled
-                  type="radio"
-                  value="at"
-                  name="variant"
-                  id="atRadio"
-                  onChange={() => setVariant("at")}
-                />
-                <label htmlFor="atRadio" style={{ paddingLeft: 5 }}>
-                  цена ОТ
+                  цена выставочного образца/цена ОТ
                 </label>
               </div>
             </div>
@@ -204,9 +191,9 @@ export const TagSettings = (props: SettingProps) => {
             <div className="col">
               <label
                 htmlFor="oldFixPrice"
-                style={{ fontWeight: 500, marginTop: 5 }}
+                style={{ fontWeight: 500, marginTop:5, marginRight:5}}
               >
-                старая цена выставочного образца
+                старая цена
               </label>
               <input style={{marginTop:5, marginBottom:5}}
                 type={'number'}
@@ -220,11 +207,11 @@ export const TagSettings = (props: SettingProps) => {
             <div className="col">
               <label
                 htmlFor="NewFixPrice"
-                style={{ fontWeight: 500, marginTop: 5 }}
+                style={{ fontWeight:500, marginTop:5 , marginRight:5}}
               >
-                новая цена выставочного образца
+                новая цена
               </label>
-              <input style={{marginTop:5, marginBottom:5}}
+              <input style={{marginTop:5, marginBottom:5 }}
                 type={'number'}
                 name={"NewFixPrice"}
                 defaultValue={item.fixNewPrice}

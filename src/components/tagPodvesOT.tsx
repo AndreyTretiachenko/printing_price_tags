@@ -7,7 +7,7 @@ interface IpropsTagPodves {
   tag: Itag;
 }
 
-export default function TagPodves({ tag }: IpropsTagPodves) {
+export default function TagPodvesOT({ tag }: IpropsTagPodves) {
   const date = new Date();
   const fsizeModel = useFontSizeModel(tag);
   const fsizeType = useFontSizeType(tag);
@@ -36,18 +36,6 @@ export default function TagPodves({ tag }: IpropsTagPodves) {
                 style={{ width: "100%", fontSize: "11pt", display: "inline" }}
               >
                 Размер {tag?.property?.size}
-              </div>
-              <div
-                style={{
-                  width: "100%",
-                  fontSize: "11pt",
-                  display: "inline",
-                  paddingLeft: 3,
-                }}
-              >
-                {tag?.property?.catigoryCloth?.toString() === "0"
-                  ? ""
-                  : tag?.property?.catigoryCloth}
               </div>
             </div>
           </div>
@@ -105,13 +93,14 @@ export default function TagPodves({ tag }: IpropsTagPodves) {
               <div
                 style={{
                   width: "170px",
-                  fontSize: "21pt",
+                  fontSize: "19pt",
                   textAlign: "end",
                   marginLeft: "auto",
                   marginRight: "0",
                   textDecoration: "line-through",
                 }}
               >
+                от  
                 {tag?.fixOldPrice?.replace(
                   /(\d)(?=(\d\d\d)+([^\d]|$))/g,
                   "$1 "
@@ -132,17 +121,18 @@ export default function TagPodves({ tag }: IpropsTagPodves) {
               <div
                 style={{
                   width: "183px",
-                  fontSize: "25pt",
+                  fontSize: "22pt",
                   textAlign: "end",
                   marginLeft: "auto",
                   marginRight: "0",
                 }}
               >
+                <span style={{fontSize:'16pt'}}>от </span>
                 {tag?.fixNewPrice?.replace(
                   /(\d)(?=(\d\d\d)+([^\d]|$))/g,
                   "$1 "
                 )}{" "}
-                руб
+                <span style={{fontSize:'16pt'}}>руб</span>
               </div>
               <div
                 style={{
@@ -167,6 +157,7 @@ export default function TagPodves({ tag }: IpropsTagPodves) {
                   backgroundColor: "rgb(239,66,111)",
                   marginLeft: "auto",
                   marginRight: "0",
+                  marginTop:'15px'
                 }}
               >
                 <div style={{ fontSize: "8pt", textAlign: "center" }}>

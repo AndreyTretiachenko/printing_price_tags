@@ -42,7 +42,7 @@ export default function Price() {
 
     <div className='container'>
         <div className='row'>
-            <div className='col-12 my-3'>
+            <div className='col-12 my-3' style={{padding:'0 0'}}>
                 <Products />
             </div>
         </div>
@@ -75,11 +75,14 @@ export default function Price() {
                     <option value={'a4h'}>
                         a4 гориpзонтальный
                     </option>
-                    <option  hidden value={'a4v'}>
+                    <option  value={'a4v'}>
                         a4 вертикальный
                     </option>
                     <option value={'podves'}>
                         подвесной
+                    </option>
+                    <option value={'podvesOT'}>
+                        подвесной ОТ
                     </option>
                 </select>
             </div>
@@ -88,7 +91,7 @@ export default function Price() {
             </div>
         </div>
         <div className="row" style={{display:'block', marginBottom: '30px',border: '0.5px solid black'}}>
-            <div className="col-12">
+            <div className="col-12" style={{padding:'0 0'}}>
                 <TagPrice tagType={tagType}/>
             </div>
         </div>
