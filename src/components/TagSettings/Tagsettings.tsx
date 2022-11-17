@@ -52,13 +52,13 @@ export const TagSettings = (props: SettingProps) => {
 
   return (
     <>
-      <div className="container mb-2">
+      <div className="container mb-2 pt-2">
         <div className="row">
           <div className="col-12">
           <label htmlFor="productName" style={{marginBottom:5}}>Наименование товара:</label>  
           <div 
             id = 'productName'
-            style={{marginBottom: 10 }}>{item?.productName ?<span>{item?.productName}</span>:<span>не выбран товар</span>}</div>
+            style={{marginBottom: 10 }}>{item?.productName ?<span className="text-primary">{item?.productName}</span>:<span>не выбран товар</span>}</div>
           <div
             style={{marginBottom: 5 }}
             defaultChecked={false}
@@ -74,8 +74,9 @@ export const TagSettings = (props: SettingProps) => {
               добавить на лист
             </label>
           </div>
-          </div>
           <hr />
+          </div>
+          
           <div>
           <label htmlFor="discountInput" style={{marginRight:5}}>Введите размер скидки:</label>
             <input
@@ -90,7 +91,7 @@ export const TagSettings = (props: SettingProps) => {
         <hr />
         <div className="row" style={{ marginBottom: 10 }}>
           <div className="col">
-            <div style={{ display: "inline" }}>
+            <div style={{ display: "inline"}}>
               <div style={{ display: "inherit", paddingRight: 30 }}>
                 <input
                   defaultChecked
@@ -140,6 +141,7 @@ export const TagSettings = (props: SettingProps) => {
               marginBottom: 5,
               paddingTop: 5,
               paddingBottom: 5,
+              margin:'0 0px',
               border: "0.5px solid black",
             }}
           >
@@ -195,6 +197,7 @@ export const TagSettings = (props: SettingProps) => {
               marginBottom: 5,
               paddingTop: 5,
               paddingBottom: 5,
+              margin:'0 0px',
               border: "0.5px solid black",
             }}
           >

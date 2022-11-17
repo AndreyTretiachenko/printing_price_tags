@@ -47,14 +47,22 @@ export default function Price() {
             </div>
         </div>
         <div className="row">
-            <div className="col-4 d-block justify-content-start pt-2 mb-2" style={{border: '0.5px solid black'}}>
+            <div className="col" style={{padding:'0 0px', border: '0.5px solid black'}}>
+                <div style={{marginBottom:5,borderBottom: '0.5px solid black', textAlign:'center'}}>Очередь на печать</div>
                 <Tags/>
             </div>
-            <div className="col-8 d-flex justify-content-start pt-2 mb-2" style={{border: '0.5px solid black'}}>
+            <div className="col-8" 
+                style={{
+                    padding:'0 0px', 
+                    borderRight: '0.5px solid black',
+                    borderTop: '0.5px solid black',
+                    borderBottom: '0.5px solid black'
+                    }}>
+            <div style={{marginBottom:5,borderBottom: '0.5px solid black', textAlign:'center'}}>Настройки ценника для печати</div>
                 <TagSettings item={selectTag} key={selectTag.id}/>
             </div>
         </div>
-        <div className="row" style={{marginBottom:'10px'}}>
+        <div className="row" style={{marginBottom:'10px', marginTop:10}}>
         <div className="col-4 px-0"> 
                 <label htmlFor='TagType'>Формат ценника:&nbsp;</label>
                 <select  name={'TagType'}

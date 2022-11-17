@@ -1,7 +1,6 @@
 import React from "react";
 import useFitText from "use-fit-text";
 import { Itag } from "./Tags";
-import { FormControl } from "@mui/material";
 
 interface ItagA4v {
   tag: Itag;

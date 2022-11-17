@@ -159,7 +159,7 @@ export default function TagPodves({ tag }: IpropsTagPodves) {
               </div>
               <div
                 style={{
-                  width: "180px",
+                  width: "190px",
                   height: "70px",
                   fontSize: "12pt",
                   fontWeight: "500",
@@ -205,8 +205,8 @@ export default function TagPodves({ tag }: IpropsTagPodves) {
                   <div
                     style={{
                       display: "inline-flex",
-                      width: "55px",
-                      marginLeft: 10,
+                      width: "60px",
+                      marginLeft: 5,
                       textAlign: "center",
                     }}
                   >
@@ -218,7 +218,7 @@ export default function TagPodves({ tag }: IpropsTagPodves) {
                   <div
                     style={{
                       display: "inline-flex",
-                      width: "50px",
+                      width: "55px",
                       marginLeft: 5,
                       textAlign: "center",
                     }}
@@ -231,7 +231,7 @@ export default function TagPodves({ tag }: IpropsTagPodves) {
                   <div
                     style={{
                       display: "inline-flex",
-                      width: "50px",
+                      width: "55px",
                       marginLeft: 10,
                       textAlign: "center",
                     }}
