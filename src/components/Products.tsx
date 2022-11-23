@@ -31,7 +31,9 @@ export default function Products() {
         dispatch(loadProducts(result["data"]));
         dispatch(setProductListModel(result["data"]));
         dispatch(setDefaultProduct(result["data"][0][0]));
-      })
+      }).catch(()=>{
+        alert('не найдено совпадений в наименованиях')
+    })
   }
 
   const hadlerGetProduct = (value: string) => {
