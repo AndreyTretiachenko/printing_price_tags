@@ -1,7 +1,7 @@
 import React from 'react'
 
 export default function TagProfile() {
-    const storage = localStorage.getItem('profile')
+    const storage = localStorage.getItem('profile') || ''
   return (
     <>
     <div style={{display:'inline-flex', marginRight:10}}>
@@ -15,7 +15,7 @@ export default function TagProfile() {
         </button>
     </div>
     <div style={{display:'inline-flex'}}>
-        <span>{JSON.parse(storage || '')}</span>
+        <span>{JSON.parse(storage)}</span>
     </div>
     </>
   )
