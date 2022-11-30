@@ -66,7 +66,7 @@ export default function Tags() {
     <>
     <div className='w-100' style={{position: 'relative', height:'67vh', overflowY: 'scroll', display:'block'}}>
      {tagList?.map((t:any)=>(
-      <div key={t.id} className={`row mb-2 mx-2 ${t.isSelect ? 'bg-info text-white' : 'bg-light'}`} style={{ border: '0.5px solid black', boxShadow: '2px 4px 2px #dbdbdb'}} >
+      <div key={t.id} className={`row mb-2 mx-2 ${t.isSelect ? 'bg-secondary text-white' : 'bg-light'}`} style={{ border: '0.5px solid black', borderRadius:5, boxShadow: '2px 4px 2px #dbdbdb'}} >
         <div className='col' style={{display:'inline'}}>
           <div 
           style={{cursor: 'pointer'}}

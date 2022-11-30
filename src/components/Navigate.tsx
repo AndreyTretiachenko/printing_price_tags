@@ -11,7 +11,7 @@ function Navigate(props: NavigateProps) {
         <div className='container'>
           <div className='row'>
             <div className='col-12' style={{padding:'0 0px'}}>
-              <nav className="navbar navbar-expand-lg bg-light px-4 shadow mt-1 mb-2">
+              <nav className="navbar navbar-expand-lg bg-light px-4 mt-1 mb-2" style={{boxShadow: '2px 4px 2px #dbdbdb'}}>
                 <div className="container-fluid">
                   <a className="navbar-brand" href="/">{props.navigate.title}</a>
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Переключатель навигации">

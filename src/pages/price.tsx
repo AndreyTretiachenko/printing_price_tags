@@ -47,25 +47,27 @@ export default function Price() {
             </div>
         </div>
         <div className="row">
-            <div className="col" style={{padding:'0 0px', border: '0.5px solid black'}}>
+            <div className="col" style={{padding:'0 0px', border: '0.5px solid black', borderRadius:10}}>
                 <div style={{marginBottom:5,borderBottom: '0.5px solid black', textAlign:'center'}}>Очередь на печать</div>
                 <Tags/>
             </div>
             <div className="col-8" 
                 style={{
                     padding:'0 0px', 
+                    borderRadius:10,
                     borderRight: '0.5px solid black',
                     borderTop: '0.5px solid black',
                     borderBottom: '0.5px solid black'
                     }}>
-            <div style={{marginBottom:5,borderBottom: '0.5px solid black', textAlign:'center'}}>Настройки ценника для печати</div>
+            <div style={{marginBottom:5,borderBottom: '0.5px solid black',  textAlign:'center'}}>Настройки ценника для печати</div>
                 <TagSettings item={selectTag} key={selectTag.id}/>
             </div>
         </div>
         <div className="row" style={{marginBottom:'10px', marginTop:10}}>
-        <div className="col-4 px-0"> 
+        <div className="col-4 d-flex"> 
                 <label htmlFor='TagType'>Формат ценника:&nbsp;</label>
                 <select  name={'TagType'}
+                style={{width:220, borderBottom: '0.5px solid black', borderRadius:5}}
                 onChange={(e) => setTagType(e.currentTarget.value)}
                 
                 >
@@ -86,12 +88,14 @@ export default function Price() {
                     </option>
                 </select>
             </div>
-            <div className="col-2 px-0"> 
-                <button onClick={handleClickPrint}>Печать</button>
+            <div className="col"> 
+                <button 
+                className="btn btn-sm btn-success"
+                onClick={handleClickPrint}>Печать</button>
             </div>
         </div>
         <div className="row" style={{display:'block', marginBottom: '30px',border: '0.5px solid black'}}>
-            <div className="col-12" style={{padding:'0 0'}}>
+            <div className="col-12" style={{padding:'0 0', fontFamily:'system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue","Noto Sans","Liberation Sans",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji"'}}>
                 <TagPrice tagType={tagType}/>
             </div>
         </div>

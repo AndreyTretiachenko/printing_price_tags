@@ -80,6 +80,7 @@ export const InputOldPrice = ({ name, defvalue }: inputProps) => {
     <>
       <div style={{ display: "inline", paddingRight: 50, paddingLeft: 60 }}>
         <input
+          style={{borderRadius:5, border: '0.5px solid black'}}
           className="mb-1"
           onChange={(y) => {
             handleSetOld(y);
@@ -92,6 +93,7 @@ export const InputOldPrice = ({ name, defvalue }: inputProps) => {
       </div>
       <div style={{ display: "inline", paddingLeft: 18 }}>
         <input
+          style={{borderRadius:5, border: '0.5px solid black'}}
           type={"number"}
           defaultValue={defvalue?.valueNew}
           className="mb-1"

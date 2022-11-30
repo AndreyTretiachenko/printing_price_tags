@@ -80,6 +80,7 @@ export const TagSettings = (props: SettingProps) => {
           <div>
           <label htmlFor="discountInput" style={{marginRight:5}}>Введите размер скидки:</label>
             <input
+              style={{borderRadius:5, border: '0.5px solid black'}}
               name="discountInput"
               type={"number"}
               placeholder={"укажите скидку в %"}
@@ -128,12 +129,13 @@ export const TagSettings = (props: SettingProps) => {
               marginBottom: 5,
               paddingTop: 5,
               paddingBottom: 5,
+              borderRadius:7,
               margin:'0 0px',
               border: "0.5px solid black",
             }}
           >
             <div className="col">
-              <div className="row " style={{ padding: 5, fontWeight: "500" }}>
+              <div className="row " style={{ marginBottom:10, padding: 5, fontWeight: "500", borderBottom:'0.5px solid black'}}>
                 <div className="col-3" style={{ textAlign: "center" }}>
                   Размер
                 </div>
@@ -185,7 +187,8 @@ export const TagSettings = (props: SettingProps) => {
               paddingTop: 5,
               paddingBottom: 5,
               margin:'0 0px',
-              border: "0.5px solid black",
+              borderRadius:7,
+              border: '0.5px solid black',
             }}
           >
             <div className="col">
@@ -195,7 +198,7 @@ export const TagSettings = (props: SettingProps) => {
               >
                 старая цена
               </label>
-              <input style={{marginTop:5, marginBottom:5}}
+              <input style={{marginTop:5, marginBottom:5, borderRadius:5, border: "0.5px solid black"}}
                 type={'number'}
                 name={"oldFixPrice"}
                 defaultValue={item.fixOldPrice}
@@ -211,7 +214,7 @@ export const TagSettings = (props: SettingProps) => {
               >
                 новая цена
               </label>
-              <input style={{marginTop:5, marginBottom:5 }}
+              <input style={{marginTop:5, marginBottom:5, borderRadius:5, border: "0.5px solid black"}}
                 type={'number'}
                 name={"NewFixPrice"}
                 defaultValue={item.fixNewPrice}

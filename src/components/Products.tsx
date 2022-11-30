@@ -99,12 +99,12 @@ export default function Products() {
 
   return (
     <div>
-      <div style={{marginBottom:10}}>
-      <div style={{ paddingBottom: 10, display:'inline' }}>
+      <div style={{marginBottom:15, fontSize:'16px'}}>
+      <div style={{ display:'inline' }}>
         <label>выберите категорию товара:&nbsp;</label>
-        <div style={{ display: "inline" }}>
+        <div style={{ display: "inline-flex" }}>
           <select
-            style={{ width: "200px" }}
+            style={{ width: "200px", borderRadius: 5, border: '0.5px solid black'}}
             value={category}
             onChange={(e) => setCategory(e.target.value)}
           >
@@ -122,9 +122,12 @@ export default function Products() {
       </div>
       <div style={{display:'inline'}}>
         <label>поиск по названию товара:&nbsp;</label>
-        <input list='list' type={'text'} 
-        value={findroduct}
-        onChange={(e) => setFindProduct(e.target.value)}
+        <div style={{ display: "inline-flex"}}>
+        <input type={'text'} 
+          style={{borderRadius: 5, border: '0.5px solid black'}}
+          placeholder='введите фразу для поиска'
+          value={findroduct}
+          onChange={(e) => setFindProduct(e.target.value)}
         />
         <button
             className="btn btn-sm btn-primary mx-3"
@@ -132,13 +135,14 @@ export default function Products() {
         >
             поиск
         </button>
+        </div>
       </div>
       </div>
       <div>
         <label>выберите название товара:&nbsp;</label>
-        <div style={{ display: "inline" }}>
+        <div style={{ display: "inline-flex" }}>
           <select
-            style={{ width: "500px" }}
+            style={{ width: "500px", borderRadius: 5, border: '0.5px solid black'}}
             value = {defaultProduct}
             onChange={(e) => dispatch(setDefaultProduct(e.target.value))}
           >
@@ -152,7 +156,7 @@ export default function Products() {
             className="btn btn-sm btn-success mx-3"
             onClick={() => handlerAddTag(defaultProduct)}
           >
-            добавить
+            добавить в очередь
           </button>
         </div>
       </div>
