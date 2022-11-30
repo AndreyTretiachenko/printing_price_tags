@@ -3,6 +3,7 @@ import { setSelectTag, updateDataSelectTag } from '../features/selectTag/selectT
 import { deleteTag, selectTag } from '../features/tags/tagsSlice'
 
 import { useAppDispatch, useAppSelector } from '../hooks/hooks'
+import TagProfile from './tagProfile'
 
 
 export interface Itag {
@@ -95,8 +96,11 @@ export default function Tags() {
         </div>
         </div>
       </div>
-      ))}
+      ))} 
     </div>
+    <div style={{padding:'5px 10px 5px 10px',borderTop: '0.5px solid black'}}>
+        <TagProfile />
+      </div> 
     </>
   )
 }
