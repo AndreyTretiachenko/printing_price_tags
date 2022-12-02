@@ -43,8 +43,15 @@ export default function TagProfile({ store }:profileProps) {
             return item
          
     })
+    try {
         dispatch(updateProfile(updateList))
         localStorage.setItem('save_profile', JSON.stringify(updateList))
+        alert(`Вы сохранили изменения в профиле: ${nameProfile}`)
+    }
+    catch (err) {
+        alert(`Ошибка: ${err}`)
+    }
+    
     }
 
   return (
