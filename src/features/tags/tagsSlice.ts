@@ -9,8 +9,14 @@ const tagsSlice = createSlice({
     name: 'tags',
     initialState,
     reducers:{
+        refillTags:(state, action) => {
+          return {
+            ...state,
+            tagList: action.payload
+          }
+        },
         addTag: (state:any, action) => {
-            state = state.tagList.push(action.payload)
+          state = state.tagList.push(action.payload)
         },
         selectTag: (state:any, action) => {
             const select = state.tagList.map((item:any) => {
@@ -53,5 +59,5 @@ const tagsSlice = createSlice({
     }
 })
 
-export const { addTag, selectTag, deleteTag, updateDataValue } = tagsSlice.actions
+export const { addTag, selectTag, deleteTag, updateDataValue, refillTags } = tagsSlice.actions
 export default tagsSlice.reducer

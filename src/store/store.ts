@@ -1,6 +1,7 @@
 import {configureStore} from '@reduxjs/toolkit'
 import printSlice from '../features/print/printSlice'
 import productSlice from '../features/products/productSlice'
+import profileTagSlice from '../features/profile/profileTagSlice'
 import selectTagSlice from '../features/selectTag/selectTagSlice'
 import tagsSlice from '../features/tags/tagsSlice'
 
@@ -10,6 +11,7 @@ export const store = configureStore({
     tags: tagsSlice,
     selectTag: selectTagSlice,
     print: printSlice,
+    profile: profileTagSlice,
  }
 })
 

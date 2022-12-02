@@ -15,7 +15,7 @@ export default function TagPodves({ tag }: IpropsTagPodves) {
   return (
     <>
       <div style={{ marginLeft: 20, marginTop: 5, display: "inline-flex" }}>
-        <div style={{ width: 280, height: 385, border: "0.5px dashed black" }}>
+        <div style={{ width: 277, height: 385, border: "0.5px dashed black" }}>
           <div className="row">
             <div className="col">
               <div style={{ width: "100%", fontSize: fsizeType }}>
@@ -131,8 +131,8 @@ export default function TagPodves({ tag }: IpropsTagPodves) {
               </div>
               <div
                 style={{
-                  width: "183px",
-                  fontSize: "25pt",
+                  width: "180px",
+                  fontSize: "24.5pt",
                   textAlign: "end",
                   marginLeft: "auto",
                   marginRight: "0",
@@ -159,7 +159,7 @@ export default function TagPodves({ tag }: IpropsTagPodves) {
               </div>
               <div
                 style={{
-                  width: "183px",
+                  width: "181px",
                   height: "70px",
                   fontSize: "12pt",
                   fontWeight: "500",
@@ -167,6 +167,7 @@ export default function TagPodves({ tag }: IpropsTagPodves) {
                   backgroundColor: "rgb(239,66,111)",
                   marginLeft: "auto",
                   marginRight: "0",
+                  marginTop:5
                 }}
               >
                 <div style={{ fontSize: "8pt", textAlign: "center" }}>

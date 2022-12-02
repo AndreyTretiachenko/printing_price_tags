@@ -5,6 +5,7 @@ import Tags from "../components/Tags"
 import { TagSettings } from "../components/TagSettings/Tagsettings"
 import { setStatus } from "../features/print/printSlice"
 import { setCategoryList } from "../features/products/productSlice"
+import { addProfile } from "../features/profile/profileTagSlice"
 import { useAppDispatch, useAppSelector } from "../hooks/hooks"
 
 
@@ -14,6 +15,7 @@ export default function Price() {
     const dispatch = useAppDispatch()
     const {selectTag} = useAppSelector((state)=> state)
     const [tagType, setTagType] = useState('')
+    const { profileList } = useAppSelector((state) => state.profile)
 
     const handleClickPrint = () => {
         dispatch(setStatus(true))
@@ -22,7 +24,6 @@ export default function Price() {
         }, 500)
 
     }
-
 
     useEffect(()=>{
         fetch('http://service.dvinahome.ru/getCategory',
@@ -33,6 +34,9 @@ export default function Price() {
             ).then((res) => {
         return res.json()}).then(result => {
             dispatch(setCategoryList(result['data']))
+            JSON.parse(localStorage.getItem('save_profile') || '[]').map((item:any) => {
+                dispatch(addProfile(item))
+            })
     })
     },[])
  
