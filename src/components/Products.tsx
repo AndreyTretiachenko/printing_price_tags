@@ -120,7 +120,7 @@ export default function Products() {
             onChange={(e) => setCategory(e.target.value)}
           >
             {Array.from(new Set(categoryList)).map((tw: any) => (
-              <option value={tw}>{tw}</option>
+              <option key={tw} value={tw}>{tw}</option>
             ))}
           </select>
           <button
@@ -160,7 +160,7 @@ export default function Products() {
             {productListModel.map((tw: any, index) => {
                 if (index === 0)
                   return <option selected value={tw}>{tw}</option>
-                return <option value={tw}>{tw}</option>
+                return <option key={tw} value={tw}>{tw}</option>
             })}
           </select>
           <button

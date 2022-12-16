@@ -56,7 +56,8 @@ export default function TagProfile({ store }:profileProps) {
 
   return (
     <>
-    <div style={{display:'inline-flex', marginRight:10}}>
+    <div><span>cписки товаров:</span></div>
+    <div style={{display:'inline-flex', marginRight:10, padding:'5px 0px 5px'}}>
         <button 
             data-toggle="modal" data-target="#exampleModal"
             className='btn btn-primary btn-sm'>    
@@ -79,12 +80,12 @@ export default function TagProfile({ store }:profileProps) {
     </div>
     <div>
         <select
-        style={{width:325, marginTop:5, borderRadius:5, border: '0.5px solid black'}}
+        style={{width:325, marginTop:5, marginBottom:5, borderRadius:5, border: '0.5px solid black'}}
         onChange={(e) => setNameProfile(e.currentTarget.value)}
         >
         <option value={'не выбран'}>не выбран</option>    
         {profileList.map((item:any) => (
-            <option value={item.name}>{item.name}</option>
+            <option key={item.name} value={item.name}>{item.name}</option>
        ))}
        </select>
     </div>
