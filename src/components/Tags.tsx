@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+
 import { setSelectTag, updateDataSelectTag } from '../features/selectTag/selectTagSlice'
 import { deleteTag, selectTag } from '../features/tags/tagsSlice'
 
@@ -66,6 +67,8 @@ export default function Tags() {
   return (
     <>
     <div className='w-100' style={{position: 'relative', height:'67vh', overflowY: 'scroll', display:'block'}}>
+     {tagList.length !== 0 ?
+     <>
      {tagList?.map((t:any)=>(
       <div key={t?.id} className={`row mb-2 mx-2 ${t?.isSelect ? 'bg-secondary text-white' : 'bg-light'}`} style={{ border: '0.5px solid black', borderRadius:5, boxShadow: '2px 4px 2px #dbdbdb'}} >
         <div className='col' style={{display:'inline'}}>
@@ -96,7 +99,13 @@ export default function Tags() {
         </div>
         </div>
       </div>
-      ))} 
+      ))}
+      </>
+      :
+      <div className='m-5 text-center text-success'>
+        <h6>добавьте товары для печати ценников</h6>
+      </div>
+      } 
     </div>
     <div style={{padding:'5px 10px 5px 10px',borderTop: '0.5px solid black'}}>
         <TagProfile store={localStorage.getItem('save_profile') || '[]'}/>

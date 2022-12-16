@@ -6,10 +6,13 @@ import {
 } from "../features/products/productSlice";
 import { addTag } from "../features/tags/tagsSlice";
 import { useAppDispatch, useAppSelector } from "../hooks/hooks";
+import { Itag } from "./Tags";
+import  uuid  from 'react-uuid'
 
 export default function Products() {
+  const [newProduct, setNewProduct] = useState({} as Itag);
   const [category, setCategory] = useState("");
-  const [findroduct, setFindProduct] = useState("")
+  const [findroduct, setFindProduct] = useState("");
   const { productListModel, products, categoryList, defaultProduct } = useAppSelector(
     (state) => state.products
   );
@@ -18,6 +21,13 @@ export default function Products() {
   );
   const [value, setValue] = useState<string>("");
   const dispatch = useAppDispatch();
+
+  const handlerAddNewProduct = () => {
+    dispatch(addTag({...newProduct,
+      productName:newProduct.property?.type+' '+newProduct.property?.model+' '+newProduct.property?.size,
+      id: uuid()
+    }))
+  }
 
   const handlerFindProduct = (findText:string) => {
     fetch(`http://service.dvinahome.ru/findproduct?text="${findText}"`, {
@@ -98,6 +108,7 @@ export default function Products() {
   }
 
   return (
+    <>
     <div>
       <div style={{marginBottom:15, fontSize:'16px'}}>
       <div style={{ display:'inline' }}>
@@ -158,9 +169,87 @@ export default function Products() {
           >
             добавить в очередь
           </button>
+          <button
+            className="btn btn-sm btn-warning "
+            data-toggle="modal" data-target="#addProductModal"
+          >
+            создать товар
+          </button>
         </div>
       </div>
     </div>
+
+    <div className="modal fade" id="addProductModal" tabIndex={-1} aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div className="modal-dialog">
+        <div className="modal-content">
+        <div className="modal-header">
+            <h5 className="modal-title" id="exampleModalLabel">Создание нового товара</h5>
+            <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <span className="m-3 text-danger">Необходимо создавать новый товар только если у вас нет в списке нужного товара. Не создавайте новые товары просто так!</span>
+        <div className="modal-body">
+            <label>Категория товара:</label>
+            <input 
+            required
+            type={'text'} 
+            style={{width:400}}
+            value={newProduct.property?.type}
+            onChange={(e) => setNewProduct({...newProduct, 
+            productName: e.target.value,
+            property: {...newProduct.property, 
+              type:e.target.value
+            }
+            })}
+            />
+            <label>Наименование модели:</label>
+            <input 
+            required
+            type={'text'} 
+            style={{width:400}}
+            value={newProduct.property?.model}
+            onChange={(e) => setNewProduct({...newProduct, 
+            productName: e.target.value,
+            property: {...newProduct.property, 
+              model:e.target.value
+            }
+            })}
+            />
+            <label>Размер модели (если есть):</label>
+            <input 
+            type={'text'} 
+            style={{width:400}}
+            value={newProduct.property?.size}
+            onChange={(e) => setNewProduct({...newProduct, 
+            property: {...newProduct.property, 
+              size:e.target.value
+            }
+            })}
+            />
+            <label>Категория ткани (если есть):</label>
+            <input 
+            type={'text'} 
+            style={{width:400}}
+            value={newProduct.property?.catigoryCloth}
+            onChange={(e) => setNewProduct({...newProduct, 
+            property: {...newProduct.property, 
+              catigoryCloth:e.target.value
+            }
+            })}
+            />
+
+        </div>
+        <div className="modal-footer">
+            <button type="button" className="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+            <button 
+            onClick={handlerAddNewProduct}
+            type="button" className="btn btn-primary" data-dismiss="modal">Создать товар</button>
+        </div>
+        </div>
+    </div>
+    </div>
+    </>
   );
 }
 function setCategoryList(arg0: any): any {

@@ -132,7 +132,8 @@ export default function TagPodves({ tag }: IpropsTagPodves) {
               <div
                 style={{
                   width: "180px",
-                  fontSize: "24.5pt",
+                  fontSize: "25.5pt",
+                  fontWeight:500,
                   textAlign: "end",
                   marginLeft: "auto",
                   marginRight: "0",
@@ -142,7 +143,7 @@ export default function TagPodves({ tag }: IpropsTagPodves) {
                   /(\d)(?=(\d\d\d)+([^\d]|$))/g,
                   "$1 "
                 )}{" "}
-                руб
+                <span style={{fontSize:'20px'}}>руб</span>
               </div>
               <div
                 style={{

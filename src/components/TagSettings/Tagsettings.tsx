@@ -122,13 +122,14 @@ export const TagSettings = (props: SettingProps) => {
           </div>
         </div>
         {variant === "size" && (
+          <>
           <div
             className="row"
             style={{
               marginTop: 5,
               marginBottom: 5,
               paddingTop: 5,
-              paddingBottom: 5,
+              paddingBottom: 0,
               borderRadius:7,
               margin:'0 0px',
               border: "0.5px solid black",
@@ -176,8 +177,16 @@ export const TagSettings = (props: SettingProps) => {
               <div style={{textAlign:'center'}}>нет рамеров для заполения</div>
               }
             </div>
-          </div>
-        )}
+
+          
+           <div className="alert alert-warning mt-2 mb-0" role="alert">
+           Важно! Заполняется только для форматов ценников "а4 горизонтальный", "а4 вертикальный"
+           </div>
+           </div>
+           </>  
+        )
+     
+        }
         {variant === "fix" && (
           <div
             className="row"
@@ -185,7 +194,7 @@ export const TagSettings = (props: SettingProps) => {
               marginTop: 5,
               marginBottom: 5,
               paddingTop: 5,
-              paddingBottom: 5,
+              paddingBottom: 0,
               margin:'0 0px',
               borderRadius:7,
               border: '0.5px solid black',
@@ -222,6 +231,9 @@ export const TagSettings = (props: SettingProps) => {
                   dispatch(setFixNewPriceSelectTag(e.target.value))
                 }
               />
+            </div>
+            <div className="alert alert-warning  mt-2 mb-0" role="alert">
+              Важно! Заполняется только для форматов ценников "подвесной", "подвеснойОТ"
             </div>
           </div>
         )}
