@@ -59,7 +59,7 @@ export const TagSettings = (props: SettingProps) => {
               Наименование товара:
             </label>
             <div id="productName" style={{marginBottom: 10}}>
-              {item?.productName ? (
+              {props.item?.productName ? (
                 <span className="text-primary">{item?.productName}</span>
               ) : (
                 <span className="text-danger" style={{fontWeight: 500}}>

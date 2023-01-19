@@ -26,7 +26,7 @@ const selectTagSlice = createSlice({
     initialState,
     reducers:{
         setSelectTag:(state, action) => {
-            return action.payload
+            return state = action.payload
         },
         updateDataSelectTag: (state, action) => {
             return {
