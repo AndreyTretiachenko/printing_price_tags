@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import ReactDOMServer from "react-dom/server";
 import { useReactToPrint } from "react-to-print";
 import { useAppSelector } from "../hooks/hooks";
 import { TagA4h } from "./tagA4h";
@@ -28,20 +29,56 @@ const TagPrice = (props: ItagPriceProps) => {
   return (
     <div ref={componentRef}>
       {tagType === "a4h" &&
-        tagList.map((item: any) => {
-          if (item.checked === true) return <TagA4h tag={item} key={item.id} />;
+        tagList.map((item: Itag) => {
+          if (item.checked) {
+            if (item.copies > 1) {
+              let row = [];
+              for (let i = 1; i <= item.copies; i++) {
+                row.push(<TagA4h tag={item} />);
+              }
+              return row;
+            }
+            return <TagA4h tag={item} />;
+          }
         })}
       {tagType === "a4v" &&
-        tagList.map((item: any) => {
-          if (item.checked === true) return <TagA4v tag={item} key={item.id} />;
+        tagList.map((item: Itag) => {
+          if (item.checked) {
+            if (item.copies > 1) {
+              let row = [];
+              for (let i = 1; i <= item.copies; i++) {
+                row.push(<TagA4v tag={item} />);
+              }
+              return row;
+            }
+            return <TagA4v tag={item} />;
+          }
         })}
       {tagType === "podves" &&
         tagList.map((item: Itag) => {
-          if (item.checked) return <TagPodves tag={item} />;
+          if (item.checked) {
+            if (item.copies > 1) {
+              let row = [];
+              for (let i = 1; i <= item.copies; i++) {
+                row.push(<TagPodves tag={item} />);
+              }
+              return row;
+            }
+            return <TagPodves tag={item} />;
+          }
         })}
       {tagType === "podvesOT" &&
         tagList.map((item: Itag) => {
-          if (item.checked) return <TagPodvesOT tag={item} />;
+          if (item.checked) {
+            if (item.copies > 1) {
+              let row = [];
+              for (let i = 1; i <= item.copies; i++) {
+                row.push(<TagPodvesOT tag={item} />);
+              }
+              return row;
+            }
+            return <TagPodvesOT tag={item} />;
+          }
         })}
       {tagType === "noset" && <div> необходимо выбрать формат ценника </div>}
     </div>
