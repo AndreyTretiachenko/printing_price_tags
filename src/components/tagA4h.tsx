@@ -16,93 +16,85 @@ export const TagA4h = ({ tag }: ItagA4h) => {
 
   return (
     <div>
-      <div className="container" style={{ paddingBottom: 10 }}>
+      <div className="container" style={{ paddingBottom: 5 }}>
         <div className="row">
           <div className="col">
             <div className="parent">
               <div
                 className="div1"
                 style={{
-                  fontSize: "12pt",
+                  fontSize: "10pt",
                   margin: "0.8rem",
                   fontWeight: "500",
-                }}
-              >
+                }}>
                 <div
                   className="d-flex justify-content-center align-items-center"
                   style={{
-                    marginBottom: "15px",
+                    marginBottom: "10px",
                     height: "10%",
                     textAlign: "center",
                     backgroundColor: "#f0f0f0",
-                  }}
-                >
+                  }}>
                   {tag?.property?.settings?.[1]}
                 </div>
                 <div
                   className="d-flex justify-content-center align-items-center"
                   style={{
-                    marginBottom: "15px",
+                    marginBottom: "10px",
                     height: "10%",
                     textAlign: "center",
                     backgroundColor: "#f0f0f0",
-                  }}
-                >
+                  }}>
                   {tag?.property?.settings?.[2]}
                 </div>
                 <div
                   className="d-flex justify-content-center align-items-center"
                   style={{
-                    marginBottom: "15px",
+                    marginBottom: "10px",
                     height: "10%",
                     textAlign: "center",
                     backgroundColor: "#f0f0f0",
-                  }}
-                >
+                  }}>
                   {tag?.property?.settings?.[3]}
                 </div>
                 <div
                   className="d-flex justify-content-center align-items-center"
                   style={{
-                    marginBottom: "15px",
+                    marginBottom: "10px",
                     height: "10%",
                     textAlign: "center",
                     backgroundColor: "#f0f0f0",
-                  }}
-                >
+                  }}>
                   {tag?.property?.settings?.[4]}
                 </div>
                 <div
                   className="d-flex justify-content-center align-items-center"
                   style={{
-                    marginBottom: "15px",
+                    marginBottom: "10px",
                     height: "10%",
                     textAlign: "center",
                     backgroundColor: "#f0f0f0",
-                  }}
-                >
+                  }}>
                   {tag?.property?.settings?.[5]}
                 </div>
                 <div
                   className="d-flex justify-content-center align-items-center"
                   style={{
-                    marginBottom: "15px",
+                    marginBottom: "10px",
                     height: "10%",
                     textAlign: "center",
                     backgroundColor: "#f0f0f0",
-                  }}
-                >
+                  }}>
                   {tag?.property?.settings?.[6]}
                 </div>
                 <div
                   className="d-flex justify-content-center align-items-center"
                   style={{
-                    marginBottom: "65px",
+                    marginBottom: "50px",
                     height: "10%",
                     textAlign: "center",
                     backgroundColor: "#f0f0f0",
-                  }}
-                >
+                  }}>
                   {tag?.property?.settings?.[7]}
                 </div>
                 <div
@@ -111,39 +103,28 @@ export const TagA4h = ({ tag }: ItagA4h) => {
                     marginBottom: "5px",
                     height: "5%",
                     textAlign: "center",
-                  }}
-                >
-                  дата:&nbsp;{dateTag.getDate()}-{dateTag.getMonth() + 1}-
-                  {dateTag.getFullYear()}
+                  }}>
+                  дата:&nbsp;{dateTag.getDate()}-{dateTag.getMonth() + 1}-{dateTag.getFullYear()}
                 </div>
               </div>
-              <div
-                className="div2"
-                style={{ fontSize: "29pt", fontWeight: "550" }}
-              >
-                <div style={{ fontSize: "30pt" }}>
+              <div className="div2" style={{ fontSize: "29pt", fontWeight: "550" }}>
+                <div style={{ fontSize: "29pt" }}>
                   <span>{tag?.property?.type}</span>
                 </div>
                 <div
                   style={{
                     fontSize,
-                    height: 75,
+                    height: 70,
                     width: 520,
                     fontWeight: "1px",
-                  }}
-                >
-                  <div style={{ whiteSpace: "nowrap" }}>
-                    {tag?.property?.model}
-                  </div>
+                  }}>
+                  <div style={{ whiteSpace: "nowrap" }}>{tag?.property?.model}</div>
                 </div>
-                <div style={{ fontSize: "10pt", fontWeight: "400" }}>
+                <div style={{ fontSize: "11pt", fontWeight: "400" }}>
                   <span>{tag?.property?.settings?.[0]}</span>
                 </div>
               </div>
-              <div
-                className="div3"
-                style={{ display: "inline-flex", alignItems: "flex-start" }}
-              >
+              <div className="div3" style={{ display: "inline-flex", alignItems: "flex-start" }}>
                 <div
                   style={{
                     display: "inline-flex",
@@ -151,8 +132,7 @@ export const TagA4h = ({ tag }: ItagA4h) => {
                     marginRight: 20,
                     alignItems: "center",
                     justifyContent: "center",
-                  }}
-                >
+                  }}>
                   <img src="askona_2.png" width={270} height={60} />
                 </div>
                 <div
@@ -161,8 +141,7 @@ export const TagA4h = ({ tag }: ItagA4h) => {
                     backgroundColor: "rgb(239,66,111)",
                     width: "100%",
                     color: "white",
-                  }}
-                >
+                  }}>
                   <div
                     className="d-flex align-items-center"
                     style={{
@@ -172,8 +151,7 @@ export const TagA4h = ({ tag }: ItagA4h) => {
                       width: "25%",
                       textAlign: "center",
                       fontWeight: "bold",
-                    }}
-                  >
+                    }}>
                     РАССРОЧКА ПЛАТЕЖА
                   </div>
                   <div
@@ -182,23 +160,15 @@ export const TagA4h = ({ tag }: ItagA4h) => {
                       width: "25%",
                       fontSize: "18pt",
                       textAlign: "center",
-                    }}
-                  >
-                    <div style={{ margin: "5px", fontWeight: "bold" }}>
-                      0-0-10
-                    </div>
+                    }}>
+                    <div style={{ margin: "5px", fontWeight: "bold" }}>0-0-10</div>
                     <div
                       style={{
                         margin: "5px",
                         display: "block",
                         fontWeight: "bold",
-                      }}
-                    >
-                      от{" "}
-                      {Math.round(
-                        Number(tag?.data?.[0].valueNew.replaceAll(" ", "")) / 10
-                      )}{" "}
-                      руб
+                      }}>
+                      от {Math.round(Number(tag?.data?.[0].valueNew.replaceAll(" ", "")) / 10)} руб
                     </div>
                   </div>
                   <div
@@ -208,23 +178,17 @@ export const TagA4h = ({ tag }: ItagA4h) => {
                       fontSize: "18pt",
                       textAlign: "center",
                       fontWeight: "bold",
-                    }}
-                  >
+                    }}>
                     <div
                       style={{
                         margin: "5px",
                         display: "block",
                         fontWeight: "bold",
-                      }}
-                    >
+                      }}>
                       0-0-9
                     </div>
                     <div style={{ margin: "5px" }}>
-                      от{" "}
-                      {Math.round(
-                        Number(tag?.data?.[0].valueNew.replaceAll(" ", "")) / 9
-                      )}{" "}
-                      руб
+                      от {Math.round(Number(tag?.data?.[0].valueNew.replaceAll(" ", "")) / 9)} руб
                     </div>
                   </div>
                   <div
@@ -234,25 +198,15 @@ export const TagA4h = ({ tag }: ItagA4h) => {
                       fontSize: "18pt",
                       textAlign: "center",
                       fontWeight: "bold",
-                    }}
-                  >
-                    <div style={{ margin: "5px", fontWeight: "bold" }}>
-                      0-0-6
-                    </div>
+                    }}>
+                    <div style={{ margin: "5px", fontWeight: "bold" }}>0-0-6</div>
                     <div style={{ margin: "5px" }}>
-                      от{" "}
-                      {Math.round(
-                        Number(tag?.data?.[0].valueNew.replaceAll(" ", "")) / 6
-                      )}{" "}
-                      руб
+                      от {Math.round(Number(tag?.data?.[0].valueNew.replaceAll(" ", "")) / 6)} руб
                     </div>
                   </div>
                 </div>
               </div>
-              <div
-                className="div4 d-flex justify-content-center align-items-center"
-                style={{ padding: 20 }}
-              >
+              <div className="div4 d-flex justify-content-center align-items-center" style={{ padding: 20 }}>
                 {tag?.discount}%
               </div>
               <div className="div5 d-flex" style={{ height: "350px" }}>
@@ -270,19 +224,9 @@ export const TagA4h = ({ tag }: ItagA4h) => {
                         <tr>
                           <td>{item.name}</td>
                           <td style={{ textDecoration: "line-through" }}>
-                            {item.valueOld.replace(
-                              /(\d)(?=(\d\d\d)+([^\d]|$))/g,
-                              "$1 "
-                            )}{" "}
-                            руб
+                            {item.valueOld.replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, "$1 ")} руб
                           </td>
-                          <td>
-                            {item.valueNew.replace(
-                              /(\d)(?=(\d\d\d)+([^\d]|$))/g,
-                              "$1 "
-                            )}{" "}
-                            руб
-                          </td>
+                          <td>{item.valueNew.replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, "$1 ")} руб</td>
                         </tr>
                       ))}
                     </tbody>
