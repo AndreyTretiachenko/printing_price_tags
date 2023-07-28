@@ -1,10 +1,7 @@
 import React, { useState } from "react";
 
-import {
-  setSelectTag,
-  updateDataSelectTag,
-} from "../features/selectTag/selectTagSlice";
-import { deleteTag, selectTag } from "../features/tags/tagsSlice";
+import { setSelectTag, updateDataSelectTag } from "../features/selectTag/selectTagSlice";
+import { deleteTag, refillTags, selectTag } from "../features/tags/tagsSlice";
 
 import { useAppDispatch, useAppSelector } from "../hooks/hooks";
 import TagProfile from "./tagProfile";
@@ -44,6 +41,17 @@ export default function Tags() {
   const [colorOverTag, setColorOverTag] = useState("#F8F9FA");
   const dispatch = useAppDispatch();
 
+  const handleNoneCheckedTagList = () => {
+    const list = tagList.map((item: any) => {
+      return { ...item, checked: false };
+    });
+    dispatch(refillTags(list));
+  };
+
+  const handleClearTagList = () => {
+    dispatch(refillTags([]));
+  };
+
   const handleOverTag = (e: React.MouseEvent<HTMLDivElement>) => {
     setColorOverTag("white");
   };
@@ -65,9 +73,23 @@ export default function Tags() {
 
   return (
     <>
+      <div className="container pb-1">
+        <div style={{ display: "inline-flex", marginRight: 10 }}>
+          <button onClick={handleNoneCheckedTagList} className="btn btn-primary btn-sm">
+            убрать всё с листа
+          </button>
+        </div>
+        <div style={{ display: "inline-flex" }}>
+          <button onClick={handleClearTagList} className="btn btn-danger btn-sm">
+            очистить очередь
+          </button>
+        </div>
+      </div>
       <div
         className="w-100"
         style={{
+          paddingTop: "5px",
+          borderTop: "1px solid black",
           position: "relative",
           height: "67vh",
           overflowY: "scroll",
@@ -78,9 +100,7 @@ export default function Tags() {
             {tagList?.map((t: any) => (
               <div
                 key={t?.id}
-                className={`row mb-2 mx-2 ${
-                  t?.isSelect ? "bg-secondary text-white" : "bg-light"
-                }`}
+                className={`row mb-2 mx-2 ${t?.isSelect ? "bg-secondary text-white" : "bg-light"}`}
                 style={{
                   border: "0.5px solid black",
                   borderRadius: 5,
@@ -98,9 +118,7 @@ export default function Tags() {
                 <div className="row">
                   <div className="col">
                     <div style={{ display: "inline-flex", cursor: "pointer" }}>
-                      <button
-                        className="btn bi bi-x-circle"
-                        onClick={() => handleDeleteDivTag(t?.id)}>
+                      <button className="btn bi bi-x-circle" onClick={() => handleDeleteDivTag(t?.id)}>
                         <div>
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -119,9 +137,7 @@ export default function Tags() {
                     {t?.checked && (
                       <>
                         <div
-                          className={
-                            t?.isSelect ? "text-white" : "text-success"
-                          }
+                          className={t?.isSelect ? "text-white" : "text-success"}
                           style={{
                             fontSize: "10pt",
                             position: "absolute",
