@@ -81,7 +81,7 @@ export default function Tags() {
         </div>
         <div style={{ display: "inline-flex" }}>
           <button onClick={handleClearTagList} className="btn btn-danger btn-sm">
-            очистить очередь
+            очистить
           </button>
         </div>
       </div>
@@ -143,7 +143,7 @@ export default function Tags() {
                             position: "absolute",
                             bottom: 0,
                           }}>
-                          добавлен на лист
+                          добавлен на лист (x{t?.copies ? t?.copies : 1})
                         </div>
                       </>
                     )}

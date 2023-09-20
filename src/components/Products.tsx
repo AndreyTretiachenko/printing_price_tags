@@ -1,70 +1,74 @@
 import React, { useEffect, useState } from "react";
-import {
-  loadProducts,
-  setDefaultProduct,
-  setProductListModel,
-} from "../features/products/productSlice";
+import { loadProducts, setDefaultProduct, setProductListModel } from "../features/products/productSlice";
 import { addTag } from "../features/tags/tagsSlice";
 import { useAppDispatch, useAppSelector } from "../hooks/hooks";
 import { Itag } from "./Tags";
-import  uuid  from 'react-uuid'
+import uuid from "react-uuid";
+import { Watch } from "react-loader-spinner";
 
 export default function Products() {
   const [newProduct, setNewProduct] = useState({} as Itag);
   const [category, setCategory] = useState("");
   const [findroduct, setFindProduct] = useState("");
-  const { productListModel, products, categoryList, defaultProduct } = useAppSelector(
-    (state) => state.products
-  );
-  const { tagList } = useAppSelector(
-    (state) => state.tags
-  );
+  const { productListModel, products, categoryList, defaultProduct } = useAppSelector((state) => state.products);
+  const { tagList } = useAppSelector((state) => state.tags);
   const [value, setValue] = useState<string>("");
   const dispatch = useAppDispatch();
+  const [spinVisible, setSpinVisible] = useState(false);
 
   const handlerAddNewProduct = () => {
-    dispatch(addTag({...newProduct,
-      productName:newProduct.property?.type+' '+newProduct.property?.model+' '+newProduct.property?.size,
-      id: uuid()
-    }))
-  }
+    dispatch(
+      addTag({
+        ...newProduct,
+        productName: newProduct.property?.type + " " + newProduct.property?.model + " " + newProduct.property?.size,
+        id: uuid(),
+      })
+    );
+  };
 
-  const handlerFindProduct = (findText:string) => {
-    fetch(`http://service.dvinahome.ru/findproduct?text="${findText}"`, {
+  const handlerFindProduct = async (findText: string) => {
+    setSpinVisible((prev) => !prev);
+    await fetch(`http://service.dvinahome.ru/findproduct?text="${findText}"`, {
       method: "GET",
       headers: { Authorization: "basic dXNlcjpwYXNz" },
     })
-      .then((res) => {
-        return res.json();
+      .then(async (res) => {
+        return await res.json();
       })
       .then((result) => {
         dispatch(loadProducts(result["data"]));
         dispatch(setProductListModel(result["data"]));
         dispatch(setDefaultProduct(result["data"][0][0]));
-      }).catch(()=>{
-        alert('не найдено совпадений в наименованиях')
-    })
-  }
+      })
+      .catch(() => {
+        alert("не найдено совпадений в наименованиях");
+      })
+      .finally(() => {
+        setSpinVisible((prev) => !prev);
+      });
+  };
 
-  const hadlerGetProduct = (value: string) => {
-    fetch(`http://service.dvinahome.ru/?category="${value}"`, {
+  const hadlerGetProduct = async (value: string) => {
+    setSpinVisible((prev) => !prev);
+    await fetch(`http://service.dvinahome.ru/?category="${value}"`, {
       method: "POST",
       headers: { Authorization: "basic dXNlcjpwYXNz" },
     })
-      .then((res) => {
-        return res.json();
+      .then(async (res) => {
+        return await res.json();
       })
       .then((result) => {
         dispatch(loadProducts(result["data"]));
         dispatch(setProductListModel(result["data"]));
         dispatch(setDefaultProduct(result["data"][0][0]));
       })
-      
+      .finally(() => {
+        setSpinVisible((prev) => !prev);
+      });
   };
 
   function handlerAddTag(model: string) {
-    if (tagList.find((item:any) => item.id === model) != undefined) 
-      return alert('Такой товар уже есть в списке')
+    if (tagList.find((item: any) => item.id === model) != undefined) return alert("Такой товар уже есть в списке");
     let result = products.find((item) => item[0] === model) || [];
     const sizes: string[] = [];
     products.map((prod: any) => {
@@ -109,146 +113,184 @@ export default function Products() {
 
   return (
     <>
-    <div>
-      <div style={{marginBottom:15, fontSize:'16px'}}>
-      <div style={{ display:'inline' }}>
-        <label>выберите категорию товара:&nbsp;</label>
-        <div style={{ display: "inline-flex" }}>
-          <select
-            style={{ width: "200px", borderRadius: 5, border: '0.5px solid black'}}
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-          >
-            {Array.from(new Set(categoryList)).map((tw: any) => (
-              <option key={tw} value={tw}>{tw}</option>
-            ))}
-          </select>
-          <button
-            className="btn btn-sm btn-primary mx-3"
-            onClick={() => hadlerGetProduct(category)}
-          >
-            загрузить
-          </button>
+      {spinVisible ? (
+        <div
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "100vw",
+            height: "100vh",
+            zIndex: 999,
+            backgroundColor: "rgb(0,0,0,0.45)",
+          }}>
+          <div style={{ position: "fixed", top: "calc(50% - (50px / 2))", right: "calc(50% - (50px / 2))" }}>
+            <Watch color="white" height={50} width={50} ariaLabel="three-dots-loading" />
+
+            <h6
+              style={{
+                color: "white",
+                position: "fixed",
+                top: "calc(50% + (100px / 2))",
+                right: "calc(50% - (200px / 2))",
+              }}>
+              идет загрузка, подождите
+            </h6>
+          </div>
         </div>
-      </div>
-      <div style={{display:'inline'}}>
-        <label>поиск по названию товара:&nbsp;</label>
-        <div style={{ display: "inline-flex"}}>
-        <input type={'text'} 
-          style={{borderRadius: 5, border: '0.5px solid black'}}
-          placeholder='введите фразу для поиска'
-          value={findroduct}
-          onChange={(e) => setFindProduct(e.target.value)}
-        />
-        <button
-            className="btn btn-sm btn-primary mx-3"
-            onClick={() => {handlerFindProduct(findroduct)}}
-        >
-            поиск
-        </button>
-        </div>
-      </div>
-      </div>
+      ) : (
+        ""
+      )}
       <div>
-        <label>выберите название товара:&nbsp;</label>
-        <div style={{ display: "inline-flex" }}>
-          <select
-            style={{ width: "500px", borderRadius: 5, border: '0.5px solid black'}}
-            value = {defaultProduct}
-            onChange={(e) => dispatch(setDefaultProduct(e.target.value))}
-          >
-            {productListModel.map((tw: any, index) => {
+        <div style={{ marginBottom: 15, fontSize: "16px" }}>
+          <div style={{ display: "inline" }}>
+            <label>выберите категорию товара:&nbsp;</label>
+            <div style={{ display: "inline-flex" }}>
+              <select
+                style={{ width: "200px", borderRadius: 5, border: "0.5px solid black" }}
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}>
+                {Array.from(new Set(categoryList)).map((tw: any) => (
+                  <option key={tw} value={tw}>
+                    {tw}
+                  </option>
+                ))}
+              </select>
+              <button className="btn btn-sm btn-primary mx-3" onClick={() => hadlerGetProduct(category)}>
+                загрузить
+              </button>
+            </div>
+          </div>
+          <div style={{ display: "inline" }}>
+            <label>поиск по названию товара:&nbsp;</label>
+            <div style={{ display: "inline-flex" }}>
+              <input
+                type={"text"}
+                style={{ borderRadius: 5, border: "0.5px solid black" }}
+                placeholder="введите фразу для поиска"
+                value={findroduct}
+                onChange={(e) => setFindProduct(e.target.value)}
+              />
+              <button
+                className="btn btn-sm btn-primary mx-3"
+                onClick={() => {
+                  handlerFindProduct(findroduct);
+                }}>
+                поиск
+              </button>
+            </div>
+          </div>
+        </div>
+        <div>
+          <label>выберите название товара:&nbsp;</label>
+          <div style={{ display: "inline-flex" }}>
+            <select
+              style={{ width: "500px", borderRadius: 5, border: "0.5px solid black" }}
+              value={defaultProduct}
+              onChange={(e) => dispatch(setDefaultProduct(e.target.value))}>
+              {productListModel.map((tw: any, index) => {
                 if (index === 0)
-                  return <option selected value={tw}>{tw}</option>
-                return <option key={tw} value={tw}>{tw}</option>
-            })}
-          </select>
-          <button
-            className="btn btn-sm btn-success mx-3"
-            onClick={() => handlerAddTag(defaultProduct)}
-          >
-            добавить в очередь
-          </button>
-          <button
-            className="btn btn-sm btn-warning "
-            data-toggle="modal" data-target="#addProductModal"
-          >
-            создать товар
-          </button>
+                  return (
+                    <option selected value={tw}>
+                      {tw}
+                    </option>
+                  );
+                return (
+                  <option key={tw} value={tw}>
+                    {tw}
+                  </option>
+                );
+              })}
+            </select>
+            <button className="btn btn-sm btn-success mx-3" onClick={() => handlerAddTag(defaultProduct)}>
+              добавить в очередь
+            </button>
+            <button className="btn btn-sm btn-warning " data-toggle="modal" data-target="#addProductModal">
+              создать товар
+            </button>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div className="modal fade" id="addProductModal" tabIndex={-1} aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div className="modal-dialog">
-        <div className="modal-content">
-        <div className="modal-header">
-            <h5 className="modal-title" id="exampleModalLabel">Создание нового товара</h5>
-            <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-            </button>
+      <div
+        className="modal fade"
+        id="addProductModal"
+        tabIndex={-1}
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title" id="exampleModalLabel">
+                Создание нового товара
+              </h5>
+              <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <span className="m-3 text-danger">
+              Необходимо создавать новый товар только если у вас нет в списке нужного товара. Не создавайте новые товары
+              просто так!
+            </span>
+            <div className="modal-body">
+              <label>Категория товара:</label>
+              <input
+                required
+                type={"text"}
+                style={{ width: 400 }}
+                value={newProduct.property?.type}
+                onChange={(e) =>
+                  setNewProduct({
+                    ...newProduct,
+                    productName: e.target.value,
+                    property: { ...newProduct.property, type: e.target.value },
+                  })
+                }
+              />
+              <label>Наименование модели:</label>
+              <input
+                required
+                type={"text"}
+                style={{ width: 400 }}
+                value={newProduct.property?.model}
+                onChange={(e) =>
+                  setNewProduct({
+                    ...newProduct,
+                    productName: e.target.value,
+                    property: { ...newProduct.property, model: e.target.value },
+                  })
+                }
+              />
+              <label>Размер модели (если есть):</label>
+              <input
+                type={"text"}
+                style={{ width: 400 }}
+                value={newProduct.property?.size}
+                onChange={(e) =>
+                  setNewProduct({ ...newProduct, property: { ...newProduct.property, size: e.target.value } })
+                }
+              />
+              <label>Категория ткани (если есть):</label>
+              <input
+                type={"text"}
+                style={{ width: 400 }}
+                value={newProduct.property?.catigoryCloth}
+                onChange={(e) =>
+                  setNewProduct({ ...newProduct, property: { ...newProduct.property, catigoryCloth: e.target.value } })
+                }
+              />
+            </div>
+            <div className="modal-footer">
+              <button type="button" className="btn btn-secondary" data-dismiss="modal">
+                Закрыть
+              </button>
+              <button onClick={handlerAddNewProduct} type="button" className="btn btn-primary" data-dismiss="modal">
+                Создать товар
+              </button>
+            </div>
+          </div>
         </div>
-        <span className="m-3 text-danger">Необходимо создавать новый товар только если у вас нет в списке нужного товара. Не создавайте новые товары просто так!</span>
-        <div className="modal-body">
-            <label>Категория товара:</label>
-            <input 
-            required
-            type={'text'} 
-            style={{width:400}}
-            value={newProduct.property?.type}
-            onChange={(e) => setNewProduct({...newProduct, 
-            productName: e.target.value,
-            property: {...newProduct.property, 
-              type:e.target.value
-            }
-            })}
-            />
-            <label>Наименование модели:</label>
-            <input 
-            required
-            type={'text'} 
-            style={{width:400}}
-            value={newProduct.property?.model}
-            onChange={(e) => setNewProduct({...newProduct, 
-            productName: e.target.value,
-            property: {...newProduct.property, 
-              model:e.target.value
-            }
-            })}
-            />
-            <label>Размер модели (если есть):</label>
-            <input 
-            type={'text'} 
-            style={{width:400}}
-            value={newProduct.property?.size}
-            onChange={(e) => setNewProduct({...newProduct, 
-            property: {...newProduct.property, 
-              size:e.target.value
-            }
-            })}
-            />
-            <label>Категория ткани (если есть):</label>
-            <input 
-            type={'text'} 
-            style={{width:400}}
-            value={newProduct.property?.catigoryCloth}
-            onChange={(e) => setNewProduct({...newProduct, 
-            property: {...newProduct.property, 
-              catigoryCloth:e.target.value
-            }
-            })}
-            />
-
-        </div>
-        <div className="modal-footer">
-            <button type="button" className="btn btn-secondary" data-dismiss="modal">Закрыть</button>
-            <button 
-            onClick={handlerAddNewProduct}
-            type="button" className="btn btn-primary" data-dismiss="modal">Создать товар</button>
-        </div>
-        </div>
-    </div>
-    </div>
+      </div>
     </>
   );
 }
