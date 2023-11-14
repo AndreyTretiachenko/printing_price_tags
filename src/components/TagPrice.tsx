@@ -7,6 +7,7 @@ import { TagA4v } from "./tagA4v";
 import TagPodves from "./tagPodves";
 import TagPodvesOT from "./tagPodvesOT";
 import { Itag } from "./Tags";
+import TagSticker from "./tagSticker";
 
 interface ItagPriceProps {
   tagType?: string;
@@ -78,6 +79,19 @@ const TagPrice = (props: ItagPriceProps) => {
               return row;
             }
             return <TagPodvesOT tag={item} />;
+          }
+        })}
+      {tagType === "Sticker" &&
+        tagList.map((item: Itag) => {
+          if (item.checked) {
+            if (item.copies > 1) {
+              let row = [];
+              for (let i = 1; i <= item.copies; i++) {
+                row.push(<TagSticker tag={item} />);
+              }
+              return row;
+            }
+            return <TagSticker tag={item} />;
           }
         })}
       {tagType === "noset" && <div> необходимо выбрать формат ценника </div>}

@@ -115,6 +115,7 @@ export default function Price() {
               <option value={"a4v"}>a4 вертикальный</option>
               <option value={"podves"}>подвесной</option>
               <option value={"podvesOT"}>подвесной ОТ</option>
+              <option value={"Sticker"}>стикер (термопринтер)</option>
             </select>
           </div>
           <div className="col">
