@@ -170,6 +170,11 @@ export default function Products() {
                 placeholder="введите фразу для поиска"
                 value={findroduct}
                 onChange={(e) => setFindProduct(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    handlerFindProduct(findroduct);
+                  }
+                }}
               />
               <button
                 className="btn btn-sm btn-primary mx-3"
