@@ -18,9 +18,7 @@ export default function TagPodves({ tag }: IpropsTagPodves) {
         <div style={{ width: 277, height: 385, border: "0.5px dashed black" }}>
           <div className="row">
             <div className="col">
-              <div style={{ width: "100%", fontSize: fsizeType }}>
-                {tag?.property?.type}
-              </div>
+              <div style={{ width: "100%", fontSize: fsizeType }}>{tag?.property?.type}</div>
               <div
                 style={{
                   width: "100%",
@@ -31,10 +29,7 @@ export default function TagPodves({ tag }: IpropsTagPodves) {
                 }}>
                 {tag?.property?.model}
               </div>
-              <div
-                style={{ width: "100%", fontSize: "11pt", display: "inline" }}>
-                Размер {tag?.property?.size}
-              </div>
+              <div style={{ width: "100%", fontSize: "11pt", display: "inline" }}>Размер {tag?.property?.size}</div>
               <div
                 style={{
                   width: "100%",
@@ -42,9 +37,7 @@ export default function TagPodves({ tag }: IpropsTagPodves) {
                   display: "inline",
                   paddingLeft: 3,
                 }}>
-                {tag?.property?.catigoryCloth?.toString() === "0"
-                  ? ""
-                  : tag?.property?.catigoryCloth}
+                {tag?.property?.catigoryCloth?.toString() === "0" ? "" : tag?.property?.catigoryCloth}
               </div>
             </div>
           </div>
@@ -53,18 +46,23 @@ export default function TagPodves({ tag }: IpropsTagPodves) {
               <div style={{ width: 70, height: 265 }}>
                 {tag?.property?.settings && (
                   <>
-                    {tag?.property?.settings?.map((item) => {
-                      return (
-                        <div
-                          style={{
-                            fontSize: "6pt",
-                            backgroundColor: "#f0f0f0",
-                            marginBottom: 3,
-                            textAlign: "center",
-                          }}>
-                          {item?.slice(0, 30)}
-                        </div>
-                      );
+                    {tag?.property?.settings?.map((item, index) => {
+                      if (item) {
+                        return (
+                          <div
+                            key={index}
+                            style={{
+                              fontSize: "6pt",
+                              backgroundColor: "#f0f0f0",
+                              marginBottom: 3,
+                              textAlign: "center",
+                            }}>
+                            {item?.slice(0, 30)}
+                          </div>
+                        );
+                      } else {
+                        return "";
+                      }
                     })}
                   </>
                 )}
@@ -105,11 +103,7 @@ export default function TagPodves({ tag }: IpropsTagPodves) {
                   marginRight: "0",
                   textDecoration: "line-through",
                 }}>
-                {tag?.fixOldPrice?.replace(
-                  /(\d)(?=(\d\d\d)+([^\d]|$))/g,
-                  "$1 "
-                )}{" "}
-                руб
+                {tag?.fixOldPrice?.replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, "$1 ")} руб
               </div>
               <div
                 style={{
@@ -130,10 +124,7 @@ export default function TagPodves({ tag }: IpropsTagPodves) {
                   marginLeft: "auto",
                   marginRight: "0",
                 }}>
-                {tag?.fixNewPrice?.replace(
-                  /(\d)(?=(\d\d\d)+([^\d]|$))/g,
-                  "$1 "
-                )}{" "}
+                {tag?.fixNewPrice?.replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, "$1 ")}{" "}
                 <span style={{ fontSize: "20px" }}>руб</span>
               </div>
               <div
@@ -160,9 +151,7 @@ export default function TagPodves({ tag }: IpropsTagPodves) {
                   marginRight: "0",
                   marginTop: 5,
                 }}>
-                <div style={{ fontSize: "8pt", textAlign: "center" }}>
-                  РАССРОЧКА ПЛАТЕЖА
-                </div>
+                <div style={{ fontSize: "8pt", textAlign: "center" }}>РАССРОЧКА ПЛАТЕЖА</div>
                 <div style={{ fontSize: "10pt", paddingTop: 5 }}>
                   <div
                     style={{
@@ -197,10 +186,7 @@ export default function TagPodves({ tag }: IpropsTagPodves) {
                       marginLeft: 5,
                       textAlign: "center",
                     }}>
-                    {Math.round(
-                      Number(tag?.fixNewPrice?.replaceAll(" ", "")) / 6
-                    )}{" "}
-                    руб
+                    {Math.round(Number(tag?.fixNewPrice?.replaceAll(" ", "")) / 6)} руб
                   </div>
                   <div
                     style={{
@@ -209,10 +195,7 @@ export default function TagPodves({ tag }: IpropsTagPodves) {
                       marginLeft: 3,
                       textAlign: "center",
                     }}>
-                    {Math.round(
-                      Number(tag?.fixNewPrice?.replaceAll(" ", "")) / 9
-                    )}{" "}
-                    руб
+                    {Math.round(Number(tag?.fixNewPrice?.replaceAll(" ", "")) / 9)} руб
                   </div>
                   <div
                     style={{
@@ -221,10 +204,7 @@ export default function TagPodves({ tag }: IpropsTagPodves) {
                       marginLeft: 3,
                       textAlign: "center",
                     }}>
-                    {Math.round(
-                      Number(tag?.fixNewPrice?.replaceAll(" ", "")) / 10
-                    )}{" "}
-                    руб
+                    {Math.round(Number(tag?.fixNewPrice?.replaceAll(" ", "")) / 10)} руб
                   </div>
                 </div>
               </div>

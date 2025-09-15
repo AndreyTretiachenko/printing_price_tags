@@ -24,81 +24,97 @@ export const TagA4h = ({ tag }: ItagA4h) => {
                 className="div1"
                 style={{
                   fontSize: "10pt",
+                  display: "flex",
+                  flexDirection: "column",
                   margin: "0.8rem",
                   fontWeight: "500",
                 }}>
+                {tag?.property?.settings?.[1] ? (
+                  <div
+                    className="d-flex justify-content-center align-items-center"
+                    style={{
+                      marginBottom: "10px",
+                      height: "10%",
+                      textAlign: "center",
+                      backgroundColor: "#f0f0f0",
+                    }}>
+                    {tag?.property?.settings?.[2]}
+                  </div>
+                ) : (
+                  ""
+                )}
+                {tag?.property?.settings?.[3] ? (
+                  <div
+                    className="d-flex justify-content-center align-items-center"
+                    style={{
+                      marginBottom: "10px",
+                      height: "10%",
+                      textAlign: "center",
+                      backgroundColor: "#f0f0f0",
+                    }}>
+                    {tag?.property?.settings?.[3]}
+                  </div>
+                ) : (
+                  ""
+                )}
+                {tag?.property?.settings?.[4] ? (
+                  <div
+                    className="d-flex justify-content-center align-items-center"
+                    style={{
+                      marginBottom: "10px",
+                      height: "10%",
+                      textAlign: "center",
+                      backgroundColor: "#f0f0f0",
+                    }}>
+                    {tag?.property?.settings?.[4]}
+                  </div>
+                ) : (
+                  ""
+                )}
+                {tag?.property?.settings?.[5] ? (
+                  <div
+                    className="d-flex justify-content-center align-items-center"
+                    style={{
+                      marginBottom: "10px",
+                      height: "10%",
+                      textAlign: "center",
+                      backgroundColor: "#f0f0f0",
+                    }}>
+                    {tag?.property?.settings?.[5]}
+                  </div>
+                ) : (
+                  ""
+                )}
+                {tag?.property?.settings?.[6] ? (
+                  <div
+                    className="d-flex justify-content-center align-items-center"
+                    style={{
+                      marginBottom: "10px",
+                      height: "10%",
+                      textAlign: "center",
+                      backgroundColor: "#f0f0f0",
+                    }}>
+                    {tag?.property?.settings?.[6]}
+                  </div>
+                ) : (
+                  ""
+                )}
+                {tag?.property?.settings?.[7] ? (
+                  <div
+                    className="d-flex justify-content-center align-items-center"
+                    style={{
+                      marginBottom: "50px",
+                      height: "10%",
+                      textAlign: "center",
+                      backgroundColor: "#f0f0f0",
+                    }}>
+                    {tag?.property?.settings?.[7]}
+                  </div>
+                ) : (
+                  ""
+                )}
                 <div
-                  className="d-flex justify-content-center align-items-center"
-                  style={{
-                    marginBottom: "10px",
-                    height: "10%",
-                    textAlign: "center",
-                    backgroundColor: "#f0f0f0",
-                  }}>
-                  {tag?.property?.settings?.[1]}
-                </div>
-                <div
-                  className="d-flex justify-content-center align-items-center"
-                  style={{
-                    marginBottom: "10px",
-                    height: "10%",
-                    textAlign: "center",
-                    backgroundColor: "#f0f0f0",
-                  }}>
-                  {tag?.property?.settings?.[2]}
-                </div>
-                <div
-                  className="d-flex justify-content-center align-items-center"
-                  style={{
-                    marginBottom: "10px",
-                    height: "10%",
-                    textAlign: "center",
-                    backgroundColor: "#f0f0f0",
-                  }}>
-                  {tag?.property?.settings?.[3]}
-                </div>
-                <div
-                  className="d-flex justify-content-center align-items-center"
-                  style={{
-                    marginBottom: "10px",
-                    height: "10%",
-                    textAlign: "center",
-                    backgroundColor: "#f0f0f0",
-                  }}>
-                  {tag?.property?.settings?.[4]}
-                </div>
-                <div
-                  className="d-flex justify-content-center align-items-center"
-                  style={{
-                    marginBottom: "10px",
-                    height: "10%",
-                    textAlign: "center",
-                    backgroundColor: "#f0f0f0",
-                  }}>
-                  {tag?.property?.settings?.[5]}
-                </div>
-                <div
-                  className="d-flex justify-content-center align-items-center"
-                  style={{
-                    marginBottom: "10px",
-                    height: "10%",
-                    textAlign: "center",
-                    backgroundColor: "#f0f0f0",
-                  }}>
-                  {tag?.property?.settings?.[6]}
-                </div>
-                <div
-                  className="d-flex justify-content-center align-items-center"
-                  style={{
-                    marginBottom: "50px",
-                    height: "10%",
-                    textAlign: "center",
-                    backgroundColor: "#f0f0f0",
-                  }}>
-                  {tag?.property?.settings?.[7]}
-                </div>
-                <div
-                  className="d-flex justify-content-center align-items-center"
+                  className="d-flex justify-content-center align-items-center mt-auto"
                   style={{
                     marginBottom: "5px",
                     height: "5%",
