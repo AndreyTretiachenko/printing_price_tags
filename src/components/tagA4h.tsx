@@ -137,7 +137,11 @@ export const TagA4h = ({ tag }: ItagA4h) => {
                   <div style={{ whiteSpace: "nowrap" }}>{tag?.property?.model}</div>
                 </div>
                 <div style={{ fontSize: "11pt", fontWeight: "400" }}>
-                  <span>{tag?.property?.settings?.[0]?.substring(0, 200)}</span>
+                  {tag?.property?.settings?.[0] ? (
+                    <span>{tag?.property?.settings?.[0]?.substring(0, 200)}</span>
+                  ) : (
+                    <></>
+                  )}
                 </div>
               </div>
               <div className="div3" style={{ display: "inline-flex", alignItems: "flex-start" }}>
